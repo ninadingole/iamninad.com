@@ -1,5 +1,5 @@
-@import "_normalize";
-@import "_variables";
+@import '_normalize';
+@import '_variables';
 
 html,
 body {
@@ -142,7 +142,7 @@ ol {
 
 .Article a:not(.header-anchor):after,
 .Link:after {
-  content: "";
+  content: '';
   height: calc(100% + 2px);
   width: 100%;
   position: absolute;
@@ -158,6 +158,10 @@ ol {
 .Article a:hover,
 .Link:hover {
   color: #fff;
+}
+
+.Reading-Time {
+  color: var(--reading-time-color);
 }
 
 .Article a:hover:after,
@@ -207,7 +211,7 @@ ol {
 }
 
 .List-ItemLink > .List-ItemVisitedStatus:after {
-  content: "(read)";
+  content: '(read)';
   font-size: 0.875rem;
   margin-left: 0.5rem;
   color: var(--bg, #fff);
@@ -219,7 +223,12 @@ ol {
 
 .Article hr,
 .Separator {
-  background: linear-gradient(45deg, transparent, var(--separator-color), transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    var(--separator-color),
+    transparent
+  );
   height: 1px;
   width: 100%;
   border: none;
@@ -248,22 +257,22 @@ ol {
 
 .Article h1:before,
 h1.Heading:before {
-  content: "#";
+  content: '#';
 }
 
 .Article h2:before,
 h2.Heading:before {
-  content: "##";
+  content: '##';
 }
 
 .Article h3:before,
 h3.Heading:before {
-  content: "###";
+  content: '###';
 }
 
 .Article h4:before,
 h4.Heading:before {
-  content: "#####";
+  content: '#####';
 }
 
 .Footer {
@@ -322,7 +331,7 @@ h4.Heading:before {
 .ThemeButton--Light div:nth-child(1)::before {
   border-radius: 50%;
   border: 2px solid #b7b5bd;
-  content: "";
+  content: '';
   height: 24px;
   opacity: 1;
   position: absolute;
@@ -335,9 +344,10 @@ h4.Heading:before {
 
 .ThemeButton--Light div:nth-child(1)::after {
   border-radius: 50%;
-  box-shadow: 0 -23px 0 #b7b5bd, 0 23px 0 #b7b5bd, 23px 0 0 #b7b5bd, -23px 0 0 #b7b5bd,
-    15px 15px 0 #b7b5bd, -15px 15px 0 #b7b5bd, 15px -15px 0 #b7b5bd, -15px -15px 0 #b7b5bd;
-  content: "";
+  box-shadow: 0 -23px 0 #b7b5bd, 0 23px 0 #b7b5bd, 23px 0 0 #b7b5bd,
+    -23px 0 0 #b7b5bd, 15px 15px 0 #b7b5bd, -15px 15px 0 #b7b5bd,
+    15px -15px 0 #b7b5bd, -15px -15px 0 #b7b5bd;
+  content: '';
   height: 8px;
   left: 50%;
   margin: -4px 0 0 -4px;
@@ -375,7 +385,7 @@ h4.Heading:before {
 }
 
 .ThemeButton--Dark div:nth-child(1)::before {
-  content: "";
+  content: '';
   height: 24px;
   opacity: 1;
   position: absolute;
@@ -390,9 +400,10 @@ h4.Heading:before {
 }
 
 .ThemeButton--Dark div:nth-child(1)::after {
-  box-shadow: 0 -23px 0 #635e69, 0 23px 0 #635e69, 23px 0 0 #635e69, -23px 0 0 #635e69,
-    15px 15px 0 #635e69, -15px 15px 0 #635e69, 15px -15px 0 #635e69, -15px -15px 0 #635e69;
-  content: "";
+  box-shadow: 0 -23px 0 #635e69, 0 23px 0 #635e69, 23px 0 0 #635e69,
+    -23px 0 0 #635e69, 15px 15px 0 #635e69, -15px 15px 0 #635e69,
+    15px -15px 0 #635e69, -15px -15px 0 #635e69;
+  content: '';
   height: 8px;
   left: 50%;
   position: absolute;

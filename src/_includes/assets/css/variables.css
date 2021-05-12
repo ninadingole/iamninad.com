@@ -1,5 +1,5 @@
 :root {
-  --font-mono: "Roboto Mono", system-ui, Helvetica, Arial, sans-serif;
+  --font-mono: 'Roboto Mono', system-ui, Helvetica, Arial, sans-serif;
   --font-body: system-ui, Helvetica, Arial, sans-serif;
 
   --line-height: 1.5;
@@ -11,8 +11,8 @@
   --dark-bg: #2d2a2a;
   --dark-text-color: #fff;
 
-  --primary: #e41867;
-  --primary-shadow: hsla(337, 81%, 49%, 0.12);
+  --primary: #6272a4;
+  --primary-shadow: hsla(232, 14%, 31%, 0.12);
 
   --blockquote-color: #73728c;
 
@@ -26,14 +26,19 @@
   --inline-code-bg: #ece4e9;
 
   --visited-link-color: #0c9c38;
+
+  --reading-time-color: #ff5555;
 }
 
-:root[data-theme="dark"] {
-  --bg: #2d2d2d;
+:root[data-theme='dark'] {
+  --bg: #282a36;
 
-  --text-color: #fff;
+  --text-color: #f8f8f2;
   --text-secondary-color: #a8bcc5;
   --blockquote-color: #bababd;
+
+  --primary: #ff5555;
+  --primary-shadow: hsla(0, 100%, 67%, 0.12);
 
   --separator-color: #545353;
 
@@ -42,4 +47,6 @@
 
   --code-bg: #484848;
   --inline-code-bg: #484848;
+
+  --reading-time-color: #bd93f9;
 }

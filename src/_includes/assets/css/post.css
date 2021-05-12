@@ -3,7 +3,7 @@
 }
 
 .PageHeader--Heading > * {
-  box-shadow: 0 -12px 0 rgba(97, 97, 255, 0.125) inset;
+  box-shadow: 0 -12px 0 var(--primary-shadow) inset;
 }
 
 .PostSummary {
@@ -21,7 +21,7 @@
   text-align: justify;
 }
 
-.Article code:not([class*="language-"]) {
+.Article code:not([class*='language-']) {
   background: var(--inline-code-bg);
   padding: 2px 4px;
   border-radius: 4px;

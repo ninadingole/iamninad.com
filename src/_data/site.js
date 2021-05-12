@@ -1,7 +1,7 @@
 
 module.exports = {
   title: "iamninad",
-  description: "",
+  description: "I am a Full Stack Developer who loves to explore tech and share the expierences and findings with the world",
   url: 'https://iamninad.com',
   baseUrl: '/',
   maxPostsInHomePage: 50,
@@ -13,7 +13,7 @@ module.exports = {
   includeServiceWorker: false,
 
   social: {
-    twitter: 'https://twitter.com/asvny_',
+    twitter: 'https://twitter.com/iamneenad',
     github: 'https://github.com/ninadingole',
     email: 'ninad.ingole@gmail.com'
   }
