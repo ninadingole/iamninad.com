@@ -23,3 +23,5 @@ Website is deployed on Netlify
 - [ ] AMP support
 - [ ] Heap Analytics tracking
 - [ ] Google Tag Manager
+- [ ] Send webvitals to Heap Analytics/ GA Analytics
+- [ ] Caching of assests
