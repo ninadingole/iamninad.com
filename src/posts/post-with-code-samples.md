@@ -1,6 +1,7 @@
 ---
 title: A post with code samples
 date: "2018-06-18"
+draft: true
 summary: "The best way to demo a code post is to display a real life post, so check out this one from about a full bleed CSS utility."
 tags:
   - demo-content

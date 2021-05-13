@@ -1,6 +1,7 @@
 ---
 title: A scheduled post
 date: "2022-06-18"
+draft: true
 summary: "This post is scheduled for the future, specifically mid-2022. Hopefully you're still blogging by then too."
 tags:
   - demo-content
