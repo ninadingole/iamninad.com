@@ -27,7 +27,7 @@
 
   --visited-link-color: #0c9c38;
 
-  --reading-time-color: #ff5555;
+  --reading-time-color: #800080;
 }
 
 :root[data-theme='dark'] {
@@ -45,8 +45,8 @@
   --standout-bg: #484848;
   --standout-shadow: 0 2px 2px #292828, 0 0 0 1px #292828;
 
-  --code-bg: #484848;
-  --inline-code-bg: #484848;
+  --code-bg: #1d1f21;
+  --inline-code-bg: #444444;
 
   --reading-time-color: #bd93f9;
 }
