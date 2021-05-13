@@ -52,3 +52,15 @@ a.header-anchor {
   opacity: 1;
   display: block;
 }
+
+.full-bleed {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.wrapper {
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
