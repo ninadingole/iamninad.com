@@ -18,9 +18,9 @@ fields:
   type: boolean
   label: draft
 - name: postImage
-  type: file
+  type: text
   config:
-    maxSize: 64
+    required: false
   label: post image
 - name: postImageCredits
   type: text
