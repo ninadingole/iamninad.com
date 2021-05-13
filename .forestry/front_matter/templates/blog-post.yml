@@ -32,3 +32,5 @@ fields:
   config:
     required: false
   label: post image source
+pages:
+- src/posts/test.md
