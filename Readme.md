@@ -20,3 +20,6 @@ Website is deployed on Netlify
 
 ## TODO
 - [ ] migrate all the posts from ghost blog
+- [ ] AMP support
+- [ ] Heap Analytics tracking
+- [ ] Google Tag Manager
