@@ -8,10 +8,12 @@ const path = require('path');
 const { minify } = require('terser');
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const readingTime = require('eleventy-plugin-reading-time');
+const pluginSEO = require("eleventy-plugin-seo");
 
 
 const filters = require('./filters');
 const shortcodes = require('./shortcodes');
+const site = require('../src/_data/site');
 
 module.exports = function (eleventyConfig) {
     // Filters
@@ -72,6 +74,17 @@ module.exports = function (eleventyConfig) {
     });
 
     eleventyConfig.addPlugin(readingTime);
+    eleventyConfig.addPlugin(pluginSEO, {
+        title: site.title,
+        description: site.description,
+        url: site.url,
+        author: site.author,
+        twitter: 'iamneenad',
+        options: {
+            twitterCardType: "summary_large_image",
+        }
+    });
+
 
     eleventyConfig
         .addPassthroughCopy({ 'src/_includes/assets': 'assets' })

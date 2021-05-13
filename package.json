@@ -26,6 +26,7 @@
   "dependencies": {
     "@quasibit/eleventy-plugin-sitemap": "^2.1.4",
     "eleventy-plugin-reading-time": "^0.0.1",
+    "eleventy-plugin-seo": "^0.5.1",
     "markdown-it-emoji": "^2.0.0"
   }
 }
