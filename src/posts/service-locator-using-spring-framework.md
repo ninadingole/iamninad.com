@@ -1,15 +1,14 @@
 ---
 title: Service Locator Using Spring Framework
 date: "2017-07-28"
+postImage: https://source.unsplash.com/QuVAKQGmb5Q/920x460
+postImageCredits: César Abner Martínez Aguilar | https://unsplash.com/@nosoycesar
+postImageSource: Unsplash | https://unsplash.com
 summary: "How to create a service locator in spring to access multiple beans or locate a specific service bean implementation programmatically"
 tags:
     - spring
     - design-patterns
 ---
-
-<div class="full-bleed">
-    <img src="https://images.unsplash.com/photo-1540996300630-01782184c30b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1792&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ" alt="ship sailing">
-</div>
 
 When you start with programming someday you will come to hear the words *Design Patterns*. Design Patterns are solutions to commonly recurring problems in software designs. These are not the final solution but an actual description or template on how to solve the problem. Design Patterns are categorised into 3 groups Creation, Structural & Behavioural. I am not going to go through all those in this post but, if you want to read more about design patterns you can read a very famous book *Gang of Four*.
 

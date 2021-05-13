@@ -29,6 +29,13 @@
             <strong>tl;dr: </strong>{{summary}}
         </div>
     </section>
+
+    {% if postImage %}
+        <section class="Banner-Image" id="banner">
+                {%  resI postImage, title, [750, 900, 1200], "banner", "#"  %}
+        </section>
+    {% endif %}
+
     <article class="Article">
         {{ content | safe }}
     </article>

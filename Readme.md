@@ -26,5 +26,5 @@ Website is deployed on Netlify
 - [ ] Google Tag Manager
 - [ ] Send webvitals to Heap Analytics/ GA Analytics
 - [ ] Caching of assests
-- [ ] Banner image in post
+- [x] Banner image in post
 - [ ] Banner image in post listing

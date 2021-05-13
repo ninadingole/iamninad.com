@@ -9,6 +9,7 @@ const { minify } = require('terser');
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const readingTime = require('eleventy-plugin-reading-time');
 const pluginSEO = require("eleventy-plugin-seo");
+const Image = require("@11ty/eleventy-img");
 
 
 const filters = require('./filters');
@@ -65,6 +66,32 @@ module.exports = function (eleventyConfig) {
             console.error('Terser error: ', err);
             callback(null, code);
         }
+    });
+
+    eleventyConfig.addNunjucksAsyncShortcode("resI", async (src, alt, widths, url = '', target = '_self') => {
+        let metadata = await Image(src, {
+            widths: widths,
+            formats: ["webp", "jpeg"],
+            urlPath: '/assets/images',
+            outputDir: 'www/assets/images',
+            useCache: false,
+            cacheOptions: {
+                duration: '1d',
+                directory: 'www/.cache',
+                    removeUrlQueryParams: false,
+
+            }
+        });
+
+        let imageAttributes = {
+            alt,
+            sizes: widths,
+            loading: "lazy",
+            decoding: "async",
+        };
+
+        // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
+        return Image.generateHTML(metadata, imageAttributes);
     });
 
     eleventyConfig.addPlugin(sitemap, {
