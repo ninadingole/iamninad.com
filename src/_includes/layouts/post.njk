@@ -19,6 +19,9 @@
                     <a href="/tags/{{tag}}" class="TagLink">#{{ tag }}</a>
                 {% endfor %}
             </span>
+            <span class="Reading-Time">
+                ({{ content | readingTime }})
+            </span>
         </div>
 
         <div class="PostSummary">
