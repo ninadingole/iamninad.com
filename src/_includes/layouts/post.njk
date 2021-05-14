@@ -32,7 +32,12 @@
 
     {% if postImage %}
         <section class="Banner-Image" id="banner">
-                {%  resI postImage, title, [750, 900, 1200], "banner", "#"  %}
+            {%  resI postImage, title, [750, 900, 1200]  %}
+            <div class="Credits">
+                {%  Link postImageCredits | linkUrl, true, postImageCredits | linkName, "Link"  %}
+                on
+                {%  Link postImageSource | linkUrl, true, postImageSource | linkName, "Link"  %}
+            </div>
         </section>
     {% endif %}
 

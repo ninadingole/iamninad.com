@@ -68,7 +68,7 @@ module.exports = function (eleventyConfig) {
         }
     });
 
-    eleventyConfig.addNunjucksAsyncShortcode("resI", async (src, alt, widths, url = '', target = '_self') => {
+    eleventyConfig.addNunjucksAsyncShortcode("resI", async (src, alt, widths) => {
         let metadata = await Image(src, {
             widths: widths,
             formats: ["webp", "jpeg"],

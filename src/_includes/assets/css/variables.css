@@ -28,6 +28,8 @@
   --visited-link-color: #0c9c38;
 
   --reading-time-color: #BC0101;
+
+  --banner-image-shadow-color: rgba(0 0 0 / 50%);
 }
 
 :root[data-theme='dark'] {

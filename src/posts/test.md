@@ -5,8 +5,8 @@ summary: test
 tags: []
 draft: false
 postImage: https://source.unsplash.com/Hcfwew744z4/920x460
-postImageCredits: ada
-postImageSource: awdawd
+postImageCredits: ada | http://www.google.com
+postImageSource: awdawd | https://unsplash.com
 
 ---
 Hello World

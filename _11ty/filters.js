@@ -102,7 +102,10 @@ module.exports = {
 
     take: (arr, n = 1) => arr.slice(0, n),
 
+    linkName: (linkString) => linkString.split('|').map(x => x.trim()).shift(),
 
+    linkUrl: (linkString) => linkString.split('|').map(x => x.trim()).reverse().shift(),
+    
     hostname: href => {
         const match = href.match(
             /^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/,

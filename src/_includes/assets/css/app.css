@@ -103,6 +103,10 @@ ol {
   outline-offset: 2px;
 }
 
+main:focus {
+  outline: none;
+}
+
 .Container {
   max-width: 58rem;
   margin: 0 auto;
