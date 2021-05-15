@@ -4,8 +4,8 @@
 - [ ] migrate all the posts from ghost blog
 - [ ] AMP support
 - [x] SEO Optimization
-- [ ] Heap Analytics tracking
-- [ ] Google Tag Manager
+- [x] Heap Analytics tracking
+- [x] Google Tag Manager
 - [ ] Send webvitals to Heap Analytics/ GA Analytics
 - [ ] Caching of assests
 - [x] Banner image in post
@@ -13,3 +13,4 @@
 - [ ] TOC
 - [ ] Eleventy Plugins
 - [x] Engagement links
+- [x] keybase verification
