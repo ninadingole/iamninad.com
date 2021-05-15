@@ -1,0 +1,35 @@
+.__   __.  _______  _______ .__   __.      ___       _______  
+|  \ |  | |   ____||   ____||  \ |  |     /   \     |       \ 
+|   \|  | |  |__   |  |__   |   \|  |    /  ^  \    |  .--.  |
+|  . `  | |   __|  |   __|  |  . `  |   /  /_\  \   |  |  |  |
+|  |\   | |  |____ |  |____ |  |\   |  /  _____  \  |  '--'  |
+|__| \__| |_______||_______||__| \__| /__/     \__\ |_______/ 
+                                                              
+ __  .__   __.   _______   ______    __       _______         
+|  | |  \ |  |  /  _____| /  __  \  |  |     |   ____|        
+|  | |   \|  | |  |  __  |  |  |  | |  |     |  |__           
+|  | |  . `  | |  | |_ | |  |  |  | |  |     |   __|          
+|  | |  |\   | |  |__| | |  `--'  | |  `----.|  |____         
+|__| |__| \__|  \______|  \______/  |_______||_______|        
+                                                              
+/* TEAM */
+
+Neenad Ingole
+- Site    : iamninad.com
+- Twitter : @iamneenad
+- Github  : @ninadingole
+- Location: India
+
+/* SITE */
+
+Languages:
+- English
+
+Technologies:
+- Standards: HTML, CSS, JavaScript
+- Software : Eleventy
+- Tools    : VS Code
+- Hosting  : Netlify
+- Code     : https://github.com/ninadingole/myblog-11ty
+
+[The humans responsible & technology colophon](http://humanstxt.org/)
