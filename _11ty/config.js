@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const lazyImagesPlugin = require('eleventy-plugin-lazyimages');
@@ -82,6 +84,25 @@ module.exports = function (eleventyConfig) {
         .addPassthroughCopy({ 'src/_includes/assets': 'assets' })
         .addPassthroughCopy('src/manifest.json')
         .addPassthroughCopy('src/_redirects');
+
+    
+    // Override Browsersync defaults (used only with --serve)
+    eleventyConfig.setBrowserSyncConfig({
+        callbacks: {
+        ready: function(err, browserSync) {
+            const content_404 = fs.readFileSync('www/404.html');
+
+            browserSync.addMiddleware("*", (req, res) => {
+            // Provides the 404 content without redirect.
+            res.writeHead(404, {"Content-Type": "text/html; charset=UTF-8"});
+            res.write(content_404);
+            res.end();
+            });
+        },
+        },
+        ui: false,
+        ghostMode: false
+    });
 
     return {
         templateFormats: ['njk', 'md', 'html', '11ty.js'],
