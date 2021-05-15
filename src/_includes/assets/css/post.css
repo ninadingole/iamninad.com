@@ -83,3 +83,20 @@ a.header-anchor {
   font-size: .8rem;
   text-align: center;
 }
+
+.other-links ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  list-style: none;
+}
+
+.other-links ul li.next {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  text-align: right;
+}
+
+.other-links ul li.previous {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}

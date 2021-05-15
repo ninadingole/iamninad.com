@@ -44,4 +44,23 @@
     <article class="Article">
         {{ content | safe }}
     </article>
+
+    <section class="other-links MarginTop-xxl">
+        <ul class="post-nav">
+            {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+            {%- if nextPost %}
+                <li class="next">
+                    {% Link nextPost.url | url, false, nextPost.data.title, "Link" %}
+                    <i class="fas fa-chevron-right"></i>
+                </li>
+            {% endif %}
+            {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+            {%- if previousPost %}
+                <li class="previous">
+                    <i class="fas fa-chevron-left"></i>
+                    {% Link previousPost.url | url, false, previousPost.data.title, "Link" %}
+                </li>
+            {% endif %}
+        </ul>
+    </section>
 {% endblock %}
