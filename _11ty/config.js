@@ -10,7 +10,11 @@ const path = require('path');
 const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const readingTime = require('eleventy-plugin-reading-time');
 const pluginSEO = require("eleventy-plugin-seo");
-
+const markdownItContainer = require('markdown-it-container')
+const markdownItFootnote = require('markdown-it-footnote');
+const markdownItAttributes = require('markdown-it-attrs');
+const markdownItAbbr = require('markdown-it-abbr');
+const markdownItSpan = require('markdown-it-span');
 
 const globalFilters = require('./filters');
 const globalShortCodes = require('./shortcodes');
@@ -73,7 +77,16 @@ module.exports = function (eleventyConfig) {
         permalink: true,
         permalinkBefore: true,
         permalinkSymbol: ""
-    }).use(markdownItEmoji);
+    }).use(markdownItEmoji)
+    .use(markdownItContainer, 'info')
+    .use(markdownItContainer, 'lead')
+    .use(markdownItContainer, 'success')
+    .use(markdownItContainer, 'warning')
+    .use(markdownItContainer, 'error')
+    .use(markdownItFootnote)
+    .use(markdownItAbbr)
+    .use(markdownItAttributes)
+    .use(markdownItSpan);
 
     eleventyConfig.setLibrary("md", markdownLibrary);
 
@@ -83,7 +96,8 @@ module.exports = function (eleventyConfig) {
     eleventyConfig
         .addPassthroughCopy({ 'src/_includes/assets': 'assets' })
         .addPassthroughCopy('src/manifest.json')
-        .addPassthroughCopy('src/_redirects');
+        .addPassthroughCopy('src/_redirects')
+        .addPassthroughCopy('src/.well-known');
 
     
     // Override Browsersync defaults (used only with --serve)

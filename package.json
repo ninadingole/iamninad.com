@@ -28,6 +28,11 @@
     "@quasibit/eleventy-plugin-sitemap": "^2.1.4",
     "eleventy-plugin-reading-time": "^0.0.1",
     "eleventy-plugin-seo": "^0.5.1",
-    "markdown-it-emoji": "^2.0.0"
+    "markdown-it-abbr": "^1.0.4",
+    "markdown-it-attrs": "^4.0.0",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-emoji": "^2.0.0",
+    "markdown-it-footnote": "^3.0.2",
+    "markdown-it-span": "^1.0.0"
   }
 }
