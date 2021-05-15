@@ -10,3 +10,6 @@
 - [ ] Caching of assests
 - [x] Banner image in post
 - [ ] Banner image in post listing
+- [ ] TOC
+- [ ] Eleventy Plugins
+- [x] Engagement links
