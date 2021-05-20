@@ -15,6 +15,7 @@ const markdownItFootnote = require('markdown-it-footnote');
 const markdownItAttributes = require('markdown-it-attrs');
 const markdownItAbbr = require('markdown-it-abbr');
 const markdownItSpan = require('markdown-it-span');
+const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 
 const globalFilters = require('./filters');
 const globalShortCodes = require('./shortcodes');
@@ -23,6 +24,9 @@ const nunjucksFilters = require('../src/_includes/nunjucks/filters');
 const site = require('../src/_data/site');
 
 module.exports = function (eleventyConfig) {
+
+    eleventyConfig.setDataDeepMerge(true);
+
     // Filters
     Object.keys(globalFilters).forEach(filterName => {
         eleventyConfig.addFilter(filterName, globalFilters[filterName]);
@@ -58,6 +62,7 @@ module.exports = function (eleventyConfig) {
             twitterCardType: "summary_large_image",
         }
     });
+    eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
     // Collections
     const livePosts = post => post.date <= new Date() && !post.data.draft;
