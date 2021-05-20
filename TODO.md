@@ -14,3 +14,6 @@
 - [ ] Eleventy Plugins
 - [x] Engagement links
 - [x] keybase verification
+- [ ] offline support
+- [ ] webpack
+- [x] Disqus

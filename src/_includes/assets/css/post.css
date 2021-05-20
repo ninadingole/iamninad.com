@@ -84,6 +84,10 @@ a.header-anchor {
   text-align: center;
 }
 
+.other-links {
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+}
 .other-links ul {
   display: grid;
   grid-template-columns: 1fr 1fr;

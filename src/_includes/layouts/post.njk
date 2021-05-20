@@ -34,9 +34,9 @@
         <section class="Banner-Image" id="banner">
             {%  resI postImage, title, [750, 900, 1200]  %}
             <div class="Credits">
-                {%  Link postImageCredits | linkUrl, true, postImageCredits | linkName, "Link"  %}
+                {%  Link postImageCredits | linkUrl, true, postImageCredits | linkName, "Link", true  %}
                 on
-                {%  Link postImageSource | linkUrl, true, postImageSource | linkName, "Link"  %}
+                {%  Link postImageSource | linkUrl, true, postImageSource | linkName, "Link", true  %}
             </div>
         </section>
     {% endif %}
@@ -45,7 +45,7 @@
         {{ content | safe }}
     </article>
 
-    <section class="other-links MarginTop-xxl">
+    <section class="other-links">
         <ul class="post-nav">
             {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
             {%- if nextPost %}
@@ -63,4 +63,19 @@
             {% endif %}
         </ul>
     </section>
+    <div class="Separator MarginY-xl"></div>
+    <section>
+      <div id="disqus_thread"></div>
+    </section>
+    
+    <script async>
+       (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://iamninad.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 {% endblock %}
