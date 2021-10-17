@@ -7,7 +7,8 @@
     "dev:11ty": "npx eleventy --config=_11ty/config.js --serve --watch",
     "prod:11ty": "npx eleventy --config=_11ty/config.js",
     "start": "npm run dev:11ty",
-    "build": "npm run prod:11ty"
+    "build": "npm run prod:11ty",
+    "generate": "node tools/generate.js"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,9 @@
     "@11ty/eleventy-plugin-rss": "^1.1.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.1.0",
     "clean-css": "^5.2.1",
+    "dayjs": "^1.10.7",
     "eleventy-plugin-lazyimages": "2.1.0",
+    "generate-template-files": "^3.2.0",
     "html-minifier": "^4.0.0",
     "markdown-it": "^12.0.6",
     "markdown-it-anchor": "^8.4.1",
