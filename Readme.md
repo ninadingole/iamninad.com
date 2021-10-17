@@ -16,4 +16,11 @@ npm run build
 
 generated site is created in `www` folder in the root
 
-Website is deployed on Netlify
+### Generate a new blog post
+
+Run following command 
+```
+npm run generate
+```
+
+provide the blog title and it will generate a markdown file in `src/posts/` and a folder for storing blog post images in `src/images/`
