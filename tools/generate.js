@@ -1,4 +1,5 @@
 const dayjs = require('dayjs')
+const fs = require('fs')
 const { generateTemplateFiles } = require("generate-template-files")
 
 
@@ -20,6 +21,8 @@ generateTemplateFiles([
       pathAndFileNameDefaultCase: '(kebabCase)',
       overwrite: true,
     },
-    onComplete: (res) => console.log(res),
+    onComplete: (res) => {
+      fs.mkdirSync(res.output.path.replace('posts','images').replace('.md',''))
+    },
   }
 ])
