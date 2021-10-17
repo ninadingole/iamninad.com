@@ -102,6 +102,7 @@ module.exports = function (eleventyConfig) {
         .addPassthroughCopy({ 'src/_includes/assets': 'assets' })
         .addPassthroughCopy('src/manifest.json')
         .addPassthroughCopy('src/_redirects')
+        .addPassthroughCopy('src/images')
         .addPassthroughCopy('src/.well-known');
 
     

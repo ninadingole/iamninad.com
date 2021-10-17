@@ -6,8 +6,8 @@ module.exports = {
             let metadata = await Image(src, {
                 widths: widths,
                 formats: ["webp", "jpeg"],
-                urlPath: '/assets/images',
-                outputDir: 'www/assets/images',
+                urlPath: '/images',
+                outputDir: 'www/images',
                 useCache: false,
                 cacheOptions: {
                     duration: '1d',

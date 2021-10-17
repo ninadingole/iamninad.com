@@ -51,7 +51,7 @@ All you need is the basic sring boot dependencies. You can also add individual j
 
 ## Project Structure:
 
-![Project Structure](/assets/images/project-structure.PNG)
+![Project Structure](/images/project-structure.PNG)
 
 ## Factory Interface:
 :link: ShapeFactory.java
@@ -195,5 +195,5 @@ It's a normal Junit that I have written to test the functionality of our code. I
 ## Output
 As you can see in the output below, the right implementation instance is pulled from the ApplicationContext and the sysout statements are printed to the output.
 
-![Ouput Logs](/assets/images/output_logs.PNG)
+![Ouput Logs](/images/output_logs.PNG)
 
