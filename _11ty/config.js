@@ -43,7 +43,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(pluginRss);
     eleventyConfig.addPlugin(syntaxHighlight);
     eleventyConfig.addPlugin(lazyImagesPlugin, {
-        transformImgPath: src => isAbsolutePath(src) ? src : path.join(__dirname, '../src/_includes', src)
+        transformImgPath: src => isAbsolutePath(src) ? src : path.join(__dirname, '../www', src)
     });
     eleventyConfig.addPlugin(sitemap, {
         sitemap: {
