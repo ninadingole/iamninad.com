@@ -104,3 +104,9 @@ a.header-anchor {
   grid-column-start: 1;
   grid-row-start: 1;
 }
+
+figure figcaption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #999;
+}

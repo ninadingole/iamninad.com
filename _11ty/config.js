@@ -16,6 +16,7 @@ const markdownItAttributes = require('markdown-it-attrs');
 const markdownItAbbr = require('markdown-it-abbr');
 const markdownItSpan = require('markdown-it-span');
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+const mdfigcaption = require("markdown-it-image-figures");
 
 const globalFilters = require('./filters');
 const globalShortCodes = require('./shortcodes');
@@ -91,7 +92,10 @@ module.exports = function (eleventyConfig) {
     .use(markdownItFootnote)
     .use(markdownItAbbr)
     .use(markdownItAttributes)
-    .use(markdownItSpan);
+    .use(markdownItSpan)
+    .use(mdfigcaption, {
+      figcaption: true
+    });
 
     eleventyConfig.setLibrary("md", markdownLibrary);
 
