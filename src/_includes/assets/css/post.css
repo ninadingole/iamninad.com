@@ -111,6 +111,9 @@ figure figcaption {
   color: #999;
 }
 
+pre[class*=language-] {
+  background: #2d2d2d;
+}
 
 @media (max-width: 767.98px) {
   figure {
