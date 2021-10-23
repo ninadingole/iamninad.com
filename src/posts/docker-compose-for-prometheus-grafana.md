@@ -9,7 +9,9 @@ postImageSource: Unsplash | https://unsplash.com
 publications: https://dev.to/ninadingole/docker-compose-for-prometheus-grafana-3gie
 tags:
   - devOps
+  - docker
   - testing
+  - testing strategy
   - local setup
 ---
 
