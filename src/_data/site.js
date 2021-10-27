@@ -4,7 +4,7 @@ module.exports = {
   description: "I am a Full Stack Developer who loves to explore tech and share the expierences and findings with the world",
   url: 'https://iamninad.com',
   baseUrl: '/',
-  maxPostsInHomePage: 50,
+  maxPostsInHomePage: 8,
   author: 'neenad ingole',
   email: 'ninad.ingole@gmail.com',
 
