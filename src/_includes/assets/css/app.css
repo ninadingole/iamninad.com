@@ -248,6 +248,10 @@ main:focus {
   font-family: var(--font-mono);
 }
 
+.Heading {
+  display: flex;
+}
+
 .Article h1:before,
 .Article h2:before,
 .Article h3:before,
