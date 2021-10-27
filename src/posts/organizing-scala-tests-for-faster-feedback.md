@@ -3,8 +3,7 @@ title: Organizing Scala Tests For Faster Feedback
 summary: "Writing tests is a developer's mundane task, and when you follow practices like TDD or BDD, hardly you find any code without any test…"
 date: 2019-03-18
 draft: false
-postImage: 'http://localhost:80/images/organizing-scala-tests-for-faster-feedback/swift_test_run.png'
-
+postImage: './src/images/organizing-scala-tests-for-faster-feedback/swift_test_run.png'
 publications: https://medium.com/@iamninad/organizing-scala-tests-for-faster-feedback-ba0039357ff9
 tags:
   - sbt
