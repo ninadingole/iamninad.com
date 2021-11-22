@@ -57,22 +57,22 @@ This will start a minikube cluster with 8Gb of memory and 4 cores of CPU. (someh
 
 ## Modify minikube config
 
-We can change the minikube config with `config` command in minikube cli. The `config` command allows setting different config options for minikube like memory, CPUs, vm-driver, disk-size etc. To see all the available options use `&gt; minikube config` command it will list all the available options that can be modified.
+We can change the minikube config with `config` command in minikube cli. The `config` command allows setting different config options for minikube like memory, CPUs, vm-driver, disk-size etc. To see all the available options use `> minikube config` command it will list all the available options that can be modified.
 
 <script src="https://gist.github.com/ninadingole/5e62d4ce5cadc7d9e988c260210a3556.js"></script>
 <script src="https://gist.github.com/ninadingole/d91e0c7ad3dee6a2f20cf0197d1f75e7.js"></script>
 
-After setting configuration using `config` command we need to delete our previous running cluster and start a new one. To delete minikube cluster run `&gt; minikube delete` and rerun the start minikube command.
+After setting configuration using `config` command we need to delete our previous running cluster and start a new one. To delete minikube cluster run `> minikube delete` and rerun the start minikube command.
 
 ## Change Configuration Using VirtualBox
 
-For me, the above two options didn't work and if you are like me you can use this last option which worked for me and hope it works for you. Open VirtualBox app on your machine and select your VM like the one shown in below image. `RightClick -&gt; Settings` on your VM, this will open the configuration page for the Minikube VM.
+For me, the above two options didn't work and if you are like me you can use this last option which worked for me and hope it works for you. Open VirtualBox app on your machine and select your VM like the one shown in below image. `RightClick -> Settings` on your VM, this will open the configuration page for the Minikube VM.
 
 > note: To change configuration using VirtualBox first you need to shutdown the VM if it is already running.
 
 <div class="img-post"><img src="/images/running-spark-job-on-minikube-kubernetes-cluster/okF4NxZ.png" alt="" />
 
-Inside option `System -&gt; Motherboard`, you can change the memory of the VM using the slider, in my case I have given it `8192MB` of memory.
+Inside option `System -> Motherboard`, you can change the memory of the VM using the slider, in my case I have given it `8192MB` of memory.
 
 <div class="img-post"><img src="/images/running-spark-job-on-minikube-kubernetes-cluster/0RhSdV6.png" alt="" />
 
@@ -94,7 +94,7 @@ Go inside your extracted spark folder and run the below command to create a spar
 
 <script src="https://gist.github.com/ninadingole/3a6727ec8abf7fa6b6cb3e83dc21c9d1.js"></script>
 
-Now if you run `&gt; docker image ls` you will see the docker build available in your local machine. Make a note of this image name we need to provide the image name to `spark-submit` command.
+Now if you run `> docker image ls` you will see the docker build available in your local machine. Make a note of this image name we need to provide the image name to `spark-submit` command.
 
 There is a `push` option available to the above command which enables you to push the docker image to your own repository this, in turn, will enable your production kubernetes to pull the docker image from the configured Docker repository. Run the same command without any options to see its usage.
 
@@ -137,7 +137,7 @@ To check the status of our submitted job we can use either kubernetes dashboard 
 
 <div class="img-post"> <img src="/images/running-spark-job-on-minikube-kubernetes-cluster/r3y5p9p.png" alt="Kubernetes Dashboard" />
 
-Navigate to the URL given by above command to view the dashboard. The dashboard provides lots of information about cluster memory usage, CPU usage, pods, services, replica set etc. We can also view service logs directly through the dashboard. However, if you don't want to go to the dashboard you can view the Spark Driver log using `&gt; kubectl logs &lt;pod name&gt;` command:
+Navigate to the URL given by above command to view the dashboard. The dashboard provides lots of information about cluster memory usage, CPU usage, pods, services, replica set etc. We can also view service logs directly through the dashboard. However, if you don't want to go to the dashboard you can view the Spark Driver log using `> kubectl logs <pod name>` command:
 
 <script src="https://gist.github.com/ninadingole/f5e3617d59f4fee7bff9e34363a3c954.js"></script>
 
@@ -145,7 +145,7 @@ If you see in the logs the program has calculated the Pi value and the container
 
 ## Shutdown Cluster
 
-Shutting down cluster is very easy, use `&gt; minikube stop` and it will stop the cluster.
+Shutting down cluster is very easy, use `> minikube stop` and it will stop the cluster.
 
 ---
 
