@@ -70,15 +70,15 @@ For me, the above two options didn't work and if you are like me you can use thi
 
 > note: To change configuration using VirtualBox first you need to shutdown the VM if it is already running.
 
-<div class="img-post"><img src="/images/running-spark-job-on-minikube-kubernetes-cluster/okF4NxZ.png" alt="" />
+![](/images/running-spark-job-on-minikube-kubernetes-cluster/okF4NxZ.png)
 
 Inside option `System -> Motherboard`, you can change the memory of the VM using the slider, in my case I have given it `8192MB` of memory.
 
-<div class="img-post"><img src="/images/running-spark-job-on-minikube-kubernetes-cluster/0RhSdV6.png" alt="" />
+![](/images/running-spark-job-on-minikube-kubernetes-cluster/0RhSdV6.png)
 
 To change the CPU config, go to `Processor` tab and change it to `4`. You can try other options also for me 4 works just fine. Don’t change it to less than 2 otherwise things won’t work. :p
 
-<div class="img-post"><img src="/images/running-spark-job-on-minikube-kubernetes-cluster/eG6OhDs.png" alt="" />
+![](/images/running-spark-job-on-minikube-kubernetes-cluster/eG6OhDs.png)
 
 After the configuration changes are done, start the VM using VirtualBox app or using the above given `minikube start` command.
 
@@ -135,7 +135,7 @@ To check the status of our submitted job we can use either kubernetes dashboard 
 
 <script src="https://gist.github.com/ninadingole/fcfc462ba149504129c2dc5d8b40afb6.js"></script>
 
-<div class="img-post"> <img src="/images/running-spark-job-on-minikube-kubernetes-cluster/r3y5p9p.png" alt="Kubernetes Dashboard" />
+![Kubernetes Dashboard](/images/running-spark-job-on-minikube-kubernetes-cluster/r3y5p9p.png 'Kubernetes Dashboard')
 
 Navigate to the URL given by above command to view the dashboard. The dashboard provides lots of information about cluster memory usage, CPU usage, pods, services, replica set etc. We can also view service logs directly through the dashboard. However, if you don't want to go to the dashboard you can view the Spark Driver log using `> kubectl logs <pod name>` command:
 
