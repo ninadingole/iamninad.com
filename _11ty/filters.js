@@ -76,6 +76,12 @@ module.exports = {
             //}
         }
 
+        for (let [key, value] of yearMap) {
+          yearMap.set(key, [...value].reverse());
+        }
+
+        console.log("yearlog", [...yearMap])
+
         return [...yearMap]
     },
 
