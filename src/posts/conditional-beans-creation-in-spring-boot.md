@@ -141,7 +141,7 @@ public class ConditionalOnMissingBeanConfig {
 
 Conditional that only matches when the specified Class is missing from the classpath.
 
-````java
+```java
 @Configuration
 public class ConditionOnMissingClassConfig {
 
@@ -159,9 +159,15 @@ public class ConditionOnMissingClassConfig {
     }
 
 }
-```<h2 id="conditionalonwebapplication">ConditionalOnWebApplication</h2>
+```
 
-Conditional that only matches when the application context is a web application context.</p><blockquote>Note: Code is shown in next block.</blockquote><h2 id="conditionalonnotwebapplication">ConditionalOnNotWebApplication</h2>
+## ConditionalOnWebApplication
+
+Conditional that only matches when the application context is a web application context.
+
+> Note: Code is shown in next block.
+
+## ConditionalOnNotWebApplication
 
 Conditional that only matches when the application context is not a web application context.
 
