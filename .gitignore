@@ -3,3 +3,5 @@ www
 .DS_Store
 **/.DS_Store
 .cache
+# Local Netlify folder
+.netlify
