@@ -138,6 +138,7 @@ main:focus {
   font-family: inherit;
   font-size: inherit;
   color: inherit;
+  display: inline-block;
   text-decoration: none;
   position: relative;
   transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
