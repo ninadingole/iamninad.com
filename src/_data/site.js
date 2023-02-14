@@ -15,6 +15,8 @@ module.exports = {
   social: {
     twitter: 'https://twitter.com/iamneenad',
     github: 'https://github.com/ninadingole',
-    email: 'ninad.ingole@gmail.com'
+    email: 'ninad.ingole@gmail.com',
+    sponser: 'https://github.com/sponsors/ninadingole',
+    newsletter: 'https://blog.iamninad.com/newsletter',
   }
 }
