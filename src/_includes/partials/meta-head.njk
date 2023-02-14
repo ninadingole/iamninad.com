@@ -8,6 +8,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 {% seo "" %}
 
+{% block content %}
+  {% if canonicalLink %}
+    <link rel="canonical" href="{{ canonicalLink }}">
+  {% endif %}
+{% endblock %}
+
 <link rel="icon apple-touch-icon" href="/assets/images/apple-touch-icon.png" sizes="180x180" type="image/png"/>
 <link rel="icon" href="/assets/images/favicon-96x96.png" sizes="96x96" type="image/png"/>
 <link rel="icon" href="/assets/images/favicon-32x32.png" sizes="32x32" type="image/png"/>
