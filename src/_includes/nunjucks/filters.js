@@ -1,6 +1,12 @@
 
 const { minify } = require('terser');
 
+
+function dateToXmlSchema(value) {
+  return new Date(value).toISOString()
+}
+
+
 module.exports = {
     add: (eleventyConfig) => {
         eleventyConfig.addNunjucksAsyncFilter('jsmin', async function(code, callback) {
@@ -12,5 +18,7 @@ module.exports = {
                 callback(null, code);
             }
         });
+
+        eleventyConfig.addFilter('dateToXmlSchema', dateToXmlSchema);
     }
 }

@@ -7,7 +7,6 @@ const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const markdownItEmoji = require('markdown-it-emoji');
 const path = require('path');
-const sitemap = require("@quasibit/eleventy-plugin-sitemap");
 const readingTime = require('eleventy-plugin-reading-time');
 const pluginSEO = require("eleventy-plugin-seo");
 const markdownItContainer = require('markdown-it-container')
@@ -46,11 +45,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(lazyImagesPlugin, {
         transformImgPath: src => isAbsolutePath(src) ? src : path.join(__dirname, '../www', src)
     });
-    eleventyConfig.addPlugin(sitemap, {
-        sitemap: {
-        hostname: "https://iamninad.com",
-        },
-    });
+    
 
     eleventyConfig.addPlugin(readingTime);
     eleventyConfig.addPlugin(pluginSEO, {

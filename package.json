@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@11ty/eleventy-img": "^2.0.1",
-    "@quasibit/eleventy-plugin-sitemap": "^2.1.5",
     "eleventy-plugin-reading-time": "^0.0.1",
     "eleventy-plugin-seo": "^0.5.2",
     "markdown-it-abbr": "^1.0.4",
