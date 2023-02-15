@@ -532,11 +532,11 @@ Debezium also provides a control dashboard. You could use it to add a new connec
 
 Go to `http://localhost:8080` and you will be able to access the dashboard as shown below
 
-![Debezium Dashboard](https://cdn.hashnode.com/res/hashnode/image/upload/v1675511194851/2578ab99-14ed-4f6d-8623-5615b9a80d18.png align="center")
+![Debezium Dashboard](/images/docker-compose-for-your-next-debezium-and-postgres-project/connectors.avif "Debezium Dashboard")
 
 The Dashboard also allows you to add new connectors for other database providers
 
-![Adding new connector](https://cdn.hashnode.com/res/hashnode/image/upload/v1675511286435/2760fb50-b814-4fd6-992e-f7bd310545d3.png align="center")
+![Adding new connector](/images/docker-compose-for-your-next-debezium-and-postgres-project/add-new.avif "Add new Connector")
 
 ## AWS RDS
 
