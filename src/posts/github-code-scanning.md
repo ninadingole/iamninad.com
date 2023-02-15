@@ -2,7 +2,7 @@
 title: Github Code Scanning
 date: 2020-07-26
 draft: false
-summary: "Bad guys can't get in if they don't have a way. Github Code Scanning tools helps to find out any vulnerabilities or error in the code, that could provide potential access to application or causing runtime errors resulting in serious impact & million dollar loss to the business."
+excerpt: "Bad guys can't get in if they don't have a way. Github Code Scanning tools helps to find out any vulnerabilities or error in the code, that could provide potential access to application or causing runtime errors resulting in serious impact & million dollar loss to the business."
 publications: https://medium.com/technogise/github-code-scanning-5cc2c7f9f0e7
 tags:
   - github
@@ -109,26 +109,25 @@ Once the workflow is completed without any error, to check any security vulnerab
 ![Total number of Security risk found](/images/github-code-scanning/Screenshot-2020-07-22-at-4.03.15-PM.png 'Total number of Security risk found')
 
 If you click on it and move to the code scanning alerts you can see all the vulnerabilities that are available in the code listed
-  
-![Listing of all the risks](/images/github-code-scanning/Screenshot-2020-07-26-at-6.09.15-PM-1.png "Listing of all the risks")
-  
+
+![Listing of all the risks](/images/github-code-scanning/Screenshot-2020-07-26-at-6.09.15-PM-1.png 'Listing of all the risks')
+
 The listing shows the message of the issue found, the file in which the issue was detected with the line number (very cool) and the branch in which the issue was found. Further clicking on any issue you can drill down into the actual code, the UI will highlight the line of code which has the issue, whether its a warning or an actual error and more details like the commit that caused the issue, the rule that failed and tags the issues based on the rules category. In the below image you can see the error are tagged as `CWE-798` and `security`
 
 You can see the details of two errors which are a security risk to my code are listed below(deliberately added for demo purpose 😛). One is because of the password leaked into the source code and the other is directly redirecting to the user-provided URL without first validating the URL.
-  
-![Password in source code](/images/github-code-scanning/Screenshot-2020-07-26-at-6.08.11-PM.png "Password in source code")
-  
-![URL redirection without validation](/images/github-code-scanning/Screenshot-2020-07-26-at-6.07.41-PM.png "URL redirection without validation")
-  
-  
+
+![Password in source code](/images/github-code-scanning/Screenshot-2020-07-26-at-6.08.11-PM.png 'Password in source code')
+
+![URL redirection without validation](/images/github-code-scanning/Screenshot-2020-07-26-at-6.07.41-PM.png 'URL redirection without validation')
+
 If you click on the small show more button you can see a good help about the issue and how to avoid it, there are also links to some reference documentation that explains the issue in depth.
-  
-![Recommendation for the cause of the issue](/images/github-code-scanning/Screenshot-2020-07-26-at-6.08.28-PM.png "Recommendation for the cause of the issue")
+
+![Recommendation for the cause of the issue](/images/github-code-scanning/Screenshot-2020-07-26-at-6.08.28-PM.png 'Recommendation for the cause of the issue')
 
 Once you have fixed the issue and the code is pushed the issue will be moved to close. However, at times there will be cases of false-positive in such cases there is an option provided at the top right of the issue, to manually close the issue, and has three options showing in below image, select one that suits your use case and close the issues which are not valid.
-  
-![Options to close issue](/images/github-code-scanning/Screenshot-2020-07-25-at-9.58.48-PM.png "Options to close issue")
-  
+
+![Options to close issue](/images/github-code-scanning/Screenshot-2020-07-25-at-9.58.48-PM.png 'Options to close issue')
+
 ---
 
 **EDIT:**
@@ -151,7 +150,7 @@ For more advance on how different tools can be integrated, what if I work at an 
 
 For any issue while following the steps please do let me know in the comments below I will try to correct. For anything else please comment and I will try to reply as soon as possible, and please don't forget to share the post.
 
-Happy Coding!  
+Happy Coding!
 
 ---
 

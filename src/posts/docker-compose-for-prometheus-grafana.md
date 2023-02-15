@@ -2,7 +2,7 @@
 title: Docker Compose For Prometheus + Grafana
 date: 2021-02-25
 draft: false
-summary: "Run Prometheus and Grafana stack locally using docker compose"
+excerpt: 'Run Prometheus and Grafana stack locally using docker compose'
 postImage: https://source.unsplash.com/SInhLTQouEk/920x460
 postImageCredits: Dominik Lückmann | https://unsplash.com/@exdigy
 postImageSource: Unsplash | https://unsplash.com
@@ -44,6 +44,3 @@ Thanks and Happy Coding!
 ## Reference
 
 - [repo](https://github.com/ninadingole/docker-images)
-  
-
-

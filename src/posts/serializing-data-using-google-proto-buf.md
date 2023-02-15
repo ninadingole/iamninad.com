@@ -1,6 +1,6 @@
 ---
 title: Serializing Data Using Google Protobuf
-summary: 'In this post, we will see how to use Google Protocol Buffers a language-neutral, platform-neutral, extensible and a popular data format to…'
+excerpt: 'In this post, we will see how to use Google Protocol Buffers a language-neutral, platform-neutral, extensible and a popular data format to…'
 date: 2018-03-05
 draft: false
 ## If your image is within the project start the url with `./src/images/`

@@ -1,6 +1,6 @@
 ---
 title: Rest Web Service Using Express Js
-summary: 'In this post, we will be using expressjs to create REST web services. We will also learn about what is ExpressJS, its features, and as we…'
+excerpt: 'In this post, we will be using expressjs to create REST web services. We will also learn about what is ExpressJS, its features, and as we…'
 date: 2018-03-07
 draft: false
 ## If your image is within the project start the url with `./src/images/`

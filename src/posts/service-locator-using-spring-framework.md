@@ -1,18 +1,18 @@
 ---
 title: Service Locator Using Spring Framework
-date: "2017-07-28"
+date: '2017-07-28'
 postImage: https://source.unsplash.com/QuVAKQGmb5Q/920x460
 postImageCredits: César Abner Martínez Aguilar | https://unsplash.com/@nosoycesar
 postImageSource: Unsplash | https://unsplash.com
-summary: "How to create a service locator in spring to access multiple beans or locate a specific service bean implementation programmatically"
+excerpt: 'How to create a service locator in spring to access multiple beans or locate a specific service bean implementation programmatically'
 tags:
-    - spring
-    - design-patterns
+  - spring
+  - design-patterns
 ---
 
-When you start with programming someday you will come to hear the words *Design Patterns*. Design Patterns are solutions to commonly recurring problems in software designs. These are not the final solution but an actual description or template on how to solve the problem. Design Patterns are categorised into 3 groups Creation, Structural & Behavioural. I am not going to go through all those in this post but, if you want to read more about design patterns you can read a very famous book *Gang of Four*.
+When you start with programming someday you will come to hear the words _Design Patterns_. Design Patterns are solutions to commonly recurring problems in software designs. These are not the final solution but an actual description or template on how to solve the problem. Design Patterns are categorised into 3 groups Creation, Structural & Behavioural. I am not going to go through all those in this post but, if you want to read more about design patterns you can read a very famous book _Gang of Four_.
 
-In this post, I will be more focusing on *Service Locator* design pattern or as some says anti-pattern using spring framework. It's a well-known pattern used in many frameworks or for JNDI lookup.
+In this post, I will be more focusing on _Service Locator_ design pattern or as some says anti-pattern using spring framework. It's a well-known pattern used in many frameworks or for JNDI lookup.
 
 So how this works? The ServiceLocatorFactoryBean takes an interface which need to have method signature of form of Service xxx() or Service xxx(String id) like `Service getService() or Service getService(String id)` this creates a dynamic proxy which implements the given interface and delegates the task of locating the implementation to an underlying beanFactory.
 
@@ -38,7 +38,7 @@ Which means internally it's still calling getBean on application context, Such s
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -47,6 +47,7 @@ Which means internally it's still calling getBean on application context, Such s
 	</dependencies>
 </project>
 ```
+
 All you need is the basic sring boot dependencies. You can also add individual jar dependencies but you will only need the spring core one's. The Classes I am using are packaged into the core jar so other packages of spring are not needed.
 
 ## Project Structure:
@@ -54,36 +55,43 @@ All you need is the basic sring boot dependencies. You can also add individual j
 ![Project Structure](/images/project-structure.PNG)
 
 ## Factory Interface:
+
 :link: ShapeFactory.java
+
 ```java
 package com.spring.factory;
 
 import com.spring.factory.shape.Shape;
 
 public interface ShapeFactory {
-    
+
     Shape getShape(String name);
-    
+
 }
 ```
+
 The ShapeFactory interface is the factory which will return the actual implementation of the Shape interface.
 
 ## Shape Inteface:
 
 :link: Shape.java
+
 ```java
 package com.spring.factory.shape;
 
 public interface Shape {
 
     void draw();
-    
+
 }
 ```
-The Shape interface has only one method `draw()`  this method is what the implementation classes will override and provide their own logic.
+
+The Shape interface has only one method `draw()` this method is what the implementation classes will override and provide their own logic.
 
 ## Shape Implementation:
+
 :link: Circle.java
+
 ```java
 package com.spring.factory.shape.impl;
 
@@ -100,7 +108,9 @@ public class Circle implements Shape{
 
 }
 ```
+
 :link: Square.java
+
 ```java
 package com.spring.factory.shape.impl;
 
@@ -117,11 +127,13 @@ public class Square implements Shape {
 
 }
 ```
+
 The Circle and Square implementation are pretty simple, all they do is sysout the message to console. Now we need to configure the interface to act as a service locator.
- 
+
 ## Spring Configuration:
 
 :link: Config.java
+
 ```java
 package com.spring.factory;
 
@@ -135,20 +147,22 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.spring.factory")
 public class Config {
 
-    
+
     @Bean
     public ServiceLocatorFactoryBean serviceLocatorBean(){
         ServiceLocatorFactoryBean bean = new ServiceLocatorFactoryBean();
         bean.setServiceLocatorInterface(ShapeFactory.class);
         return bean;
     }
-    
-    
+
+
 }
 ```
-The `ServiceLocatorFactoryBean` does all the magic in this 
+
+The `ServiceLocatorFactoryBean` does all the magic in this
 
 ## Junit Test
+
 :link: ShapeFactoryTest.java
 
 ```java
@@ -170,7 +184,7 @@ public class ShapeFactoryTest {
 
     @Autowired
     private ShapeFactory shapeFactory;
-    
+
     @Test
     public void testGetShape() {
         Shape circle = shapeFactory.getShape("circle");
@@ -180,7 +194,7 @@ public class ShapeFactoryTest {
         assertNotNull(square);
         square.draw();
     }
-    
+
     @Test
     public void testGetShapeForWrongShape(){
         Shape rectangle = shapeFactory.getShape("rectangle");
@@ -190,10 +204,11 @@ public class ShapeFactoryTest {
 
 }
 ```
+
 It's a normal Junit that I have written to test the functionality of our code. Its a normal Spring boot test class. The `RunWith(SpringRunner.class)` is needed for the Junit to run the unit test case as spring container. Next The annotation `SpringBootTest` is added with the attributes. I am injecting the ShapeFactory which you can use the same way in your own implementation. The method `testGetShape()` calls the getShape() method of the factory passing the attributes 'circle' & 'square' and calling the `draw()` method on the retrieved instances.
 
 ## Output
+
 As you can see in the output below, the right implementation instance is pulled from the ApplicationContext and the sysout statements are printed to the output.
 
 ![Ouput Logs](/images/output_logs.PNG)
-

@@ -1,6 +1,6 @@
 ---
 title: Conditional Beans Creation In Spring Boot
-summary: 'Spring Container is core to Spring Framework. It manages the entire lifecycle of Spring Beans. A bean is nothing but an instance of a class…'
+excerpt: 'Spring Container is core to Spring Framework. It manages the entire lifecycle of Spring Beans. A bean is nothing but an instance of a class…'
 date: 2017-08-14
 draft: false
 ## If your image is within the project start the url with `./src/images/`
@@ -189,7 +189,7 @@ public class ConditionalBeanNotWebConfig {
                         // WebApplicationContext.
     }
 }
-````
+```
 
 ## ConditionalOnResource
 

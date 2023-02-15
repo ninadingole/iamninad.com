@@ -1,6 +1,6 @@
 ---
 title: Apache Kafka Using Java
-summary: 'Apache Kafka is a buzz word these days. Originally developed by LinkedIn in 2011 the project has been donated to Apache, many companies…'
+excerpt: 'Apache Kafka is a buzz word these days. Originally developed by LinkedIn in 2011 the project has been donated to Apache, many companies…'
 date: 2018-03-09
 draft: false
 ## If your image is within the project start the url with `./src/images/`

@@ -1,12 +1,13 @@
 ---
 title: Docker Compose For Your Next Debezium And Postgres Project
-summary: 'Working on Debezium and Postgres? This guide will help you to quick setup the services using docker-compose'
+excerpt: 'Working on Debezium and Postgres? This guide will help you to quick setup the services using docker-compose'
 date: 2023-02-04
 draft: false
 ## If your image is within the project start the url with `./src/images/`
 postImage: https://source.unsplash.com/GNyjCePVRs8/920x460
 postImageCredits: benjamin lehman | https://unsplash.com/@benjaminlehman?utm_source=iamninad.com&utm_medium=referral
 postImageSource: Unsplash | https://unsplash.com
+tocEnabled: true
 tags:
   - docker-compose
   - postgres
@@ -532,11 +533,11 @@ Debezium also provides a control dashboard. You could use it to add a new connec
 
 Go to `http://localhost:8080` and you will be able to access the dashboard as shown below
 
-![Debezium Dashboard](/images/docker-compose-for-your-next-debezium-and-postgres-project/connectors.avif "Debezium Dashboard")
+![Debezium Dashboard](/images/docker-compose-for-your-next-debezium-and-postgres-project/connectors.avif 'Debezium Dashboard')
 
 The Dashboard also allows you to add new connectors for other database providers
 
-![Adding new connector](/images/docker-compose-for-your-next-debezium-and-postgres-project/add-new.avif "Add new Connector")
+![Adding new connector](/images/docker-compose-for-your-next-debezium-and-postgres-project/add-new.avif 'Add new Connector')
 
 ## AWS RDS
 

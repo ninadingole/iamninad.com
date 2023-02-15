@@ -1,6 +1,6 @@
 ---
 title: Running Spark Job On Minikube Kubernetes Cluster
-summary: 'Kubernetes is another industry buzz words these days and I am trying few different things with Kubernetes. On Feb 28th, 2018 Apache spark…'
+excerpt: 'Kubernetes is another industry buzz words these days and I am trying few different things with Kubernetes. On Feb 28th, 2018 Apache spark…'
 date: 2018-03-10
 draft: false
 ## If your image is within the project start the url with `./src/images/`

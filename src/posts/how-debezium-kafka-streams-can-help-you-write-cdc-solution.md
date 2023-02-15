@@ -1,6 +1,6 @@
 ---
 title: How Debezium Kafka Streams Can Help You Write Cdc Solution
-summary: 'I had worked on multiple applications for enterprises where legacy applications have been migrated on modern technology stack. Starting…'
+excerpt: 'I had worked on multiple applications for enterprises where legacy applications have been migrated on modern technology stack. Starting…'
 date: 2018-05-23
 draft: false
 ## If your image is within the project start the url with `./src/images/`

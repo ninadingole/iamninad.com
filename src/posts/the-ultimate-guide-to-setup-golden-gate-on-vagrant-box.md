@@ -1,6 +1,6 @@
 ---
 title: The Ultimate Guide To Setup Golden Gate On Vagrant Box
-summary: 'If you have read my previous post on Debezium, I have mentioned that currently, I am working on a platform which includes capturing CDC…'
+excerpt: 'If you have read my previous post on Debezium, I have mentioned that currently, I am working on a platform which includes capturing CDC…'
 date: 2018-07-22
 draft: false
 ## If your image is within the project start the url with `./src/images/`

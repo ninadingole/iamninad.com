@@ -1,6 +1,6 @@
 ---
 title: "Blog"
-summary: "I am a Full Stack Developer who loves to explore tech and share the expierences and findings with the world"
+excerpt: "I am a Full Stack Developer who loves to explore tech and share the expierences and findings with the world"
 permalink: /index.html
 ogtype: website
 layout: layouts/default
@@ -27,7 +27,7 @@ layout: layouts/default
             ({{ post | readingTime }})
           </span>
         </div>
-        <p class="Margin-1">{{ post.data.summary | markdownify_inline | safe }}</p>
+        <p class="Margin-1">{{ post.data.excerpt | markdownify_inline | safe }}</p>
         <div>
           <a href="{{ post.url }}" class="Link" >read more ⟶</a>
         </div>

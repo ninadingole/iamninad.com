@@ -55,7 +55,6 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(readingTime);
     eleventyConfig.addPlugin(pluginSEO, {
         title: site.title,
-        description: site.description,
         url: site.url,
         author: site.author,
         twitter: 'iamneenad',
@@ -64,7 +63,7 @@ module.exports = function (eleventyConfig) {
         }
     });
     eleventyConfig.addPlugin(eleventyNavigationPlugin);
-
+    
     // Collections
     const livePosts = post => post.date <= new Date() && !post.data.draft;
     eleventyConfig.addCollection('posts', collection => {

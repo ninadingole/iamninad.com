@@ -1,6 +1,6 @@
 ---
 title: Burp Suite For Web App Testing Go Lang
-summary: "Configure burp suite as a proxy for golang application"
+excerpt: 'Configure burp suite as a proxy for golang application'
 date: 2019-12-31
 draft: false
 postImage: https://source.unsplash.com/cvBBO4PzWPg/920x460
@@ -18,7 +18,7 @@ Recently, I came across the same situation where I was looking for a way to chan
 
 Normally, we do write an integration test where we mock the service response using wiremock and then write the test for such edge cases. However, sometimes when we do manual testing and we want a way to mock the service response we need some mechanism to intercept the service response and modify the response. This is where Burp suites will help, Burp suites acts like a proxy that will call the actual service on behalf of you and then provides you with tools that can help to easily modify the response and send it back to your application.
 
-For this post, I will be consuming `themoviesdb.org`  API's to see details of "Fight Club" movie, and then I will write an application in golang which will connect to Burp Suite, there we modify the response using Burpsuite UI and print the modified response in the console which is received by our application.
+For this post, I will be consuming `themoviesdb.org` API's to see details of "Fight Club" movie, and then I will write an application in golang which will connect to Burp Suite, there we modify the response using Burpsuite UI and print the modified response in the console which is received by our application.
 
 ```go
 package main
@@ -65,19 +65,19 @@ As you can see in the above code, we create an HTTP client with custom Transport
 
 Let's now start the burp suite and configure the intercept rule to only run when the domain matches `themoviedb.org`:
 
-![Add themoviedb domain to intercept criteria](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.36.21-PM.png "Add themoviedb domain to intercept criteria")
+![Add themoviedb domain to intercept criteria](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.36.21-PM.png 'Add themoviedb domain to intercept criteria')
 
 Then start the interceptor:
 
-![Enable Intercept](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.36.34-PM.png "Enable Intercept")
+![Enable Intercept](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.36.34-PM.png 'Enable Intercept')
 
 Now, run the go application and you will see that the request is captured by the burp suite as follows:
 
-![When the request is captured](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.36.43-PM-1.png "When the request is captured")
+![When the request is captured](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.36.43-PM-1.png 'When the request is captured')
 
 After you see the above screen click on the `Action` button and click `Do intercept` with `Response to this request`:
 
-![Select intercept response](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.37.00-PM-1.png "Select intercept response")
+![Select intercept response](/images/burp-suite-for-web-app-testing-go-lang/Screenshot-2019-12-30-at-2.37.00-PM-1.png 'Select intercept response')
 
 After clicking the `Forward` button, burp suite will call the actual service and will open the editor where you can edit the response, this movie is "Flight Club" movie and I have changed the movie name to `Fight Pub` and rating from 8.4 to 9.4. Then click the forward button again to forward the response to the golang app.
 
@@ -86,27 +86,27 @@ After clicking the `Forward` button, burp suite will call the actual service and
 Once the application receives this response we just print it to the console and you could see that the name of the movie is now `Fight Pub` and the rating is `9.4` which is what we modified in the response.
 
 ```log
-Response: map[adult:false 
-backdrop_path:/mMZRKb3NVo5ZeSPEIaNW9buLWQ0.jpg belongs_to_collection:&lt;nil&gt; 
-budget:6.3e+07 
-genres:[map[id:18 name:Drama]] 
-homepage:http://www.foxmovies.com/movies/fight-club id:550 imdb_id:tt0137523 
-original_language:en 
-original_title:Fight Pub 
-overview:A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion. 
-popularity:58.844 
-poster_path:/adw6Lq9FiC9zjYEpOqfq03ituwp.jpg 
-production_companies:[map[id:508 logo_path:/7PzJdsLGlR7oW4J0J5Xcd0pHGRg.png name:Regency Enterprises origin_country:US] map[id:711 logo_path:/tEiIH5QesdheJmDAqQwvtN60727.png name:Fox 2000 Pictures origin_country:US] map[id:20555 logo_path:/hD8yEGUBlHOcfHYbujp71vD8gZp.png name:Taurus Film origin_country:DE] map[id:54051 logo_path:&lt;nil&gt; name:Atman Entertainment origin_country:] map[id:54052 logo_path:&lt;nil&gt; name:Knickerbocker Films origin_country:US] map[id:25 logo_path:/qZCc1lty5FzX30aOCVRBLzaVmcp.png name:20th Century Fox origin_country:US] map[id:4700 logo_path:/A32wmjrs9Psf4zw0uaixF0GXfxq.png name:The Linson Company origin_country:]] 
-production_countries:[map[iso_3166_1:DE name:Germany] map[iso_3166_1:US name:United States of America]] 
-release_date:1999-10-15 
-revenue:1.00853753e+08 
-runtime:139 
-spoken_languages:[map[iso_639_1:en name:English]] 
-status:Released 
-tagline:Mischief. Mayhem. Soap. 
-title:Fight Pub 
-video:false 
-vote_average:9.4 
+Response: map[adult:false
+backdrop_path:/mMZRKb3NVo5ZeSPEIaNW9buLWQ0.jpg belongs_to_collection:&lt;nil&gt;
+budget:6.3e+07
+genres:[map[id:18 name:Drama]]
+homepage:http://www.foxmovies.com/movies/fight-club id:550 imdb_id:tt0137523
+original_language:en
+original_title:Fight Pub
+overview:A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.
+popularity:58.844
+poster_path:/adw6Lq9FiC9zjYEpOqfq03ituwp.jpg
+production_companies:[map[id:508 logo_path:/7PzJdsLGlR7oW4J0J5Xcd0pHGRg.png name:Regency Enterprises origin_country:US] map[id:711 logo_path:/tEiIH5QesdheJmDAqQwvtN60727.png name:Fox 2000 Pictures origin_country:US] map[id:20555 logo_path:/hD8yEGUBlHOcfHYbujp71vD8gZp.png name:Taurus Film origin_country:DE] map[id:54051 logo_path:&lt;nil&gt; name:Atman Entertainment origin_country:] map[id:54052 logo_path:&lt;nil&gt; name:Knickerbocker Films origin_country:US] map[id:25 logo_path:/qZCc1lty5FzX30aOCVRBLzaVmcp.png name:20th Century Fox origin_country:US] map[id:4700 logo_path:/A32wmjrs9Psf4zw0uaixF0GXfxq.png name:The Linson Company origin_country:]]
+production_countries:[map[iso_3166_1:DE name:Germany] map[iso_3166_1:US name:United States of America]]
+release_date:1999-10-15
+revenue:1.00853753e+08
+runtime:139
+spoken_languages:[map[iso_639_1:en name:English]]
+status:Released
+tagline:Mischief. Mayhem. Soap.
+title:Fight Pub
+video:false
+vote_average:9.4
 vote_count:17753]
 ```
 

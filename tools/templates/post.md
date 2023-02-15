@@ -1,6 +1,6 @@
 ---
 title: __title__
-summary: ""
+excerpt: ""
 date: __date__NoCase__
 draft: true
 ## If your image is within the project start the url with `./src/images/`
