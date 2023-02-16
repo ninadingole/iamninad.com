@@ -3,13 +3,10 @@
  ogtype: article
 ---
 
-{%  include "styles.html", partials:"post/post, prisma/prisma" %}
+{%  include "styles.html", partials:"post/post, prisma/prisma, components/code" %}
 
 {% block content %}
 <section class="PageHeader MarginTop-xxl">
-  <h1 class="Heading PageHeader--Heading">
-    <span>{{ title }}</span>
-  </h1>
   <div class="Text--Secondary MarginY-xxs">
     <time>{{ date | date_formatted }}</time>
     <span>
@@ -20,10 +17,11 @@
     <span class="Reading-Time"> ({{ content | timeToRead }}) </span>
   </div>
 
-  <div class="PostSummary">
+  {% comment %}<div class="PostSummary">
     <strong>tl;dr: </strong>
     {{ excerpt }}
   </div>
+  {% endcomment %}
 </section>
 
 {% include "post-image.html" %}
@@ -31,6 +29,16 @@
 <article class="Article">
   {{ content }}
 </article>
+
+
+<details class="Comments">
+      <summary>Comments</summary>
+      <section>
+        <div id="disqus_thread"></div>
+      </section>
+
+      {% include "scripts.html", async, partials: "disqus" %}
+</details>
 
 <section class="other-links">
   <ul class="post-nav">
@@ -50,10 +58,6 @@
   </ul>
 </section>
 <div class="Separator MarginY-xl"></div>
-<section>
-  <div id="disqus_thread"></div>
-</section>
 
-{% include "scripts.html", async, partials: "disqus" %}
 
 {% endblock %}

@@ -1,8 +1,8 @@
 :root {
-  --font-mono: 'Roboto Mono', system-ui, Helvetica, Arial, sans-serif;
-  --font-body: system-ui, Helvetica, Arial, sans-serif;
+  --font-mono: MiddleDot,Baskerville,'Lucida Bright',Perpetua,Times,'Times New Roman',Palatino,Bookman,'New Century Schoolbook',serif;
+  --code-font: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', monospace;
 
-  --vb: 1.5rem;
+  --vb: 1.5em;
 
   --line-height: 1.5;
 

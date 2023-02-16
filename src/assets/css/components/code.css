@@ -1,0 +1,18 @@
+
+pre code {
+  display: block;
+}
+code {
+  font-family: var(--code-font);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 80%;
+}
+
+
+:not(pre):not(a) > code {
+  background: var(--inline-code-bg);
+  border-radius: 0.25em;
+  padding: 0 0.2em;
+  font-size: 70%;
+}

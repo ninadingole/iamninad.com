@@ -30,7 +30,7 @@ The following services would be needed to make the Debezium and Postgres work lo
 - Debezium UI - `localhost:8080`
 - Rest-Proxy - This is optional, but helps with checking cluster metadata, topics etc - `localhost:8082`
 
-### Starting Docker Compose
+## Starting Docker Compose
 
 Below is the docker-compose file I use to start the stack:
 
@@ -207,7 +207,7 @@ Now we have our docker-compose file ready let's start all the service
 
 As we could see all the containers have started without any errors. If you are running this command for the first time it would take some time to download all the docker images but the later executions will be faster
 
-### Configure Postgres Connector
+## Configure Postgres Connector
 
 At this point, our Debezium connector is running but it doesn't have any task to read changes happening on the Postgres DB. We need to register the Postgres connector using HTTP API so that debezium could read the transaction logs from the server.
 
@@ -246,7 +246,7 @@ curl -X POST --location "http://localhost:8083/connectors" -H "Content-Type: app
 }
 ```
 
-### List Kafka Topics
+## List Kafka Topics
 
 If there was no issue running the above steps we could confirm that our connector is working fine by checking if the topic is created for `movies` table by the connector.
 
@@ -262,7 +262,7 @@ postgres.public.movies
 
 As you could see from the above command we have `postgres.public.movies` a topic created by debezium. The topic name pattern is of a type `topic_prefix_config.schema.table` so the prefix is what we configured and the other part is fetched by the debezium from the database schema
 
-### Reading the data
+## Reading the data
 
 Now we know that the topic is created next we would check the data available on the topic.
 
@@ -517,7 +517,7 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic postgres.public
 ----- more data ommitted for readability purpose -----
 ```
 
-### Cleanup
+## Cleanup
 
 By running the below command all the services will be shut down and the resources would be released
 
@@ -527,7 +527,7 @@ docker compose -f docker-compose.yml -v down
 
 Here we specify `-v` option to also remove any volumes created by the docker-compose, this will also free the disk space allocated to the containers
 
-### Debezium UI
+## Debezium UI
 
 Debezium also provides a control dashboard. You could use it to add a new connector instead of using the REST API. The dashboard also provides the functionality to Pause or Restart the debezium task and also to delete the connector
 

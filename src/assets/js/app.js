@@ -1,19 +1,19 @@
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
 
 /**
  *  Theme switcher
  */
-const html = $('html')
-const themeButton = $('.js-theme-btn')
+const html = $('html');
+const themeButton = $('.js-theme-btn');
 
 let themeClass = {
   light: 'ThemeButton--Light',
   dark: 'ThemeButton--Dark',
-}
+};
 
 // Add the current theme class to display the correct icon in the UI
-themeButton.classList.add(themeClass[html.dataset.theme || 'light'])
+themeButton.classList.add(themeClass[html.dataset.theme || 'light']);
 
 /**
  *  Toggle between light/dark classes when the button is clicked and store the value in local 
