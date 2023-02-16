@@ -1,7 +1,43 @@
+pre {
+  margin: var(--vb) 0;
+  padding: 1.25em 1.5em;
+  overflow: auto;
+  position: relative;
+  background-color: #fffafd;
+  font-family: inherit; /* 1 */
+}
+
+
+@media (min-width: 1024px) {
+  /**
+   * 1. Increase width so the code container looks wider than the body text, but
+   *    the text within it is aligned with the body text.
+   */
+  pre {
+    width: calc(100% + 4em); /* 1 */
+    padding: 1.5em 2em; /* 1 */
+    left: -2em; /* 1 */
+  }
+}
+
+pre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  width:100%;
+  border-radius: 4px 4px 0 0;
+  opacity: 0.7;
+  background-image: linear-gradient(to right, #dd7eb4, #267cb9);
+}
 
 pre code {
   display: block;
+  overflow: inherit;
 }
+
 code {
   font-family: var(--code-font);
   word-wrap: break-word;
@@ -15,4 +51,100 @@ code {
   border-radius: 0.25em;
   padding: 0 0.2em;
   font-size: 70%;
+}
+
+.namespace {
+  opacity: 0.7;
+}
+
+.token.comment,
+.token.prolog,
+.token.cdata {
+  color: #b362ff;
+}
+
+.token.delimiter,
+.token.keyword,
+.token.selector,
+.token.important,
+.token.atrule {
+  color: #ff9d00;
+}
+
+.token.operator,
+.token.attr-name {
+  color: rgb(255, 180, 84);
+}
+
+.token.punctuation {
+  color: #ffffff;
+}
+
+.token.boolean {
+  color: rgb(255, 98, 140);
+}
+
+.token.tag,
+.token.tag .punctuation,
+.token.doctype,
+.token.builtin {
+  color: rgb(255, 157, 0);
+}
+
+.token.entity,
+.token.symbol {
+  color: #6897bb;
+}
+
+.token.number {
+  color: #ff628c;
+}
+
+.token.property,
+.token.constant,
+.token.variable {
+  color: #ff628c;
+}
+
+.token.string,
+.token.char {
+  color: #a5ff90;
+}
+
+.token.attr-value,
+.token.attr-value .punctuation {
+  color: #a5c261;
+}
+
+.token.attr-value .punctuation:first-child {
+  color: #a9b7c6;
+}
+
+.token.url {
+  color: #287bde;
+  text-decoration: underline;
+}
+
+.token.function {
+  color: rgb(250, 208, 0);
+}
+
+.token.regex {
+  background: #364135;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.inserted {
+  background: #00ff00;
+}
+
+.token.deleted {
+  background: #ff000d;
 }

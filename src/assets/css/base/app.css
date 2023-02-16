@@ -319,7 +319,10 @@ main:focus {
 
 /*  Adapted from gatsby */
 .ThemeButton {
+  position: fixed;
   padding: 0;
+  bottom: 1em;
+  right: 1em;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -331,14 +334,12 @@ main:focus {
   display: inline-flex;
   height: 40px;
   justify-content: center;
-  margin-right: -11px;
   opacity: 0.75;
-  overflow: hidden;
-  position: relative;
   transform: scale(0.75);
   transition: opacity 0.3s ease;
   vertical-align: middle;
   width: 40px;
+  z-index: 10;
 }
 
 .ThemeButton--Light div:nth-child(1) {

@@ -195,14 +195,14 @@ Now we have our docker-compose file ready let's start all the service
 ```bash
  docker compose -f docker-compose.yml up -d
 [+] Running 8/8
- ⠿ Network postgres_default   Created                                                                                                                                                                          0.1s
- ⠿ Container postgres         Healthy                                                                                                                                                                         12.8s
- ⠿ Container zookeeper        Healthy                                                                                                                                                                         11.8s
- ⠿ Container broker           Healthy                                                                                                                                                                         22.6s
- ⠿ Container debezium         Healthy                                                                                                                                                                         44.2s
- ⠿ Container rest-proxy       Started                                                                                                                                                                         23.1s
- ⠿ Container schema-registry  Started                                                                                                                                                                         23.1s
- ⠿ Container debezium-ui      Started                                                                                                                                                                         44.6s
+ ⠿ Network postgres_default   Created               0.1s
+ ⠿ Container postgre          Healthy              12.8s
+ ⠿ Container zookeeper        Healthy              11.8s
+ ⠿ Container broker           Healthy              22.6s
+ ⠿ Container debezium         Healthy              44.2s
+ ⠿ Container rest-proxy       Started              23.1s
+ ⠿ Container schema-registry  Started              23.1s
+ ⠿ Container debezium-ui      Started              44.6s
 ```
 
 As we could see all the containers have started without any errors. If you are running this command for the first time it would take some time to download all the docker images but the later executions will be faster
@@ -214,7 +214,10 @@ At this point, our Debezium connector is running but it doesn't have any task to
 It's easy to register the connector, there is a sample connector config already present in the repo. Execute the below `curl` and we would see the connector registered
 
 ```bash
-curl -X POST --location "http://localhost:8083/connectors" -H "Content-Type: application/json" -H "Accept: application/json" -d @connector.json
+curl -X POST --location "http://localhost:8083/connectors" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d @connector.json
 ```
 
 ```json
