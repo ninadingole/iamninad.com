@@ -1,0 +1,7 @@
+<section>
+  <ul class="List MarginTop-xxl">
+    {% for post in posts limit: site.maxPostsInHomePage %}
+      {% include "post_list_item.html", post: post %}
+    {% endfor %}
+  </ul>
+</section>

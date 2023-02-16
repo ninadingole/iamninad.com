@@ -1,0 +1,8 @@
+
+.Header {
+  margin-top: calc(var(--vb) * 2);
+}
+
+.Header-Link:not(:last-child) {
+  margin-right: 1rem;
+}

@@ -1,0 +1,59 @@
+---
+ layout: default
+ ogtype: article
+---
+
+{%  include "styles.html", partials:"post/post, prisma/prisma" %}
+
+{% block content %}
+<section class="PageHeader MarginTop-xxl">
+  <h1 class="Heading PageHeader--Heading">
+    <span>{{ title }}</span>
+  </h1>
+  <div class="Text--Secondary MarginY-xxs">
+    <time>{{ date | date_formatted }}</time>
+    <span>
+      {% for tag in tags %}
+      <a href="/tags/{{ tag }}" class="TagLink">#{{ tag }}</a>
+      {% endfor %}
+    </span>
+    <span class="Reading-Time"> ({{ content | timeToRead }}) </span>
+  </div>
+
+  <div class="PostSummary">
+    <strong>tl;dr: </strong>
+    {{ excerpt }}
+  </div>
+</section>
+
+{% include "post-image.html" %}
+
+<article class="Article">
+  {{ content }}
+</article>
+
+<section class="other-links">
+  <ul class="post-nav">
+    {%- assign nextPost = collections.posts | getNextCollectionItem: page %} {%-
+    if nextPost %}
+    <li class="next">
+      add link here
+      <i class="fas fa-chevron-right"></i>
+    </li>
+    {% endif %} {%- assign previousPost = collections.posts |
+    getPreviousCollectionItem: page %} {%- if previousPost %}
+    <li class="previous">
+      <i class="fas fa-chevron-left"></i>
+      add link here
+    </li>
+    {% endif %}
+  </ul>
+</section>
+<div class="Separator MarginY-xl"></div>
+<section>
+  <div id="disqus_thread"></div>
+</section>
+
+{% include "scripts.html", async, partials: "disqus" %}
+
+{% endblock %}

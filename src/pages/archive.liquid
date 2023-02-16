@@ -1,0 +1,35 @@
+---
+layout: default
+
+title: "Archive"
+excerpt: "complete archive of all posts"
+permalink: /archive/index.html
+
+---
+
+{% include "styles.html", partials: "list/post-list" %}
+
+<h1 class="Heading MarginTop-xxl">
+  <span class="TitleShadow">Archive</span>
+</h1>
+
+{% assign archive = collections.posts | groupByYear %}
+
+<section class="PostListWrapper" style="--totalPosts: {{ collections.posts.length | plus:1 }}">
+  <ul class="PostList MarginTop-l">
+    {% for item in archive %}
+      <li class="List-Item">
+        <h2 class="Heading">
+          <span class="">{{ item[0] }}</span>
+        </h2>
+        <ol class="PostList">
+          {% for post in item[1] %}
+            <li>
+              <a class="Link PostList-Link MarginTop-s" href="{{post.url}}">{{ post.data.title }}</a>
+            </li>
+          {% endfor %}
+        </ol>
+      </li>
+    {% endfor %}
+  </ul>
+</section>

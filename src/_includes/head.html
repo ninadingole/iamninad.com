@@ -1,0 +1,101 @@
+{% assign page_url = page.url | prepend: site.url %}
+{% assign page_description = excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 %}
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article:
+http://ogp.me/ns/article#">
+  <!-- Global stuff -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0055FF" />
+  {% if site.monetization %}
+  <meta name="monetization" content="{{ site.monetization }}" />
+  {% endif %}
+  <meta name="generator" content="{{ eleventy.generator }}" />
+
+  {% for preconnect in site.preconnects %}
+  <link rel="preconnect" href="{{ preconnect }}" />
+  {% endfor %}
+
+  <title>{% if title %}{{ title }} | {{ site.author }}{% else %}{{ site.author }}{% endif %}</title>
+  <meta name="description" content="{{ page_description }}">
+  {% if keywords %}
+  <meta name="keywords" content="{{ keywords | join: ',' }}" />
+  {% endif %}
+  <meta name="author" content="{{ guest | default: site.author }}">
+
+
+
+  {% block content %}
+  {% if canonicalLink %}
+  <link rel="canonical" href="{{ canonicalLink }}">
+  {% else %}
+  <link rel="canonical" href="{{ page_url }}">
+  {% endif %}
+  {% endblock %}
+
+  <!-- Robots & indexing -->
+  {% if external %}
+  <meta name="robots" content="noindex,nofollow">
+  {% if site.environment == 'production' %}
+  <meta http-equiv="refresh" content="0;url={{ external.url }}" />
+  {% endif %}
+  {% else %}
+  <meta name="robots" content="index,follow">
+  <meta name="revisit-after" content="1 days">
+  {% endif %}
+
+  <!-- Styles -->
+  {% include "styles.html", partials: "
+  base/variables,
+  base/normalize,
+  base/app,
+  layout/header,
+  layout/navigation,
+  list/post-list"
+  %}
+
+  <!-- Scripts -->
+  {% include "scripts.html", partials: "utilities" %}
+
+  <!-- Fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  </noscript>
+  <script src="https://kit.fontawesome.com/e1454ae041.js" crossorigin="anonymous" defer></script>
+  <script src="https://unpkg.com/lite-iframe@0.3.0/dist/lite-iframe.esm.js" type="module"></script>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.author }}"
+    href="{{ '/feed.xml' | prepend: site.url }}" />
+
+  <!-- Favicon -->
+  <link rel="icon apple-touch-icon" href="/assets/images/apple-touch-icon.png" sizes="180x180" type="image/png" />
+  <link rel="icon" href="/assets/images/favicon-96x96.png" sizes="96x96" type="image/png" />
+  <link rel="icon" href="/assets/images/favicon-32x32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/assets/images/favicon-16x16.png" sizes="16x16" type="image/png" />
+
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="{{ title | default: site.author }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ page_url }}" />
+  <meta property="og:description" content="{{ page_description }}" />
+  <meta property="og:site_name" content="kittygiraudel.com" />
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@KittyGiraudel">
+  <meta name="twitter:description" content="{{ page_description }}">
+  <meta name="twitter:domain" content="kittygiraudel.com">
+  <meta name="twitter:image" content="https://kittygiraudel.com/assets/images/favicon-192.jpg">
+  <meta name="twitter:site" content="@KittyGiraudel">
+  <meta name="twitter:title" content="{{ title | default: site.author }}">
+
+
+
+</head>

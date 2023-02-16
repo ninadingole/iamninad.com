@@ -1,0 +1,14 @@
+ <nav class="Navigation" role="navigation">
+  <ul class="Navigation__list">
+   {% for nav in site.nav %}
+   {% assign check = page.url | split:item.path %}
+   <li class="Navigation__item">
+    <a href="{{ nav.url }}" {% if nav.external %} target="_blank" rel="noopener noreferrer" {% endif %}
+     class="Navigation__link" {% if check[0] == '' %} aria-current="page" {% endif %}>
+     {{ nav.title }}
+   </a>
+   </li>
+   {% endfor %}
+  </ul>
+
+ </nav>

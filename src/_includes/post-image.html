@@ -1,0 +1,16 @@
+{% if postImage %}
+<section class="Banner-Image" id="banner">
+{%  resI postImage, title, "[750, 900, 1200]"  %}
+  {% if postImageCredits %}
+    <div class="Credits">
+        <a href="{{ postImageCredits | linkUrl }}" target="_blank" class="Link" rel="noopener">
+          {{ postImageCredits | linkName }}
+        </a>
+        on
+        <a href="{{ postImageSource | linkUrl }}" target="_blank" class="Link" rel="noopener">
+          {{ postImageSource | linkName }}
+        </a>
+    </div>
+  {% endif %}
+</section>
+{% endif %}

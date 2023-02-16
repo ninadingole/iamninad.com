@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+   
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHB9929" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+        <a href="#main-content" class="SkipContent">
+            Skip to main content
+        </a>
+
+        <div class="Container">
+            {% include "partials/header" %}
+            <main id="main-content" class="Content" tabindex="-1">
+                {% block header %}{% endblock %}
+                {% block content %}{% endblock content %}
+
+            </main>
+            {% include "partials/footer" %}
+        </div>
+
+        {% set js %}
+        {% include "assets/js/instant.js" %}
+        {% include "assets/js/app.js" %}
+        {% if js.length > 0 %}
+            {% for file in js %}
+                {% include "assets/js/" + file + ".js" %}
+            {% endfor %}
+        {% endif %}
+        {% endset %}
+        <script>
+            {{ js | jsmin | safe }}
+        </script>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+{% if partials %}
+{% assign paths = partials | split: "," %}
+{% if site.environment == 'production' %}
+{% capture css %}
+{% for path in paths %}{% include "../assets/css/{{ path | strip }}.css" %}{% endfor %}
+{% endcapture %}
+
+<style>
+  {{ css }}
+</style>
+{% else %}
+{% for path in paths %}
+<link rel="stylesheet" href="/assets/css/{{ path | strip }}.css" />
+{% endfor %}
+{% endif %}
+{% endif %}

@@ -1,0 +1,20 @@
+---
+layout: default
+
+title: Oops! Not Found
+excerpt: You are lost in the outer space. May be try to find it from home page?
+ogtype: website
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+{% include "styles.html", partials: "error-pages" %}
+<section class="ErrorPage">
+  <img
+    class="ErrorPage-Image"
+    src="{{ '/assets/images/404.png' | url }}"
+    alt="">
+  <h1>{{ title }}</h1>
+  <p>You are lost in the outer space. May be try to find it from
+    <a class="Link" href="{{ "/" | url }}">home page?</a>
+  </p>
+</section>

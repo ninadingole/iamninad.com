@@ -1,0 +1,11 @@
+<hr class="Separator MarginTop-xxl">
+<footer class="Footer" role="contentinfo">
+  <nav>
+    {% for site in site.social %}
+      <a href="{{site[1] | mailHref }}" rel="noopener" target="_blank" class="Link Footer-Link">{{ site[0] }}</a>
+    {% endfor %}
+  </nav>
+</footer>
+<div class="Copyright Flex">
+  <p class="Flex--alignCenter">&copy;&nbsp;2017-{{site.currentYear}} iamninad.com, made with 11ty, hosted on Netlify</p>
+</div>

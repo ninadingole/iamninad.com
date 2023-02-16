@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include "head.html" %}
+
+<body>
+    {% include "gtm.html" %}
+    {% include "skip_link.html" %}
+    {% include "header.html" %}
+
+    <div class="Container">
+
+        <main id="main-content" class="Content" tabindex="-1">
+            {% block header %}{% endblock %}
+            {% block content %}
+            {{ content }}
+            {% endblock content %}
+
+        </main>
+        {% include "footer" %}
+
+        {% include "scripts.html", partials: "app, head, main" %}
+    </div>
+</body>
+
+</html>

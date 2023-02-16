@@ -24,29 +24,6 @@ const parseDate = str => {
 };
 
 module.exports = {
-    htmlmin: (content, outputPath) => {
-        if (outputPath.indexOf('.html') > -1) {
-            let minified = htmlmin.minify(content, {
-                useShortDoctype: true,
-                removeComments: true,
-                collapseWhitespace: true,
-            });
-            return minified;
-        }
-        return content;
-    },
-
-    cssmin: code => new CleanCSS({}).minify(code).styles,
-
-    jsmin: code => {
-        let minified = Terser.minify(code);
-        if (minified.error) {
-            console.log('Terser error: ', minified.error);
-            return code;
-        }
-        return minified.code;
-    },
-
     markdownify: str => markdown.render(str || ''),
 
     addYear: _collection => {
@@ -67,13 +44,7 @@ module.exports = {
 
         for (let item of collection) {
             let year = DateTime.fromJSDate(parseDate(item.date)).toFormat('yyyy');
-            // let currentItems = ;
-
-            // if (Array.isArray(currentItems)) {
-            //     currentItems.push(item)
-            // } else {
             yearMap.set(year, [item, ...(yearMap.get(year) || [])])
-            //}
         }
 
         for (let [key, value] of yearMap) {
