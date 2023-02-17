@@ -1,0 +1,26 @@
+.Banner {
+  position: relative;
+}
+
+.Banner__credits {
+  position: absolute;
+  font-size: 80%;
+  bottom: 0;
+
+  color: #ccc;
+  background: #111;
+
+  padding: 0 0.4em;
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 1024px) {
+  .Banner {
+    width: calc(100% + 8em);
+    padding: 0em 2em;
+    left: -4em;
+  }
+}
