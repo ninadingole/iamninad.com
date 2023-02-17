@@ -27,6 +27,10 @@ module.exports = {
 
   nav :[
     {
+      title: 'blog',
+      url: '/blog/',
+    },
+    {
       title: 'sponsor',
       url: 'https://github.com/sponsors/ninadingole',
       external: true,
