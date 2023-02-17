@@ -33,6 +33,7 @@ body {
   'Times', 'Times New Roman', 'Palatino', 'Bookman', 'New Century Schoolbook',
   serif;
   overflow-x: hidden; /* 2 */
+  background: var(--bg);
 }
 
 @media (min-width: 768px) {
@@ -116,7 +117,7 @@ a:not(.Title__link) {
 a:not(.Title__link):hover,
 a:not(.Title__link):active,
 a:not(.Title__link):focus {
-  color: #222;
+  color: var(--text-color);
   background-size: 100% 88%;
 }
 

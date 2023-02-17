@@ -1,0 +1,142 @@
+/*  Adapted from gatsby */
+.ThemeButton {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  margin-right: -11px;
+  opacity: 0.75;
+  overflow: hidden;
+  transform: scale(0.75);
+  transition: opacity 0.3s ease;
+  vertical-align: middle;
+  width: 40px;
+}
+
+.ThemeButton--Light div:nth-child(1) {
+  border: 2px solid #b7b5bd;
+  background: #b7b5bd;
+  border-radius: 50%;
+  height: 24px;
+  overflow: hidden;
+  position: relative;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  transition: all 0.45s ease;
+  width: 24px;
+}
+
+.ThemeButton--Light div:nth-child(1)::before {
+  border-radius: 50%;
+  border: 2px solid #b7b5bd;
+  content: '';
+  height: 24px;
+  opacity: 1;
+  position: absolute;
+  right: -9px;
+  top: -9px;
+  transform: translate(0, 0);
+  transition: transform 0.45s ease;
+  width: 24px;
+}
+
+.ThemeButton--Light div:nth-child(1)::after {
+  border-radius: 50%;
+  box-shadow: 0 -23px 0 #b7b5bd, 0 23px 0 #b7b5bd, 23px 0 0 #b7b5bd,
+  -23px 0 0 #b7b5bd, 15px 15px 0 #b7b5bd, -15px 15px 0 #b7b5bd,
+  15px -15px 0 #b7b5bd, -15px -15px 0 #b7b5bd;
+  content: '';
+  height: 8px;
+  left: 50%;
+  margin: -4px 0 0 -4px;
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  transition: all 0.35s ease;
+}
+
+.ThemeButton--Light div:nth-child(2) {
+  background: #ffffff;
+  border-radius: 50%;
+  border: 0;
+  height: 24px;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(0, 0);
+  transition: background 0.25s ease, transform 0.45s ease;
+  width: 24px;
+}
+
+.ThemeButton--Dark div:nth-child(1) {
+  height: 24px;
+  position: relative;
+  -webkit-transform: scale(0.55);
+  transform: scale(0.55);
+  width: 24px;
+  border-radius: 50%;
+  overflow: visible;
+  transition: all 0.45s ease 0s;
+}
+
+.ThemeButton--Dark div:nth-child(1)::before {
+  content: '';
+  height: 24px;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #635e69;
+  width: 24px;
+  border-radius: 50%;
+  transition: -webkit-transform 0.45s ease 0s;
+  transition: transform 0.45s ease 0s;
+  transition: transform 0.45s ease 0s, -webkit-transform 0.45s ease 0s;
+}
+
+.ThemeButton--Dark div:nth-child(1)::after {
+  box-shadow: 0 -23px 0 #635e69, 0 23px 0 #635e69, 23px 0 0 #635e69,
+  -23px 0 0 #635e69, 15px 15px 0 #635e69, -15px 15px 0 #635e69,
+  15px -15px 0 #635e69, -15px -15px 0 #635e69;
+  content: '';
+  height: 8px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  border-radius: 50%;
+  margin: -4px 0px 0px -4px;
+  transition: all 0.35s ease 0s;
+}
+
+.ThemeButton--Dark div:nth-child(2) {
+  height: 24px;
+  opacity: 0;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  transform: translate(14px, -14px);
+  width: 24px;
+  border-radius: 50%;
+  border-width: 0px;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  transition: background 0.25s ease 0s, transform 0.45s ease 0s;
+}
