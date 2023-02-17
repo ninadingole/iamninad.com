@@ -1,16 +1,16 @@
 /*  Adapted from gatsby */
 .ThemeButton {
   position: fixed;
-  bottom: 1em;
-  right: 1em;
+  bottom: 2em;
+  right: 2em;
   padding: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   align-items: center;
-  background: transparent;
+  background: #fff;
   border-radius: 5px;
-  border: 0;
+  border: 1px solid #eee;
   cursor: pointer;
   display: inline-flex;
   height: 40px;

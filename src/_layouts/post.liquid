@@ -3,6 +3,8 @@
  ogtype: article
 ---
 
+{%  include "styles.html", partials:"components/code" %}
+
 {% block content %}
 <section class="PageHeader MarginTop-xxl">
   <div class="Text--Secondary MarginY-xxs">
@@ -22,6 +24,7 @@
   {% endcomment %}
 </section>
 
+{% include "post-image.html" %}
 
 <article class="Article">
   {{ content }}
