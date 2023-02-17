@@ -3,34 +3,28 @@
 {% include "head.html" %}
 
 <body>
-    {% include "gtm.html" %}
-    {% include "skip_link.html" %}
-    {% include "header.html" %}
+{% include "gtm.html" %}
+{% include "skip_link.html" %}
+{% include "header.html" %}
 
-    <div class="Container">
+<main id="main-content" class="Content" role="main">
+  <div class="Container">
+    {% block header %}{% endblock %}
+    {% block content %}
+    {{ content }}
+    {% endblock content %}
+    {% include "footer" %}
+  </div>
+</main>
 
-        <main id="main-content" class="Content" tabindex="-1">
-            {% block header %}{% endblock %}
-            {% block content %}
-            {{ content }}
-            {% endblock content %}
-        </main>
+{% comment %} Icon adapted from Gatsby narrative theme {% endcomment %}
 
+<button class="ThemeButton js-theme-btn" aria-label="Activate dark mode" title="Activate dark mode">
+  <div></div>
+  <div></div>
+</button>
 
-
-        {% include "footer" %}
-
-      
-    </div>
-
-    {% comment %} Icon adapted from Gatsby narrative theme {% endcomment %}
-  
-    <button class="ThemeButton js-theme-btn" aria-label="Activate dark mode" title="Activate dark mode">
-        <div></div>
-        <div></div>
-    </button>
-
-    {% include "scripts.html", partials: "instant, head, main, app" %}
+{% include "scripts.html", partials: "instant, head, main, app" %}
 
 </body>
 

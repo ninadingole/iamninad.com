@@ -45,14 +45,7 @@ http://ogp.me/ns/article#">
   {% endif %}
 
   <!-- Styles -->
-  {% include "styles.html", partials: "
-  base/normalize,
-  base/variables,
-  base/app,
-  layout/header,
-  layout/navigation,
-  components/title,
-  list/post-list"
+  {% include "styles.html", partials: "base/variables, base/base, layout/app, layout/header, components/title"
   %}
 
   <!-- Scripts -->

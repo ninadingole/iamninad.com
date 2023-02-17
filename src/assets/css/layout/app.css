@@ -1,0 +1,9 @@
+.Content {
+  counter-reset: footnotes;
+}
+
+@media (min-width: 768px) {
+  .Content {
+    padding: calc(var(--vb) / 2) 0 var(--vb);
+  }
+}

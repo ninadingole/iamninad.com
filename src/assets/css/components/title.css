@@ -1,10 +1,10 @@
 .Title {
-  font-size: 2.5rem;
+  color: #dd7eb4;
+  font-size: 2.5em;
   font-weight: 300;
   line-height: 1.15;
-  margin: 0 auto 0.5rem;
+  margin: 0 auto 0.5em;
   text-align: center;
-  color: #dd7eb4;
 }
 
 @media (min-width: 768px) {
@@ -15,13 +15,13 @@
 }
 
 .Title__link {
+  color: inherit;
   display: inline-block;
   border-bottom: 0;
-  text-decoration: none;
-  background-image: linear-gradient(to right,#FFF6B7,#F6416C);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right,var(--gradient-color-1),var(--gradient-color-2));
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
 }
 
 @media print {

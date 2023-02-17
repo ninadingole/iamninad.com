@@ -32,6 +32,11 @@
   --reading-time-color: #BC0101;
 
   --banner-image-shadow-color: rgba(0 0 0 / 50%);
+
+  --gradient-color-1: #EEAD92;
+  --gradient-color-1-light: #fbe3d7;
+  --gradient-color-2: #6018DC;
+  --gradient-color-2-light: #e1d5fb;
 }
 
 :root[data-theme='dark'] {
