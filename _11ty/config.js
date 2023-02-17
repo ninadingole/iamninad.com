@@ -35,6 +35,8 @@ module.exports = function (eleventyConfig) {
         eleventyConfig.addFilter(filterName, globalFilters[filterName]);
     });
 
+    eleventyConfig.addFilter('markdown', content => markdown(content, true));
+    eleventyConfig.addPairedShortcode('markdown', content => markdown(content, false));
     eleventyConfig.addFilter('time', time)
     eleventyConfig.addFilter('date_to_rfc3339', dateToRFC3339)
     eleventyConfig.addFilter('dateToXmlSchema', dateToXmlSchema);
@@ -249,4 +251,13 @@ function minifyHTML(content, outputPath) {
             useShortDoctype: true,
         })
         : content
+}
+
+function markdown(content, inline = true) {
+  const html = markdownIt({
+    html: true,
+  }).use(markdownItAnchor, {
+  }).render(content);
+
+  return inline ? html.replace('<p>', '').replace('</p>', '') : html;
 }

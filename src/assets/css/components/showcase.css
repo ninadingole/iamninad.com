@@ -1,0 +1,12 @@
+.Showcase__title {
+  margin-bottom: calc(var(--vb) / 6);
+}
+.Showcase__meta {
+  font-size: 80%;
+  color: var(--text-secondary-color);
+}
+
+.Showcase__tags {
+  font-size: 80%;
+  color: var(--text-secondary-color);
+}

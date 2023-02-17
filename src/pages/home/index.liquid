@@ -2,13 +2,28 @@
 layout: default
 title: "Hi from Neenad"
 keywords:
-  - developer
-  - writer
-  - developer-advocate
-  - polyglot-programmer
+- developer
+- writer
+- developer-advocate
+- polyglot-programmer
 permalink: /
 ---
 
-{% include "styles.html", partials:"home" %}
+{% include "styles.html", partials: "home" %}
 
+{% markdown %}
+Hi I'm Neenad. I'm a Full Stack Developer, Writer, Developer Advocate and a Polyglot Programmer.
+I have worked with a lot of different languages and technologies over the years.
+I have worked with companies like [HelloFresh](https://hellofresh.com/) and [ThoughtWorks](https://www.thoughtworks.com/) and have worked with different clients.
+For more information, you can read my [about me](/about-me/) page.
+{% endmarkdown %}
 
+{% assign latest_posts = collections.posts | slice: 0, 2 %}
+{% include "showcase.html",
+  type: "article",
+  title: "Latest articles",
+  copy: "I write about things I learn and things I find interesting. I also write about things I am working on. I write about things I learn and things I find interesting. I also write about things I am working on.",
+  link: "/blog/",
+  link_text: "Read more articles",
+  items: latest_posts
+%}

@@ -1,0 +1,21 @@
+.SkipContent {
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  top: 1em;
+  left: 1em;
+  font-size: 80%;
+  outline: 0;
+  border-bottom: 2px solid transparent;
+  position: absolute;
+}
+
+.SkipContent:focus,
+.SkipContent:active {
+  clip: auto;
+  height: auto;
+  width: auto;
+  border-bottom: 2px solid var(--gradient-color-2-light);
+  overflow: visible;
+}

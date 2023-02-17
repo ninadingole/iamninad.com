@@ -1,0 +1,25 @@
+{% include "styles.html", partials: "components/showcase" %}
+<section class="Showcase">
+  {% if title %} <h2 class="Showcase-title">{{ title }}</h2> {% endif %}
+  <p class="Showcase__copy">{{ copy | markdown }}</p>
+  <div class="Showcase__container">
+    {% for item in items %}
+    {% assign data = item.data %}
+    <div class="Showcase__item">
+        <h3 class="Showcase__title"><a href="{{ item.url }}" class="Showcase__link">{{ data.title }}</a></h3>
+        <div class="Showcase__meta">
+          <time>{{ data.date | date_formatted }}</time>
+          <span class="Reading-Time">
+            ~ {{ item | timeToRead }}
+          </span>
+        </div>
+        <p class="Showcase__excerpt">{{ item.data.excerpt }}</p>
+        <div class="Showcase__tags">
+          {% for tag in data.tags %}
+            <a href="/tags/{{tag}}" class="TagLink">#{{ tag }}</a>
+          {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

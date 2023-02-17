@@ -23,9 +23,8 @@ const parseDate = str => {
     return date.toJSDate();
 };
 
-module.exports = {
-    markdownify: str => markdown.render(str || ''),
 
+module.exports = {
     addYear: _collection => {
         let collection = _collection.slice()
 

@@ -2,9 +2,16 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
   font-size: 80%;
+}
+
+.Navigation__item {
+  list-style: none;
+  display: inline-block;
+}
+.Navigation__list>li:not(:last-of-type)::after {
+  content: "⁃";
+  color: var(--text-secondary-color);
+  margin: 0 0 0.5ch;
 }
