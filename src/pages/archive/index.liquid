@@ -9,10 +9,6 @@ permalink: /archive/index.html
 
 {% include "styles.html", partials: "list/post-list" %}
 
-<h1 class="Heading MarginTop-xxl">
-  <span class="TitleShadow">Archive</span>
-</h1>
-
 {% assign archive = collections.posts | groupByYear %}
 
 <section class="PostListWrapper" style="--totalPosts: {{ collections.posts.length | plus:1 }}">
