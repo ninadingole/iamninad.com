@@ -5,7 +5,8 @@ ogtype: article
 
 {% include "styles.html", partials: "
 components/code,
-components/banner" %}
+components/banner,
+components/collection-navigation" %}
 
 {% block content %}
 <section class="PageHeader MarginTop-xxl">
@@ -42,26 +43,11 @@ components/banner" %}
   {% include "scripts.html", async, partials: "disqus" %}
 </details>
 
-<hr class="Separator MarginTop-xxl">
-
-<section class="other-links">
-  <ul class="post-nav">
-    {%- assign nextPost = collections.posts | getNextCollectionItem: page %} {%-
-      if nextPost %}
-      <li class="next">
-        add link here
-        <i class="fas fa-chevron-right"></i>
-      </li>
-    {% endif %} {%- assign previousPost = collections.posts |
-      getPreviousCollectionItem: page %} {%- if previousPost %}
-      <li class="previous">
-        <i class="fas fa-chevron-left"></i>
-        add link here
-      </li>
-    {% endif %}
-  </ul>
-</section>
-<div class="Separator MarginY-xl"></div>
+{% include "collection_navigation.html",
+  page: page,
+  collection: collections.posts,
+  name: "post"
+%}
 
 
 {% endblock %}
