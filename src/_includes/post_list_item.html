@@ -1,13 +1,7 @@
 {% assign url = post.url %}
 {% assign data = post.data %}
-<li class="List-Item">
-  <h1 class="Heading">
-    <a class="List-ItemLink" href="{{ url }}">
-      <span class="TitleShadow Link Link--OnHover">{{ data.title }}</span>
-      <span aria-hidden="true" class="List-ItemVisitedStatus"></span>
-    </a>
-  </h1>
-  <div class="Text--Secondary MarginY-xxs">
+<li class="List__item">
+  <div class="List--secondary-content Margin-1">
     <time>{{ post.date | date_formatted }}</time>
     <span>
       {% for tag in data.tags %}
@@ -18,7 +12,11 @@
       ({{ post | timeToRead }})
     </span>
   </div>
-  <p class="Margin-1">{{ data.excerpt | markdownify_inline }}</p>
+  <a class="List-ItemLink List--primary-content" href="{{ url }}">
+    <span class="TitleShadow Link Link--OnHover">{{ data.title }}</span>
+    <span aria-hidden="true" class="List-ItemVisitedStatus"></span>
+  </a>
+  <p>{{ data.excerpt | markdownify_inline }}</p>
   <div>
     <a href="{{ url }}" class="Link">read more ⟶</a>
   </div>

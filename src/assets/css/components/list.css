@@ -1,0 +1,20 @@
+.List {
+  list-style: none;
+  padding-left: 0;
+}
+
+.List__item {
+  padding: calc(var(--vb)/ 3 * 2) 0;
+}
+
+.List--primary-content {
+  font-size: 150%;
+  line-height: 1.1;
+}
+
+.List--secondary-content {
+  font-size: 50%;
+  color: var(--text-secondary-color);
+  font-family: var(--code-font);
+  margin: calc(var(--vb) / 3) 0;
+}
