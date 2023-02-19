@@ -1,0 +1,27 @@
+<footer class="Footer" role="contentinfo">
+ <div class="Container">
+  <div class="Footer__inner">
+   <div class="Footer__left">
+     <div class="aboutme">
+       {% markdown %}Hi I'm Neenad Ingole. I am a Full Stack developer from India.
+       I am currently focusing on Backend Development using Golang. I am writing about my learnings and experiences on this blog.
+       {% endmarkdown %}
+     </div>
+
+     <div class="Footer__copyright Flex">
+       <p class="Flex--alignCenter">&copy;&nbsp;2017-{{site.currentYear}} iamninad.com, made with 11ty, hosted on Netlify</p>
+     </div>
+
+   </div>
+    <div class="Footer__right">
+      <ul class="Footer__nav">
+        {% for site in site.social %}
+        <li>
+          <a href="{{site[1] | mailHref }}" rel="noopener" target="_blank" class="Link Footer-Link">{{ site[0] }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+ </div>
+</footer>

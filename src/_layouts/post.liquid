@@ -1,9 +1,11 @@
 ---
- layout: default
- ogtype: article
+layout: default
+ogtype: article
 ---
 
-{%  include "styles.html", partials:"components/code, components/banner" %}
+{% include "styles.html", partials: "
+components/code,
+components/banner" %}
 
 {% block content %}
 <section class="PageHeader MarginTop-xxl">
@@ -11,7 +13,7 @@
     <time>{{ date | date_formatted }}</time>
     <span>
       {% for tag in tags %}
-      <a href="/tags/{{ tag }}" class="TagLink">#{{ tag }}</a>
+        <a href="/tags/{{ tag }}" class="TagLink">#{{ tag }}</a>
       {% endfor %}
     </span>
     <span class="Reading-Time"> ({{ content | timeToRead }}) </span>
@@ -32,28 +34,30 @@
 
 
 <details class="Comments">
-      <summary>Comments</summary>
-      <section>
-        <div id="disqus_thread"></div>
-      </section>
+  <summary>Comments</summary>
+  <section>
+    <div id="disqus_thread"></div>
+  </section>
 
-      {% include "scripts.html", async, partials: "disqus" %}
+  {% include "scripts.html", async, partials: "disqus" %}
 </details>
+
+<hr class="Separator MarginTop-xxl">
 
 <section class="other-links">
   <ul class="post-nav">
     {%- assign nextPost = collections.posts | getNextCollectionItem: page %} {%-
-    if nextPost %}
-    <li class="next">
-      add link here
-      <i class="fas fa-chevron-right"></i>
-    </li>
+      if nextPost %}
+      <li class="next">
+        add link here
+        <i class="fas fa-chevron-right"></i>
+      </li>
     {% endif %} {%- assign previousPost = collections.posts |
-    getPreviousCollectionItem: page %} {%- if previousPost %}
-    <li class="previous">
-      <i class="fas fa-chevron-left"></i>
-      add link here
-    </li>
+      getPreviousCollectionItem: page %} {%- if previousPost %}
+      <li class="previous">
+        <i class="fas fa-chevron-left"></i>
+        add link here
+      </li>
     {% endif %}
   </ul>
 </section>

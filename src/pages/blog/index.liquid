@@ -1,11 +1,14 @@
 ---
 layout: default
 
-title: "Blog"
+title: "Writings..."
 excerpt: "I am a Full Stack Developer who loves to explore tech and share the expierences and findings with the world"
 pagination: { data: collections.posts, size: 5, alias: "posts" }
 permalink: "/blog/{% if pagination.pageNumber > 0 %}{{ pagination.pageNumber | plus: 1 }}/{% endif %}index.html"
 ---
+{% include "styles.html", partials: "
+components/pagination"
+%}
 
 {% include "post_list.html", posts: posts %}
 

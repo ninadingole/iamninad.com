@@ -16,13 +16,10 @@ module.exports = {
   monetization: "$ilp.uphold.com/96QFDLnaPa42",
 
   social: {
-    about: 'https://iamninad.com/about',
     twitter: 'https://twitter.com/iamneenad',
     github: 'https://github.com/ninadingole',
     email: 'ninad.ingole@gmail.com',
-    sponser: 'https://github.com/sponsors/ninadingole',
     newsletter: 'https://blog.iamninad.com/newsletter',
-    rss : 'https://iamninad.com/rss/index.xml',
   },
 
   nav :[
@@ -39,10 +36,6 @@ module.exports = {
       title: 'newsletter',
       url: 'https://blog.iamninad.com/newsletter',
       external: true,
-    },
-    {
-      title: 'archive',
-      url: '/archive',
     },
     {
       title: 'rss',

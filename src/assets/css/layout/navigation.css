@@ -7,9 +7,41 @@
 }
 
 .Navigation__item {
+  line-height: 1.5;
   list-style: none;
   display: inline-block;
+  color: var(--nav-link-color);
 }
+
+.Navigation__link {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  border-bottom: 0;
+  transition: 200ms color;
+}
+
+.Navigation__link::before {
+  content: '';
+  position: absolute;
+
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  opacity: 0;
+  background-color: var(--gradient-color-1);
+  transform: translateY(8px);
+  transition: transform 0s ease-out,opacity 0s;
+}
+
+.Navigation__link:hover::before,
+.Navigation__link:focus::before {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 200ms ease-out, opacity 200ms;
+}
+
 .Navigation__list>li:not(:last-of-type)::after {
   content: "⁃";
   color: var(--text-secondary-color);

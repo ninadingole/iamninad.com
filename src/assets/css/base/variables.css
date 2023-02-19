@@ -13,6 +13,7 @@
   --dark-bg: #2d2a2a;
   --dark-text-color: #fff;
 
+
   --primary: #6272a4;
   --primary-shadow: hsla(232, 14%, 31%, 0.12);
 
@@ -37,6 +38,8 @@
   --gradient-color-1-light: #fbe3d7;
   --gradient-color-2: #6018DC;
   --gradient-color-2-light: #e1d5fb;
+
+  --nav-link-color: #267cb9;
 }
 
 :root[data-theme='dark'] {
@@ -60,4 +63,6 @@
   --reading-time-color: #bd93f9;
   --gradient-color-1-light: #86776e;
   --gradient-color-2-light: #89809f;
+
+  --nav-link-color: #add8e6;
 }

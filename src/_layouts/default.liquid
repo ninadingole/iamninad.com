@@ -13,10 +13,10 @@
     {% block content %}
     {{ content }}
     {% endblock content %}
-    {% include "footer" %}
   </div>
 </main>
 
+{% include "footer.html" %}
 {% comment %} Icon adapted from Gatsby narrative theme {% endcomment %}
 
 <button class="ThemeButton js-theme-btn" aria-label="Activate dark mode" title="Activate dark mode">
@@ -25,6 +25,7 @@
 </button>
 
 {% include "scripts.html", partials: "instant, head, main, app" %}
+
 
 </body>
 

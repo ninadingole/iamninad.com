@@ -102,7 +102,7 @@ img {
   margin: var(--vb) 0;
 }
 
-a:not(.Title__link) {
+a:not(.Navigation__link):not(.Title__link) {
   outline: 0;
   color: inherit;
   border-bottom: 0;
