@@ -68,6 +68,10 @@ module.exports = function (eleventyConfig) {
         return collection.getFilteredByGlob('**/posts/**/*.md').filter(livePosts).reverse();
     });
 
+    const readBooks = book => book.date <= new Date() && !book.data.read;
+    eleventyConfig.addCollection('books', collection => {
+        return collection.getFilteredByGlob('**/_books/**/*.md').filter(readBooks).reverse();
+    });
 
     /* Markdown Overrides */
     let markdownLibrary = markdownIt({
@@ -147,13 +151,6 @@ module.exports = function (eleventyConfig) {
 
             }
         });
-
-        let imageAttributes = {
-            alt,
-            sizes: widths,
-            loading: "lazy",
-            decoding: "async",
-        };
 
         // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
         let lowsrc = metadata.jpeg[0];
