@@ -1,0 +1,53 @@
+blockquote,
+.Info {
+  margin: var(--vb) 0;
+  padding: 0.75em 1.5em;
+  position: relative;
+  background-color: var(--blockquote-color);
+}
+
+.dark blockquote, .dark .Info {
+  background-color: #303132;
+}
+
+@media (min-width: 1024px) {
+  /**
+   * 1. Increase width so the blockquote/info container looks wider than the
+   *    body text, but the text within it is aligned with the body text.
+   */
+  blockquote,
+  .Info {
+    width: calc(100% + 4em); /* 1 */
+    padding: 1em 2em; /* 1 */
+    left: -2em; /* 1 */
+  }
+}
+
+.Info::before,
+blockquote::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  opacity: 0.7;
+  border-radius: 4px 4px 0 0;
+  background-image: linear-gradient(to right, var(--gradient-color-2), var(--gradient-color-1));
+}
+
+/**
+ * 1. Prevent an odd gap when the first child of blockquote as a top margin
+ */
+.Info > :first-child,
+blockquote > :first-child {
+  margin-top: 0; /* 1 */
+}
+
+/**
+ * 1. Prevent an odd gap when the last child of blockquote as a bottom margin
+ */
+.Info > :last-child,
+blockquote > :last-child {
+  margin-bottom: 0; /* 1 */
+}

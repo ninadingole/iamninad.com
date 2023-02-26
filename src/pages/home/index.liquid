@@ -15,7 +15,7 @@ permalink: /
 Hi I'm Neenad. I'm a Full Stack Developer, Writer, Developer Advocate and a Polyglot Programmer.
 I have worked with a lot of different languages and technologies over the years.
 I have worked with companies like [HelloFresh](https://hellofresh.com/) and [ThoughtWorks](https://www.thoughtworks.com/) and have worked with different clients.
-For more information, you can read my [about me](/about-me/) page.
+For more information, you can read my [about me](/about/) page.
 {% endmarkdown %}
 
 {% assign latest_posts = collections.posts | slice: 0, 2 %}
@@ -27,3 +27,8 @@ For more information, you can read my [about me](/about-me/) page.
   link_text: "Read more articles",
   items: latest_posts
 %}
+
+{% assign latest_books = collections.books %}
+{% for book in latest_books  %}
+  <p>{{ book.data.title }}</p>
+{% endfor %}

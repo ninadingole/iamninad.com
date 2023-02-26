@@ -6,26 +6,31 @@ ogtype: article
 {% include "styles.html", partials: "
 components/code,
 components/banner,
-components/collection-navigation" %}
+components/collection-navigation,
+post/post,
+components/blockquotes" %}
 
 {% block content %}
-<section class="PageHeader MarginTop-xxl">
-  <div class="Text--Secondary MarginY-xxs">
-    <time>{{ date | date_formatted }}</time>
+<section class="Post__meta">
+  <p>
+    <span itemprop="datePublished">
+      <time>{{ date | date_formatted }}</time>
+    </span>
+    <span itemprop="timeRequired" title="Estimated reading time" class="Reading-Time">· ~ {{ content | timeToRead }} </span>
+  </p>
+  <p>
     <span>
       {% for tag in tags %}
         <a href="/tags/{{ tag }}" class="TagLink">#{{ tag }}</a>
       {% endfor %}
     </span>
-    <span class="Reading-Time"> ({{ content | timeToRead }}) </span>
-  </div>
-
+  </p>
+</section>
   {% comment %}<div class="PostSummary">
     <strong>tl;dr: </strong>
     {{ excerpt }}
   </div>
   {% endcomment %}
-</section>
 
 {% include "post-image.html" %}
 

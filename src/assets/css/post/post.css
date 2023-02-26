@@ -18,14 +18,6 @@
   
 }
 
-
-.Article blockquote {
-  border-left: 3px solid var(--primary);
-  color: var(--blockquote-color);
-  margin: 0;
-  padding-left: 1em;
-}
-
 .Article ol,
 .Article ul {
   font-family: var(--font-mono);
@@ -91,9 +83,26 @@ figure figcaption {
   color: #999;
 }
 
-pre[class*=language-] {
-  background: #2d2d2d;
+.Post__meta {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: calc(var(--vb) * 1.5);
 }
+
+.Post__meta > p {
+  margin: 0;
+}
+
+.Post__meta::after {
+  content: '';
+  display: block;
+  height: 1px;
+  margin: var(--vb) auto 0;
+  width: 25%;
+  background-color: #267cb9;
+  background-image: linear-gradient(to right, var(--gradient-color-1), var(--gradient-color-2));
+}
+
 
 @media (max-width: 767.98px) {
   figure {

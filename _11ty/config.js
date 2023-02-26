@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const htmlmin = require('html-minifier')
 const Image = require("@11ty/eleventy-img");
 
@@ -10,7 +8,6 @@ const markdownItAnchor = require("markdown-it-anchor");
 const markdownItEmoji = require('markdown-it-emoji');
 const path = require('path');
 const readingTime = require('eleventy-plugin-time-to-read');
-const pluginSEO = require("eleventy-plugin-seo");
 const markdownItContainer = require('markdown-it-container')
 const markdownItFootnote = require('markdown-it-footnote');
 const markdownItAttributes = require('markdown-it-attrs');
@@ -18,6 +15,8 @@ const markdownItAbbr = require('markdown-it-abbr');
 const markdownItSpan = require('markdown-it-span');
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 const mdfigcaption = require("markdown-it-image-figures");
+const emojiRegex = require('emoji-regex')()
+const emojiShortName = require('emoji-short-name')
 
 const globalFilters = require('./filters');
 const site = require('../src/_data/site');
@@ -27,6 +26,8 @@ module.exports = function (eleventyConfig) {
     if (process.env.NODE_ENV === 'production') {
         eleventyConfig.addTransform('htmlmin', minifyHTML)
     }
+
+    eleventyConfig.addTransform('emoji', a11yEmojis)
 
     eleventyConfig.setDataDeepMerge(true);
 
@@ -51,15 +52,6 @@ module.exports = function (eleventyConfig) {
 
 
     eleventyConfig.addPlugin(readingTime);
-    eleventyConfig.addPlugin(pluginSEO, {
-        title: site.title,
-        url: site.url,
-        author: site.author,
-        twitter: 'iamneenad',
-        options: {
-            twitterCardType: "summary_large_image",
-        }
-    });
     eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
     // Collections
@@ -68,15 +60,14 @@ module.exports = function (eleventyConfig) {
         return collection.getFilteredByGlob('**/posts/**/*.md').filter(livePosts).reverse();
     });
 
-    const readBooks = book => book.date <= new Date() && !book.data.read;
+    const readBooks = book => !book.data.read;
     eleventyConfig.addCollection('books', collection => {
-        return collection.getFilteredByGlob('**/_books/**/*.md').filter(readBooks).reverse();
+        return collection.getFilteredByGlob('**/books/**/*.md');
     });
 
     /* Markdown Overrides */
     let markdownLibrary = markdownIt({
         html: true,
-        breaks: true,
         linkify: true
     }).use(markdownItAnchor, {
         permalink: true,
@@ -106,23 +97,31 @@ module.exports = function (eleventyConfig) {
         .addPassthroughCopy('src/.well-known');
 
 
-    // Override Browsersync defaults (used only with --serve)
-    eleventyConfig.setBrowserSyncConfig({
-        callbacks: {
-            ready: function (err, browserSync) {
-                const content_404 = fs.readFileSync('www/404.html');
+    // // Override Browsersync defaults (used only with --serve)
+    // eleventyConfig.setBrowserSyncConfig({
+    //     callbacks: {
+    //         ready: function (err, browserSync) {
+    //             const content_404 = fs.readFileSync('www/404.html');
+    //
+    //             browserSync.addMiddleware("*", (req, res) => {
+    //                 // Provides the 404 content without redirect.
+    //                 res.writeHead(404, { "Content-Type": "text/html; charset=UTF-8" });
+    //                 res.write(content_404);
+    //                 res.end();
+    //             });
+    //         },
+    //     },
+    //     ui: false,
+    //     ghostMode: false
+    // });
 
-                browserSync.addMiddleware("*", (req, res) => {
-                    // Provides the 404 content without redirect.
-                    res.writeHead(404, { "Content-Type": "text/html; charset=UTF-8" });
-                    res.write(content_404);
-                    res.end();
-                });
-            },
-        },
-        ui: false,
-        ghostMode: false
-    });
+  eleventyConfig.setServerOptions({
+    liveReload: true,
+    domDiff: true,
+    port: 8080,
+    encoding: "utf-8",
+  });
+
 
     eleventyConfig.addShortcode("Link",  (href = '', isExternal = false, content, classes = '', noopener = false) => (`
       <a href="${href}" ${isExternal ? 'target="_blank"' : ''} class="${classes}" 
@@ -220,6 +219,20 @@ function dateToString(value) {
     const suffix = ['st', 'nd', 'rd'][day - 1] || 'th'
 
     return month + ' ' + day + suffix + ', ' + year
+}
+
+function replaceEmoji(match) {
+  const label = emojiShortName[match]
+
+  return label
+    ? `<span role="img" aria-label="${label}" title="${label}">${match}</span>`
+    : match
+}
+
+function a11yEmojis(content, outputPath) {
+  return outputPath.endsWith('.html')
+    ? content.replace(emojiRegex, replaceEmoji)
+    : content
 }
 
 

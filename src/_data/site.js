@@ -20,26 +20,27 @@ module.exports = {
     github: 'https://github.com/ninadingole',
     email: 'ninad.ingole@gmail.com',
     newsletter: 'https://blog.iamninad.com/newsletter',
+    rss: '/rss/index.xml',
   },
 
   nav :[
     {
-      title: 'blog',
+      title: 'Blog',
       url: '/blog/',
     },
     {
-      title: 'sponsor',
+      title: 'Sponsor',
       url: 'https://github.com/sponsors/ninadingole',
       external: true,
     },
     {
-      title: 'newsletter',
+      title: 'Newsletter',
       url: 'https://blog.iamninad.com/newsletter',
       external: true,
     },
     {
-      title: 'rss',
-      url: '/rss/index.xml',
+      title: 'About',
+      url: '/about/',
     },
   ],
 

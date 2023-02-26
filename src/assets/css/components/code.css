@@ -60,24 +60,27 @@ code {
 .token.comment,
 .token.prolog,
 .token.cdata {
-  color: #b362ff;
+  color: #6f7b80;
 }
 
 .token.delimiter,
-.token.keyword,
 .token.selector,
 .token.important,
 .token.atrule {
   color: #ff9d00;
 }
 
+.token.keyword {
+  color: #087bd4;
+}
+
 .token.operator,
 .token.attr-name {
-  color: rgb(255, 180, 84);
+  color: #e17055;
 }
 
 .token.punctuation {
-  color: #be5269;
+  color: #95a6ad;
 }
 
 .token.boolean {
@@ -108,7 +111,7 @@ code {
 
 .token.string,
 .token.char {
-  color: #54a93b;
+  color: #009f7f;
 }
 
 .token.attr-value,
@@ -126,7 +129,7 @@ code {
 }
 
 .token.function {
-  color: rgb(250, 208, 0);
+  color: #e84393;
 }
 
 .token.regex {

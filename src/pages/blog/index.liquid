@@ -11,9 +11,14 @@ components/collection-navigation,
 components/list"
 %}
 
+{% markdown %}
+I like to write. I like to share things that I am working on, challenges that I face and how I overcome them. I do find some interesting
+stuff over time and I like to share them with the world. This is my contribution to the community. I hope you find them useful.
+{% endmarkdown %}
+
 {% include "post_list.html", posts: posts %}
 
 {% include "pagination.html",
-  nextPageHref: pagination.nextPageHref,
-  previousPageHref: pagination.previousPageHref
+  nextPageHref: pagination.href.next,
+  previousPageHref: pagination.href.previous
 %}

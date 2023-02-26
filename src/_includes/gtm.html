@@ -1,4 +1,11 @@
+{% if site.environment == 'production' %}
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHB9929" height="0" width="0"
   style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+<script type="text/plain" data-cookiecategory="analytics">
+gtag('consent', 'update', {
+    'analytics_storage': 'granted'
+});
+</script>
+{% endif %}
