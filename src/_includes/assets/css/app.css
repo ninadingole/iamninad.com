@@ -123,7 +123,7 @@ main:focus {
   margin: 0 auto;
   padding-left: 2rem;
   padding-right: 2rem;
-  padding-top: 2em;
+  padding-top: 1.5rem;
 }
 
 .Content {
@@ -258,7 +258,6 @@ main:focus {
 .Article h4,
 .Heading {
   position: relative;
-  font-size: 1.125rem;
   font-family: var(--font-mono);
 }
 
@@ -277,25 +276,6 @@ main:focus {
   margin-right: 0.5rem;
 }
 
-.Article h1:before,
-h1.Heading:before {
-  content: '#';
-}
-
-.Article h2:before,
-h2.Heading:before {
-  content: '##';
-}
-
-.Article h3:before,
-h3.Heading:before {
-  content: '###';
-}
-
-.Article h4:before,
-h4.Heading:before {
-  content: '#####';
-}
 
 .Footer {
   margin: 1rem 0 4rem;
@@ -455,8 +435,16 @@ h4.Heading:before {
 }
 
 @media (max-width: 575.98px) {
+  .Container {
+    padding-top: 0;
+  }
+
   .Header {
-    flex-direction: column;
+    flex-direction: column-reverse;
+  }
+
+  .Menu {
+    margin-bottom: 1.5rem;
   }
   
   .Footer nav {

@@ -1,5 +1,5 @@
 ---
-title: "Blog"
+title: "Neenad Ingole"
 excerpt: "I am a Full Stack Developer who loves to explore tech and share the expierences and findings with the world"
 permalink: /index.html
 ogtype: website
@@ -10,12 +10,12 @@ layout: layouts/default
   <ul class="List MarginTop-xxl">
     {% for post in collections.posts | take(site.maxPostsInHomePage) %}
       <li class="List-Item">
-        <h1 class="Heading">
+        <h2 class="Heading">
           <a class="List-ItemLink" href="{{ post.url }}">
             <span class="TitleShadow Link Link--OnHover">{{ post.data.title }}</span>
             <span aria-hidden="true" class="List-ItemVisitedStatus"></span>
           </a>
-        </h1>
+        </h2>
         <div class="Text--Secondary MarginY-xxs">
           <time>{{ post.date | date_formatted }}</time>
           <span>
