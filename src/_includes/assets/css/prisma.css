@@ -50,6 +50,18 @@ pre[class*="language-"] {
   margin: 0.5em 0;
   overflow: auto;
   border-radius: 4px;
+  position: relative;
+}
+
+pre[class*="language-"]:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  height: 3px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--primary);
 }
 
 :not(pre) > code[class*="language-"],
