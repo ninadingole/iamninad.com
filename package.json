@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:11ty": "npx eleventy --config=_11ty/config.js --serve --watch",
-    "prod:11ty": "npx eleventy --config=_11ty/config.js",
+    "prod:11ty": "NODE_ENV=production npx eleventy --config=_11ty/config.js",
     "start": "npm run dev:11ty",
     "build": "NODE_ENV=production npm run prod:11ty",
     "runprod": "NODE_ENV=production npx @11ty/eleventy --config=_11ty/config.js --serve --watch",
