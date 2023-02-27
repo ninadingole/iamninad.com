@@ -57,8 +57,8 @@ The service code is like this:
 
 ```go
 
-func (s *service) CancelSubscription(id uuid.UUID) (*model.Subscription, error) {
-    tx, err := s.db.Beginxx()
+func (s *service) CancelSubscription(ctx context.Context, id uuid.UUID) (*model.Subscription, error) {
+    tx, err := s.db.BeginTxx(ctx, nil)
     if err != nil {
         return nil, err
     }
