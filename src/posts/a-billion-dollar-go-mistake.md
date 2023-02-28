@@ -155,12 +155,69 @@ rollback would happen and will release the lock.
 But, this affects the readability of the code. Your commit is happening in the `defer` function, and that's an extra
 pointer you have to keep in mind while reading the code.
 
+## One more way
+
+The problem with the service is that for validations, it is not returning any error. The other way to fix this issue is to
+return an error from the `if` condition. This would make the `Rollback` happen in the `defer` function.
+
+And that is also a very clean way. A service should have only one responsibility. Either it completes the operation 
+or it returns an error. It should return error in case of validation failure. This is a good practice
+and something we missed in our project. We fixed the issue later by returning an error from the `if` condition.
+
+This change also helps the handler to decide what HTTP status code to return. Which is really helpful as we can return
+`400 Bad Request` for validation errors.
+
+This is how the code would look like after refactoring
+
+```go
+var ErrSubscriptionAlreadyCancelled = errors.New("subscription already cancelled")
+
+func (s *service) CancelSubscription(ctx context.Context, id uuid.UUID) (*model.Subscription, error) {
+    tx, err := s.db.BeginTxx(ctx, nil)
+    if err != nil {
+        return nil, err
+    }
+	
+    defer func() {
+        if err != nil {
+            tx.Rollback()
+        }
+    }()
+    
+    subscription, err := s.fetcher.GetSubscription(tx, id)
+    if err != nil {
+        return nil, err
+    }
+
+    if subscription.CancelledAt != nil {
+        return subscription, ErrSubscriptionAlreadyCancelled
+    }
+	
+    subscription.CancelledAt = time.Now()
+
+    err = s.updater.UpdateSubscription(tx, subscription)
+    if err != nil {
+        return nil, err
+    }
+
+    err = tx.Commit()
+    if err != nil {
+        return nil, err
+    }
+
+    return subscription, nil
+}
+```
+
+
 ## Conclusion
 
 My personal preference is the second option. But you could choose any of the three options based on your preference.
 I am choosing the second option because I am sure that whatever happens in the flow at the end, the transaction
 revert will happen. Yes, it would cost me a few milliseconds in case of a committed transaction, but compared to the loss to
 the business, it's worth.
+
+Keep in mind that the service layer has only one responsibility. Either it completes the operation or it returns an error.
 
 You may be thinking that a better approach is to have an abstraction that takes care of transactions. I agree,
 and would also have a separate post on that. But, I also think that we can avoid the complexity of abstraction if the code is stable and not changes too often.
