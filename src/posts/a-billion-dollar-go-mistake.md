@@ -11,19 +11,18 @@ tags:
 > This post is about a real problem we faced in our project.
 
 I hope after reading this post you will be able to avoid the same mistake we did in our project 😅. 
-This small mistake didn't cost us a million dollars, it did cost us a few thousands, and we were saved by the prometheus alerts 
-that caught the issue quickly. 
+This small mistake didn't cost us a million dollars. But, It did cost us a few thousand, and the Prometheus alerts saved us.
 
-However, it could cost you a Million if you are not careful 💸.
+But, it could cost you a Million if you are not careful 💸.
 
-The scenario is a simple database transaction one. We all have used db transaction at-least once in our programming life.
-If you don't know how transactions works you could read the docs [here](https://www.postgresql.org/docs/current/tutorial-transactions.html) for postgres.
+The scenario is a simple database transaction. We all have used database transactions at least once in our programming life. 
+If you don't know how transactions work you could read the docs [here](https://www.postgresql.org/docs/current/tutorial-transactions.html) for Postgres.
 
-Our service that is responsible for managing some state in the database and the changes 
-to the rows are done within a transaction. The service is written in Golang and the flow is like this:
-- Initiate the transaction
+Our service handles the management of some Subscriptions in the database. All the changes to the rows happen within a transaction. 
+The service is in Golang and the flow is like this:
+- Start the transaction
 - Fetch the record by ID 
-- Validate if the operation for state change could be performed
+- Confirm if the operation for the change is possible
 - If Yes, then update the record
 - Commit the transaction
 - For any error, revert the transaction
@@ -99,19 +98,19 @@ func (s *service) CancelSubscription(ctx context.Context, id uuid.UUID) (*model.
 The issue happens when we try to cancel a subscription that is already cancelled. If the subscription is already cancelled
 we return the subscription without doing any changes, but we are not releasing the lock on the record.
 
-The reason is `defer` function calls `tx.Rollback()` only when there is an error. This would cause the lock to be held 
-until the transaction is committed or rolled back. But since we are not doing any of the two things, the lock is held 
+The reason is `defer` function calls `tx.Rollback()` only when there is an error. This would cause the lock to be active 
+until the transaction commits or roll back. But since we are not doing any of the two things, the lock is held 
 until the transaction times out.
 
-However, if the service is having high traffic, the transactions could not timeout quickly causing the code to create
-new connections to the database and eventually exhausting the connection pool.
+If the service is having high traffic, the transactions could not timeout. This will cause the code to create
+new connections to the database and exhausting the connection pool.
 
 ## Fix
 
 There are three ways to fix this issue at the service layer. 
-To keep the post short, I have explained the other ways here.
+To keep the post short, I have explained the other ways in a different post.
 
-1. Release the lock in every if condition.
+1. Release the lock in every `if` condition.
 
 ```go
 // Error handling is omitted for brevity
@@ -122,8 +121,8 @@ if subscription.CancelledAt != nil {
 }
 
 ```
-This is the simplest way to fix the issue. But this would require you to release the lock in every if condition.
-And if you forget to release the lock in any of the if condition, you would end up with the same issue.
+This is the simplest way to fix the issue. But this would need you to rollback in every `if` condition.
+And if you forget to rollback in any of the `if` conditions, you would end up with the same issue.
 
 2. Rollback the transaction in the `defer` function for every case.
 
@@ -134,8 +133,9 @@ defer func() {
 }()
 
 ```
-This would release the lock in every case even if the transaction is committed. But as per the tracing we see some milliseconds
-the code spends to rollback the transactions. But I think this is a better way to fix the issue.
+This would release the lock in every case. For committed transactions and as per the tracing, we see some milliseconds
+the code spends to roll back the transactions. In case of committed transactions the rollback does nothing.
+But this is a better way to fix the issue.
 
 3. Commit the transaction in the `defer` function for every case.
 
@@ -149,25 +149,25 @@ defer func() {
   // handle commitErr
 }
 ```
-This would release the lock by committing the transaction even if you are not doing any change to record.
-If there is any error while performing the operation, the rollback would be called and the lock would be released.
+If there are no changes the transaction will commit without any change. If there is any error only then the 
+rollback would happen and will release the lock.
 
-However, this affects the readability of the code. Your commit is happening in the `defer` function, and that's an extra
+But, this affects the readability of the code. Your commit is happening in the `defer` function, and that's an extra
 pointer you have to keep in mind while reading the code.
 
 ## Conclusion
 
 My personal preference is the second option. But you could choose any of the three options based on your preference.
 I am choosing the second option because I am sure that whatever happens in the flow at the end, the transaction
-would be rolled back and the lock would be released. Yes, it would cost me a few milliseconds, but compared to the loss to 
-business, it's worth it.
+revert will happen. Yes, it would cost me a few milliseconds in case of a committed transaction, but compared to the loss to
+the business, it's worth.
 
-Many of you might be thinking that a better approach is to have an abstraction that takes care of transactions. I agree,
-and would also have a separate post on that. However, I also think that sometimes when the code is simple and not frequently
-changing, it's better to have the transaction logic in the service layer itself and avoid the overhead of abstraction.
+You may be thinking that a better approach is to have an abstraction that takes care of transactions. I agree,
+and would also have a separate post on that. But, I also think that we can avoid the complexity of abstraction if the code is stable and not changes too often.
 
-Also, to back the reasoning I also saw the golang official post for transactions suggesting same approach, check the code snippet
-[here](https://go.dev/doc/database/execute-transactions#example)
+The golang official post for transactions also supports the reasoning. Check the code snippet [here](https://go.dev/doc/database/execute-transactions#example).
+The office post also uses the second option.
+
 
 ```go
 // code snippet from the golang official post
@@ -200,6 +200,6 @@ func CreateOrder(ctx context.Context, albumID, quantity, custID int) (orderID in
 ---
 
 This brings us to the end of this post. I hope you enjoyed reading this post. There is a part two to this post, where I will
-talk about how to have another layer of protection to prevent this issue from happening at the server level.
+talk about having another layer of protection to prevent this issue.
 
 If you have any questions or suggestions, feel free to reach out to me using the AMA.
