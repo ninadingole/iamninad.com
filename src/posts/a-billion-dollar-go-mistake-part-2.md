@@ -28,7 +28,7 @@ If the timeout is too low, you might end up cancelling the DB transaction too ea
 If the timeout is too high, you might end up waiting for the DB transaction to complete for a long time.
 
 Application Traces could help you to figure out the optimal timeout value. 
-Also, load testing an application could help us to figure out the optimal timeout value.
+Also, load testing an application could help you to figure out the optimal timeout value.
 
 ```go
 func (s *service) CancelSubscription(ctx context.Context, id uuid.UUID) (*model.Subscription, error) {
