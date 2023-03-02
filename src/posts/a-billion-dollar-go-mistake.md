@@ -95,15 +95,23 @@ func (s *service) CancelSubscription(ctx context.Context, id uuid.UUID) (*model.
 
 ## Problem
 
+All client requests were timing out, and the DB connection spiked over 1.2k connections 😅
+
+Not a single request was able to complete the operation. It was a stop-the-world event 🤣
+
+![cry](https://media.giphy.com/media/XD4qHZpkyUFfq/giphy.gif)
+
+**Why?**
+
 The issue happens when we try to cancel a subscription that is already cancelled. If the subscription is already cancelled
 we return the subscription without doing any changes, but we are not releasing the lock on the record.
 
-The reason is `defer` function calls `tx.Rollback()` only when there is an error. This would cause the lock to be active 
+The reason is the `defer` function calls `tx.Rollback()` only when there is an error. This would cause the lock to be active 
 until the transaction commits or roll back. But since we are not doing any of the two things, the lock is held 
 until the transaction times out.
 
-If the service is having high traffic, the transactions could not timeout. This will cause the code to create
-new connections to the database and exhausting the connection pool.
+If the service is having high traffic, the transactions could not time out. This will cause the code to create
+new connections to the database and exhaust the connection pool.
 
 ## Fix
 
@@ -155,7 +163,7 @@ rollback would happen and will release the lock.
 But, this affects the readability of the code. Your commit is happening in the `defer` function, and that's an extra
 pointer you have to keep in mind while reading the code.
 
-## One more way
+## Service Layer - Return Error 👾
 
 The problem with the service is that for validations, it is not returning any error. The other way to fix this issue is to
 return an error from the `if` condition. This would make the `Rollback` happen in the `defer` function.
