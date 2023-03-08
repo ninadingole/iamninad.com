@@ -168,7 +168,7 @@ pointer you have to keep in mind while reading the code.
 The problem with the service is that for validations, it is not returning any error. The other way to fix this issue is to
 return an error from the `if` condition. This would make the `Rollback` happen in the `defer` function.
 
-And that is also a very clean way. A service should have only one responsibility. Either it completes the operation 
+This is a very clean way. A service should have only one responsibility. Either it completes the operation 
 or it returns an error. It should return error in case of validation failure. This is a good practice
 and something we missed in our project. We fixed the issue later by returning an error from the `if` condition.
 
