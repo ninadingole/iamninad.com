@@ -103,6 +103,6 @@ Not all applications are HTTP based. Context timeout could also be a good approa
 The context in general has a lot of use cases and I would recommend you read more about it.
 I would recommend keeping a Server side timeout for HTTP services. And you could avoid adding extra timeout context.
 
-You would be also thinking about the client-side timeout. Those are reliable enough.
+You would be also thinking about the client-side timeout. Those are not reliable enough.
 For example, a client could keep the timeout for a long duration and with a high load, the server could
 keep the connection open for a long time. This could again lead to the same problem we are trying to solve.
