@@ -550,3 +550,7 @@ On AWS, it's a different story, on AWS we have to configure `rds.logical_replica
 This brings us to the end of this small and quick setup of Postgres and Debezium using Docker Compose. Hope, next time you are building any CDC-related consumer this docker-compose setup will help you to run the infrastructure locally without any hassle.
 
 If you like the blog, please don't forget to like the post, follow me on [Medium](https://medium.com/@iamninad) also don't forget to subscribe on Medium.
+
+## Code
+
+- [Github](https://github.com/ninadingole/docker-compose-stacks)

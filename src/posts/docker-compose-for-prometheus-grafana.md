@@ -21,7 +21,7 @@ I was working with sending some telemetry data from my Golang web application to
 
 I am maintaining a Github repo for all the docker-compose setup I require for my local testing and now Prometheus + Grafana is a new addition to it. If you also need a similar setup and save your setup time in future and focus more on building things refer to this post or my Github Repository.
 
-Clone the repo: `https://github.com/ninadingole/docker-images`
+Clone the repo: `https://github.com/ninadingole/docker-compose-stacks`
 
 Then go to prometheus-grafana folder and run `docker-compose up -d`.
 
@@ -43,4 +43,4 @@ Thanks and Happy Coding!
 
 ## Reference
 
-- [repo](https://github.com/ninadingole/docker-images)
+- [repo](https://github.com/ninadingole/docker-compose-stacks)
