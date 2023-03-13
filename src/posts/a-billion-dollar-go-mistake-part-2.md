@@ -150,7 +150,7 @@ a timeout context for each request. But, you would still need to fine-tune the t
 
 ## Conclusion
 I hope you found this second part of the post useful. Adding a layer of safety is always a good idea, but it comes with a cost.
-In this case, I would recommend using the context approach as it is the most flexible approach and guarantees the transaction is released.
+In this case, I would recommend using the context approach along with the `defer tx.Rollback()` after initiating the transaction.
 
 Cancel context is the best approach for most application types. 
 And would serve most of the cases. The context in general has a lot of use cases and I would recommend you read more about it.
