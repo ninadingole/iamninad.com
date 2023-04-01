@@ -121,3 +121,9 @@ pre[class*=language-] {
     margin-left: 0;
   }
 }
+
+.Gif {
+  margin: 0 auto;
+  display: block;
+  height: 70%;
+}
