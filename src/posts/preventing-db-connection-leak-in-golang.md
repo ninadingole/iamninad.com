@@ -9,6 +9,8 @@ tags:
   - golang
   - testing
   - integration-test
+
+templateEngineOverride: njk, md
 ---
 
 ## Introduction
@@ -375,9 +377,7 @@ is cancelled, if a client cancels an HTTP request.
 
 Now the real excitement begins !!! TESTS !!! 🚀 🥹
 
-<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzRjZjc2YzAxNWNhYzE0ODdlNjQ1MzNlZjg4MzkxNTRjMWJjMDgwNCZjdD1n/MNmyTin5qt5LSXirxd/giphy.gif" height="70%"
-  style="margin: 0 auto; display: block;"
-/>
+{% Gif "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzRjZjc2YzAxNWNhYzE0ODdlNjQ1MzNlZjg4MzkxNTRjMWJjMDgwNCZjdD1n/MNmyTin5qt5LSXirxd/giphy.gif" %}
 
 I am doing both approaches, the Unit test and the Integration Test. It is up to you what you want to use. My own
 preference is the Integration test. They mimic behaviour close to real infrastructure.
