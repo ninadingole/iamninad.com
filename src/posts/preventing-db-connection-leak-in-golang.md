@@ -1,5 +1,5 @@
 ---
-title: Preventing DB Connection Leaks in Golang
+title: Preventing DB Connection Leak in Golang
 excerpt: This post is about why we need a separate transaction layer? How to extract it, and test it using Unit and Integration Test.
 date: 2023-04-01
 draft: false
