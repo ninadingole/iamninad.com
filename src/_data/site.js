@@ -17,6 +17,6 @@ module.exports = {
     github: 'https://github.com/ninadingole',
     email: 'ninad.ingole@gmail.com',
     sponser: 'https://github.com/sponsors/ninadingole',
-    newsletter: 'https://blog.iamninad.com/newsletter',
+    newsletter: 'https://medium.com/@iamninad/subscribe',
   }
 }
