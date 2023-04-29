@@ -458,7 +458,14 @@ main:focus {
 }
 
 .homePageAds {
-  position: fixed;
-  bottom: 3;
-  left: 3;
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .homePageAds {
+    display: block;
+    position: fixed;
+    bottom: 8px;
+    left: 8px;
+  }
 }
