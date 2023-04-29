@@ -456,3 +456,9 @@ main:focus {
     margin-top: 1rem;
   }
 }
+
+.homePageAds {
+  position: fixed;
+  bottom: 3;
+  left: 3;
+}
