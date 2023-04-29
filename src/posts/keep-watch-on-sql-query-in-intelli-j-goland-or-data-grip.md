@@ -4,7 +4,7 @@ excerpt: "Learn how to monitor SQL query results in Jetbrains products like Inte
 date: 2023-04-17
 draft: false
 
-permalink: /keep-watch-on-sql-query-in-intellij
+permalink: "/keep-watch-on-sql-query-in-intellij.html"
 
 tags:
   - jetbrains
