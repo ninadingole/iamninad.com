@@ -1,5 +1,5 @@
 ---
-title: Keep Watch On Sql Query In Intelli J Goland Or Data Grip
+title: Keep Watch On Sql Query In IntelliJ/Goland Or Data Grip
 excerpt: "Learn how to monitor SQL query results in Jetbrains products like IntelliJ/Goland or Data Grip."
 date: 2023-04-17
 draft: false
