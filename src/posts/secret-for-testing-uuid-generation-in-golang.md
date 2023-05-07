@@ -7,8 +7,6 @@ tags:
   - Go
   - Golang
   - Testing
-
-templateEngineOverride: njk, md
 ---
 
 In today's fast-paced world of software development, generating unique identifiers is an absolute necessity. In golang,
@@ -161,8 +159,7 @@ on a struct, all the attribute values should match. The UUID in the `expected` e
 Many people to avoid the problem will think of not writing the test 😅. Let's see the different ways to overcome this
 problem.
 
-{%
-Gif "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTc2MjRiODg4MzIxYzg1MTk2NTFmMDdjNTM4ZGNlM2MwYzFhMzljYSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/w89ak63KNl0nJl80ig/giphy.gif" %}
+![img](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTc2MjRiODg4MzIxYzg1MTk2NTFmMDdjNTM4ZGNlM2MwYzFhMzljYSZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/w89ak63KNl0nJl80ig/giphy.gif)
 
 ---
 
