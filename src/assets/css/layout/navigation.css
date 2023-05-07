@@ -8,8 +8,6 @@
 
 .Navigation__item {
   line-height: 1.5;
-  list-style: none;
-  display: inline-block;
   color: var(--nav-link-color);
 }
 
@@ -42,8 +40,3 @@
   transition: transform 200ms ease-out, opacity 200ms;
 }
 
-.Navigation__list>li:not(:last-of-type)::after {
-  content: "⁃";
-  color: var(--text-secondary-color);
-  margin: 0 0 0.5ch;
-}
