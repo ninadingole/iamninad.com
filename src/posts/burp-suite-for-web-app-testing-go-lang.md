@@ -8,7 +8,7 @@ postImageCredits: Markus Spiske | https://unsplash.com/@markusspiske
 postImageSource: Unsplash | https://unsplash.com
 tags:
   - testing
-  - testing strategy
+  - testing-strategy
   - golang
 ---
 

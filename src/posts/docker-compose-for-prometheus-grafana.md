@@ -8,11 +8,11 @@ postImageCredits: Dominik Lückmann | https://unsplash.com/@exdigy
 postImageSource: Unsplash | https://unsplash.com
 publications: https://dev.to/ninadingole/docker-compose-for-prometheus-grafana-3gie
 tags:
-  - devOps
-  - docker
+  - devops
+  - docker-compose
   - testing
-  - testing strategy
-  - local setup
+  - testing-strategy
+  - local-setup
 ---
 
 It becomes important that with all the tools you have in production, you can test the same flows end to end on local with very fewer efforts. The rationale behind such is the reduced feedback cycle that saves a dev from taking a long time to achieve the desired outcome.

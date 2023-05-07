@@ -4,9 +4,9 @@ excerpt: "Learn different ways to unit test UUID generation in golang using goog
 date: 2023-05-06
 draft: false
 tags:
-  - Go
-  - Golang
-  - Testing
+  - go
+  - golang
+  - testing
 ---
 
 In today's fast-paced world of software development, generating unique identifiers is an absolute necessity. In golang,
