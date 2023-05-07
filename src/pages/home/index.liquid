@@ -18,7 +18,7 @@ I have worked with companies like [HelloFresh](https://hellofresh.com/) and [Tho
 For more information, you can read my [about me](/about/) page.
 {% endmarkdown %}
 
-{% assign latest_posts = collections.posts | slice: 0, 2 %}
+{% assign latest_posts = collections.posts | slice: 0, 10 %}
 {% include "showcase.html",
   type: "article",
   title: "Latest articles",
@@ -27,8 +27,3 @@ For more information, you can read my [about me](/about/) page.
   link_text: "Read more articles",
   items: latest_posts
 %}
-
-{% assign latest_books = collections.books %}
-{% for book in latest_books  %}
-  <p>{{ book.data.title }}</p>
-{% endfor %}

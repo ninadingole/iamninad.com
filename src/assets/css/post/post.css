@@ -83,6 +83,10 @@ figure figcaption {
   color: #999;
 }
 
+figure img {
+  margin: 0 auto;
+}
+
 .Post__meta {
   text-align: center;
   margin-top: 0;
