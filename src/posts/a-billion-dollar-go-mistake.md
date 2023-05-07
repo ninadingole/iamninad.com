@@ -4,6 +4,7 @@ excerpt: A small Golang mistake that could cost a Million Dollars.
 date: 2023-02-26
 draft: false
 tags:
+  - go
   - golang
   - testing
 ---

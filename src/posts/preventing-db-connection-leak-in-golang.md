@@ -7,6 +7,8 @@ draft: false
 
 tags:
   - golang
+  - go
+  - database
   - testing
   - integration-test
 

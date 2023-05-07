@@ -4,8 +4,9 @@ excerpt: Correctly handle DB transaction using Serverside and Clientside timeout
 date: 2023-03-01
 draft: false
 tags:
-- golang
-- testing
+  - go
+  - golang
+  - testing
 ---
 
 This is the second part of the [A Billion Dollar Go Mistake](/posts/a-billion-dollar-go-mistake) post. 

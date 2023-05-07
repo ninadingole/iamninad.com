@@ -10,7 +10,7 @@ postImageSource: Unsplash | https://unsplash.com
 publications: https://itnext.io/running-spark-job-on-kubernetes-minikube-958cadaddd55
 tags:
   - kubernetes
-  - apache spark
+  - apache-spark
   - spark
   - devops
   - bigdata

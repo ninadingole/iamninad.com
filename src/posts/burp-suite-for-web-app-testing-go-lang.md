@@ -8,8 +8,9 @@ postImageCredits: Markus Spiske | https://unsplash.com/@markusspiske
 postImageSource: Unsplash | https://unsplash.com
 tags:
   - testing
-  - testing strategy
+  - testing-strategy
   - golang
+  - go
 ---
 
 Have you ever come across a scenario where you want your code to call a dependent service however need to change the response so that you can test how different your code will behave to different data?

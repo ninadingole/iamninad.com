@@ -9,7 +9,10 @@ postImageCredits: Roman Mager | https://unsplash.com/@roman_lazygeek
 postImageSource: Unsplash | https://unsplash.com
 publications: https://medium.com/@iamninad/how-debezium-kafka-streams-can-help-you-write-cdc-solution-1d5781e0af91
 tags:
-  - sample
+  - debezium
+  - kafka
+  - kafka-streams
+  - cdc
 ---
 
 I had worked on multiple applications for enterprises where legacy applications have been migrated on modern technology stack. Starting this year I am working on one such application.

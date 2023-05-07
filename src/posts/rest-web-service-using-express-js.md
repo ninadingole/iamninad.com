@@ -12,6 +12,7 @@ tags:
   - expressjs
   - nodejs
   - javascript
+  - api
 ---
 
 In this post, we will be using expressjs to create REST web services. We will also learn about what is ExpressJS, its features, and as we progress in the post we will build a rest based library app that will allow us to perform CRUD functionality using ExpressJS.

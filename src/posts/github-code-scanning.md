@@ -8,7 +8,6 @@ tags:
   - github
   - security
   - tools
-  - github code scanning
 ---
 
 Have you ever done code scanning of your code for vulnerabilities or code error before? No? Don't worry even I wasn't aware of the same when I started my career as a developer. Many organization do follow this as a best practice and a must before moving the application to production. This helps to mitigate any security vulnerabilities or error in the application after it is deployed to production avoiding any business impact or monitory losses.

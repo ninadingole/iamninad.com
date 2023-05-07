@@ -4,9 +4,9 @@ excerpt: "Learn different ways to unit test UUID generation in golang using goog
 date: 2023-05-06
 draft: false
 tags:
-  - Go
-  - Golang
-  - Testing
+  - go
+  - golang
+  - testing
 
 templateEngineOverride: njk, md
 ---
