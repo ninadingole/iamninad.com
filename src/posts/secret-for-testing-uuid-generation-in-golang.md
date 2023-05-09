@@ -351,6 +351,92 @@ golang [math/rand package](https://github.com/golang/go/blob/master/src/math/ran
 `t.Parallel()` for the tests. So, The simplest way to fix the issue would be to remove `t.Parallel()` from all such unit
 tests ✅.
 
+## 5. Use google/go-cmp
+
+After publishing this post, my awesome readers reached out to me with one more approach. 
+I am really thankful to all those feedback. The [google/go-cmp](https://blog.iamninad.com/github.com/google/go-cmp) library allows to skip/ignore fields from comparison.
+
+There are two kind of people, one who wants to compare all the fields of the struct and some would prefer to ignore the
+UUID check because the google/uuid library is battle tested. So based on which category you belong to you could use the previous 
+approach or you could use this approach.
+
+Let’s rewrite our existing test to use the `cmpopts.IgnoreFields`
+
+```go
+func TestEmployeeService_Create(t *testing.T) {
+ expectedEmployee := Employee{
+  FirstName: "John",
+  LastName:  "Doe",
+ }
+
+ storage := &mockStorage{}
+
+ employeeService := EmployeeService{storage: storage}
+
+ storage.On("Save", mock.MatchedBy(func(x interface{}) bool {
+  actual, ok := x.(Employee)
+
+  if !ok {
+   return false
+  }
+
+  var diff string
+  if diff = cmp.Diff(expectedEmployee, actual, cmpopts.IgnoreFields(Employee{}, "ID")); diff != "" {
+   t.Errorf("Save() mismatch (-want +got):\n%s", diff)
+  }
+
+  return diff == ""
+ })).Return(nil)
+
+ err := employeeService.Create("John", "Doe")
+
+ assert.NoError(t, err)
+ storage.AssertExpectations(t)
+}
+```
+
+On failure ☠️ the test will show a diff comparison of the fields that didn’t match like below
+
+```go
+=== RUN   TestEmployeeService_Create
+    /Users/neenadingole/codes/opensource/gotest-ls/main_test.go:275: Save() mismatch (-want +got):
+          main.Employee{
+                ... // 1 ignored field
+        -       FirstName: "Face",
+        +       FirstName: "John",
+                LastName:  "Doe",
+          }
+    /Users/neenadingole/codes/opensource/gotest-ls/main_test.go:275: Save() mismatch (-want +got):
+          main.Employee{
+                ... // 1 ignored field
+        -       FirstName: "Face",
+        +       FirstName: "John",
+                LastName:  "Doe",
+          }
+--- FAIL: TestEmployeeService_Create (0.00s)
+panic:
+
+mock: Unexpected Method Call
+-----------------------------
+
+Save(main.Employee)
+                0: main.Employee{ID:uuid.UUID{0x4d, 0x8e, 0x29, 0x66, 0x29, 0xdd, 0x4b, 0xbe, 0xa7, 0x30, 0x34, 0xa0, 0x7a, 0xe7, 0xb3, 0x94}, FirstName:"John", LastName:"Doe"}
+
+The closest call I have is:
+
+Save(mock.argumentMatcher)
+                0: mock.argumentMatcher{fn:reflect.Value{typ:(*reflect.rtype)(0x12fd9e0), ptr:(unsafe.Pointer)(0xc00010ce40), flag:0x13}}
+
+
+Diff: 0: FAIL:  (main.Employee={4d8e2966-29dd-4bbe-a730-34a07ae7b394 John Doe}) not matched by func(interface {}) bool [recovered]
+        panic:
+```
+It becomes easy to navigate the test and fix the issue and the you could ignore multiple fields and from the struct comparison.
+
+I am definitely going to use this library in my projects. This is also a great learning for me by writing and sharing this blog post.
+
+
+
 ## Conclusion
 
 I hope this helps you to write better tests for your code when using the google uuid package. I am very keen on testing
@@ -359,7 +445,8 @@ safety net to avoid accidental bug leaks or any dev mistakes.
 
 There are different pros and cons to each of the methods discussed. It will depend on what works for you and what
 doesn’t. For a small codebase, I don’t like using the generator function approach. I would use the `SetRand` for such
-cases.
+cases. For larger struct or ignoring the field comparison for some then I would also prefer the go-cmp library which 
+does a really good job.
 
 I was curious to see if there is any simple way for unit testing. This post is my research on this topic, but I know
 there may be some approaches I missed. So, I would like to hear those from others. I will definitely be happy to update
@@ -447,5 +534,9 @@ func TestReadUniformity(t *testing.T) {
 }
 
 ```
+
+## Edits:
+
+- Add google/go-cmp library usage as suggested by readers.
 
 
