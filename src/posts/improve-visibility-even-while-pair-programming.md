@@ -102,6 +102,8 @@ For old commits, having the Pair names in the messages is a quick navigation too
 I simply like to keep the Pair names in the format [First/Second] in the commit message. This also shows nicely when I
 am doing `git log --oneline`
 
+![Git Log with Pair Names](/images/improve-visibility-even-while-pair-programming/gitlog.png)
+
 ---
 
 ## Conclusion
