@@ -1,0 +1,43 @@
+name: "Build and Deploy"
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: "deploy"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout: 10m
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli@latest
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        id: deploy
+        run: |
+          netlify deploy \
+          --prod \
+          --dir www \
+          --site ${{ secrets.NETLIFY_SITE_ID }} \
+          --auth ${{ secrets.NETLIFY_API_TOKEN }} \
+
+
