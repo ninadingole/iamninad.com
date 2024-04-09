@@ -76,7 +76,7 @@ module.exports = function (eleventyConfig) {
         permalink: true,
         permalinkBefore: true,
         permalinkSymbol: ""
-    }).use(markdownItEmoji)
+    }).use(markdownItEmoji.full)
     .use(markdownItContainer, 'info')
     .use(markdownItContainer, 'lead')
     .use(markdownItContainer, 'success')
