@@ -1,12 +1,13 @@
 
 module.exports = {
   title: "Neenad Ingole",
-  description: "I am a Full Stack Developer who loves to explore tech and share the expierences with the world",
+  description: "Build, break and Improve.",
   url: 'https://iamninad.com',
   baseUrl: '/',
   maxPostsInHomePage: 10,
   author: 'neenad ingole',
   email: 'ninad.ingole@gmail.com',
+  language: 'en',
 
   gaAnalytics: null,
   currentYear: (new Date()).getFullYear(),
