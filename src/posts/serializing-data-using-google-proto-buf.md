@@ -4,7 +4,7 @@ excerpt: 'In this post, we will see how to use Google Protocol Buffers a languag
 date: 2018-03-05
 draft: false
 ## If your image is within the project start the url with `./src/images/`
-postImage: https://source.unsplash.com/Wj1D-qiOseE/920x460
+postImage: https://images.unsplash.com/photo-1528499908559-b8e4e8b89bda?w=920&h=460
 postImageCredits: Donald Giannatti | https://unsplash.com/@wizwow
 postImageSource: Unsplash | https://unsplash.com
 tags:

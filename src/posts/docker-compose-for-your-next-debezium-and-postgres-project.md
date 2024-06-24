@@ -4,7 +4,7 @@ excerpt: 'Working on Debezium and Postgres? This guide will help you to quick se
 date: 2023-02-04
 draft: false
 ## If your image is within the project start the url with `./src/images/`
-postImage: https://source.unsplash.com/GNyjCePVRs8/920x460
+postImage: https://images.unsplash.com/photo-1597852074816-d933c7d2b988?w=920&h=460
 postImageCredits: benjamin lehman | https://unsplash.com/@benjaminlehman?utm_source=iamninad.com&utm_medium=referral
 postImageSource: Unsplash | https://unsplash.com
 tocEnabled: true

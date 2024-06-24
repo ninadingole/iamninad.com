@@ -4,7 +4,7 @@ excerpt: 'If you have read my previous post on Debezium, I have mentioned that c
 date: 2018-07-22
 draft: false
 ## If your image is within the project start the url with `./src/images/`
-postImage: https://source.unsplash.com/SHP1t8EduMY/920x460
+postImage: https://images.unsplash.com/photo-1450149632596-3ef25a62011a?w=920&h=460
 postImageCredits: Umer Sayyam | https://unsplash.com/@sayyam197
 postImageSource: Unsplash | https://unsplash.com
 publication: https://itnext.io/the-ultimate-guide-to-setup-golden-gate-on-vagrant-box-5f73fc67ebd6

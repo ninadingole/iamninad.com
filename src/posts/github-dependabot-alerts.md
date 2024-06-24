@@ -2,7 +2,7 @@
 title: 'Github Dependabot Alerts'
 date: 2020-08-15
 excerpt: 'Security is a major concern for any business or product, and with the increasing number of methodologies and toolkits to easily exploits…'
-postImage: https://source.unsplash.com/R4WCbazrD1g/920x460
+postImage: https://images.unsplash.com/photo-1546776310-eef45dd6d63c?w=920&h=460
 postImageCredits: Rock'n Roll Monkey | https://unsplash.com/@rocknrollmonkey
 postImageSource: Unsplash | https://unsplash.com
 tags:

@@ -4,8 +4,8 @@ excerpt: 'In this post, we will be using expressjs to create REST web services. 
 date: 2018-03-07
 draft: false
 ## If your image is within the project start the url with `./src/images/`
-postImage: https://source.unsplash.com/vw3Ahg4x1tY/920x460
-postImageCredits: Greg Rakozy | https://unsplash.com/@grakozy
+postImage: https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=920&h=460
+postImageCredits: KOBU Agency | https://unsplash.com/@kobuagency
 postImageSource: Unsplash | https://unsplash.com
 tags:
   - REST

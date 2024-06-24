@@ -1,8 +1,8 @@
 ---
 title: Service Locator Using Spring Framework
 date: '2017-07-28'
-postImage: https://source.unsplash.com/QuVAKQGmb5Q/920x460
-postImageCredits: César Abner Martínez Aguilar | https://unsplash.com/@nosoycesar
+postImage: https://images.unsplash.com/photo-1661020596896-08e7b1beba6b?w=920&h=460
+postImageCredits: Geike Verniers | https://unsplash.com/@geikeverniers
 postImageSource: Unsplash | https://unsplash.com
 excerpt: 'How to create a service locator in spring to access multiple beans or locate a specific service bean implementation programmatically'
 tags:
