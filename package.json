@@ -14,30 +14,31 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.0",
+    "@11ty/eleventy": "^2.0.1",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
-    "clean-css": "^5.3.1",
-    "dayjs": "^1.11.4",
+    "clean-css": "^5.3.3",
+    "dayjs": "^1.11.11",
     "eleventy-plugin-lazyimages": "2.1.2",
     "generate-template-files": "^3.2.1",
     "html-minifier": "^4.0.0",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.0.1",
-    "markdown-it-image-figures": "^2.1.0",
+    "markdown-it-image-figures": "^2.1.1",
     "npm-run-all": "^4.1.5",
-    "terser": "^5.14.2"
+    "terser": "^5.31.1"
   },
   "dependencies": {
     "@11ty/eleventy-img": "^4.0.2",
     "eleventy-plugin-reading-time": "^0.0.1",
     "eleventy-plugin-seo": "^0.5.2",
     "markdown-it-abbr": "^2.0.0",
-    "markdown-it-attrs": "^4.1.4",
+    "markdown-it-attrs": "^4.1.6",
     "markdown-it-container": "^4.0.0",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-footnote": "^4.0.0",
-    "markdown-it-span": "^1.0.0"
+    "markdown-it-span": "^1.0.0",
+    "sharp": "^0.33.4"
   }
 }

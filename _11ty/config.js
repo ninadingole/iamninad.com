@@ -73,9 +73,10 @@ module.exports = function (eleventyConfig) {
         html: true,
         linkify: true
     }).use(markdownItAnchor, {
-        permalink: true,
-        permalinkBefore: true,
-        permalinkSymbol: ""
+        permalink: markdownItAnchor.permalink.linkInsideHeader({
+            symbol: "",
+            placement: "after",
+        }),
     }).use(markdownItEmoji.full)
     .use(markdownItContainer, 'info')
     .use(markdownItContainer, 'lead')
