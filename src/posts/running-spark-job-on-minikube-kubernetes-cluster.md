@@ -4,7 +4,7 @@ excerpt: 'Kubernetes is another industry buzz words these days and I am trying f
 date: 2018-03-10
 draft: false
 ## If your image is within the project start the url with `./src/images/`
-postImage: https://source.unsplash.com/AljDaiCbCVY/920x460
+postImage: https://images.unsplash.com/reserve/7vjJbdDRga27ApDoYicw_Sparks.jpg?w=920&h=460
 postImageCredits: Jakub Skafiriak | https://unsplash.com/@jakubskafiriak
 postImageSource: Unsplash | https://unsplash.com
 publications: https://itnext.io/running-spark-job-on-kubernetes-minikube-958cadaddd55

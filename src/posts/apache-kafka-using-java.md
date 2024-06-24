@@ -4,7 +4,7 @@ excerpt: 'Apache Kafka is a buzz word these days. Originally developed by Linked
 date: 2018-03-09
 draft: false
 ## If your image is within the project start the url with `./src/images/`
-postImage: https://source.unsplash.com/srgUf2-Qcms/920x460
+postImage: https://images.unsplash.com/photo-1698696073694-57aa4cfb4bac?w=920&h=460
 postImageCredits: Fabien Martin | https://unsplash.com/@fczls
 postImageSource: Unsplash | https://unsplash.com
 tags:
