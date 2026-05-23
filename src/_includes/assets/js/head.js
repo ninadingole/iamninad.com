@@ -11,6 +11,18 @@
   }
 })();
 
+// Netlify Identity dispatches password-recovery / invite / email-confirm
+// links back to the site root with a #<token>_token=... fragment. The
+// Identity widget only loads on /admin/, so bounce the fragment over so
+// the widget can pop the right modal.
+(function () {
+  if (!location.hash) return;
+  var tokens = /(?:^|[#&])(recovery_token|invite_token|confirmation_token|access_token|email_change_token)=/;
+  if (!tokens.test(location.hash)) return;
+  if (location.pathname.indexOf('/admin') === 0) return;
+  location.replace('/admin/' + location.hash);
+})();
+
 window.heap = window.heap || [];
 heap.load = function (e, t) {
   window.heap.appid = e;
