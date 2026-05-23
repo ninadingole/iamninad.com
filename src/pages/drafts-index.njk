@@ -1,0 +1,58 @@
+---
+title: Drafts
+excerpt: "Local-only drafts."
+permalink: /drafts/index.html
+layout: layouts/default
+route: drafts
+statusPath: "~/.drafts/"
+noindex: true
+eleventyExcludeFromCollections: true
+css:
+  - post-list
+---
+
+<div class="ArchiveHead">
+  <span class="u">{{ site.profile.handle }}</span><span class="at">@</span><span class="h">{{ site.profile.host }}</span><span class="colon">:</span><span class="p">~/.drafts</span><span class="dollar"> $ </span><span class="cmd">ls -lh</span>
+</div>
+
+<h1 class="ArchiveTitle"># drafts</h1>
+<div class="ArchiveSubtitle">
+  {% if collections.drafts and collections.drafts.length %}
+    {{ collections.drafts.length }} draft{% if collections.drafts.length != 1 %}s{% endif %}
+    — visible in <code class="t-accent">npm start</code> only, never deployed.
+  {% else %}
+    no drafts. set <code class="t-accent">draft: true</code> on a post's frontmatter to start one;
+    preview it here at <code class="t-accent">/drafts/&lt;slug&gt;/</code>.
+  {% endif %}
+</div>
+
+{% if collections.drafts and collections.drafts.length %}
+<div class="PostList">
+  <div class="PostList-Head">
+    <span>date</span>
+    <span class="right">len</span>
+    <span>title / tags</span>
+    <span></span>
+  </div>
+  {% for p in collections.drafts %}
+    <a class="PostRow" href="/drafts/{{ p.fileSlug }}/">
+      <span class="date">{{ p.date | short_date }}</span>
+      <span class="len">{{ p.data.readMin }}min</span>
+      <div>
+        <div class="title">{{ p.data.title }}</div>
+        <div class="tags">
+          {% for tg in p.data.tags %}{% if tg != 'posts' and loop.index <= 4 %}
+            <span class="TagInline">#{{ tg }}</span>
+          {% endif %}{% endfor %}
+        </div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="EndMarker">
+  <span class="eof">EOF</span>
+  <span> — only you can see this list.</span>
+</div>

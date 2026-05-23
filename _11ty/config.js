@@ -106,6 +106,44 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addCollection('posts', collection => {
         return collection.getFilteredByGlob('**/posts/**/*.md').filter(livePosts).reverse();
     });
+    // Drafts collection — read straight from disk so it bypasses
+    // eleventyExcludeFromCollections (which posts.11tydata.js sets to
+    // true for drafts to keep them out of every other collection).
+    // Populated only in dev (serve/watch); always empty in prod builds.
+    // Detect dev mode from argv because ELEVENTY_RUN_MODE isn't reliable
+    // at config-load time for addCollection.
+    const isDev = process.argv.includes('--serve') || process.argv.includes('--watch');
+    eleventyConfig.addCollection('drafts', () => {
+        if (!isDev) return [];
+        const fs = require('fs');
+        const matter = require('gray-matter');
+        const postsDir = 'src/posts';
+        const out = [];
+        for (const f of fs.readdirSync(postsDir)) {
+            if (!f.endsWith('.md')) continue;
+            const raw = fs.readFileSync(`${postsDir}/${f}`, 'utf8');
+            const fm = matter(raw);
+            if (fm.data.draft !== true) continue;
+            const slug = f.replace(/\.md$/, '');
+            const body = fm.content
+                .replace(/```[\s\S]+?```/g, ' ')
+                .replace(/`[^`]*`/g, ' ')
+                .replace(/[#*_>\[\]()!{}.,?\-]/g, ' ');
+            const words = body.split(/\s+/).filter(Boolean).length;
+            out.push({
+                fileSlug: slug,
+                url: `/drafts/${slug}/`,
+                date: fm.data.date instanceof Date ? fm.data.date : new Date(fm.data.date || Date.now()),
+                data: {
+                    title: fm.data.title || slug,
+                    tags: fm.data.tags || [],
+                    readMin: Math.max(1, Math.round(words / 220)),
+                    words,
+                },
+            });
+        }
+        return out.sort((a, b) => b.date - a.date);
+    });
 
     // Transforms
     eleventyConfig.addTransform('htmlmin', globalFilters.htmlmin);
