@@ -34,6 +34,9 @@ route: post
   <section class="MetaBlock" aria-label="Post metadata">
     <div><span class="k">author</span>    : {{ site.profile.name }} &lt;{{ site.profile.twitter }}&gt;</div>
     <div><span class="k">published</span> : {{ date | iso_date }}</div>
+    {% if lastModified and (lastModified | iso_date) > (date | iso_date) %}
+    <div><span class="k">updated</span>   : {{ lastModified | iso_date }} <span class="t-dim">({{ lastModified | relativeTime }} ago)</span></div>
+    {% endif %}
     <div><span class="k">read</span>      : {{ readMin }} min · {{ words }} words</div>
     <div><span class="k">tags</span>      : [{% for tag in tags %}{% if tag != 'posts' %}"{{ tag }}"{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}]</div>
   </section>

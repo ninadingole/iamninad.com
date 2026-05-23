@@ -83,14 +83,12 @@ button {
 }
 
 /* Reading progress ------------------------------------------------------ */
+/* Sits flush against the bottom edge of the sticky <header>, so it always
+   tracks the header without any fixed-offset math. */
 .ReadingProgress {
-  position: fixed;
-  top: var(--header-h);
-  left: 0;
-  right: 0;
   height: 2px;
   background: transparent;
-  z-index: 6;
+  width: 100%;
   pointer-events: none;
 }
 .ReadingProgress > span {
@@ -940,31 +938,49 @@ button {
 
 /* Phone & small tablets */
 @media (max-width: 760px) {
-  :root { --header-h: 52px; --status-h: 22px; }
+  :root { --header-h: 92px; --status-h: 22px; }
 
   body { padding-bottom: var(--status-h); }
 
+  /* Stack brand above nav so neither one has to truncate or wrap mid-word. */
   .Header-Inner {
-    padding: 10px 14px;
-    gap: 10px;
-    flex-wrap: nowrap;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 14px 8px;
+    gap: 6px;
+    overflow: visible;
+  }
+  .Header-Brand {
+    align-self: flex-start;
   }
   .Header-Brand .ver { display: none; }
+  .Header-Spacer { display: none; }
+
   .Header-Nav {
-    gap: 12px;
-    font-size: 12px;
+    width: 100%;
+    display: flex;
     flex-wrap: nowrap;
+    align-items: center;
+    gap: 14px;
+    font-size: 12px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    min-width: 0;
   }
   .Header-Nav::-webkit-scrollbar { display: none; }
+  .Header-Link {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
   .Header-Pipe,
   .Header-Link.is-extra { display: none; }
   .ThemeButton {
+    flex-shrink: 0;
+    margin-left: auto; /* park the theme toggle at the end of the row */
     padding: 6px 8px;
     font-size: 11px;
+    white-space: nowrap;
   }
   .ThemeButton .glyph { margin: 0; }
 
@@ -1038,8 +1054,7 @@ button {
     font-size: 10.5px;
   }
 
-  /* Reading progress sits below sticky header */
-  .ReadingProgress { top: var(--header-h); }
+  /* (Reading progress now lives inside the sticky header — no offset needed.) */
 
   /* About page */
   .About-Title { font-size: 30px; }
@@ -1062,6 +1077,16 @@ button {
   :root { --max-width: 100%; }
 
   .Header-Brand .name { max-width: 11ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Drop the "--theme=" label and show just the glyph + light/dark word. */
+  .ThemeButton > span:not(.glyph) { display: none; }
+  .ThemeButton::after {
+    content: attr(aria-label);
+    font: inherit;
+    color: inherit;
+    margin-left: 4px;
+    display: none; /* aria-label is too long; keep only the glyph on tiny screens */
+  }
 
   .Hero-Title { font-size: 24px; }
   .Featured-Title { font-size: 20px; }
