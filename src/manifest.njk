@@ -1,0 +1,18 @@
+---
+permalink: /manifest.json
+eleventyExcludeFromCollections: true
+---
+{
+  "lang": "{{ site.language }}",
+  "short_name": "{{ site.manifest.shortName }}",
+  "name": "{{ site.manifest.name }}",
+  "icons": [
+    { "src": "/assets/images/favicon-16x16.jpg", "sizes": "16x16",   "type": "image/png" },
+    { "src": "/assets/images/favicon-32x32.jpg", "sizes": "32x32",   "type": "image/png" },
+    { "src": "/assets/images/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ],
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "{{ site.manifest.backgroundColor }}",
+  "theme_color": "{{ site.manifest.themeColor }}"
+}

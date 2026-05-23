@@ -1,0 +1,77 @@
+---
+title: "About"
+excerpt: "About — backend engineer, writer."
+permalink: "/about/index.html"
+layout: layouts/default
+route: about
+statusPath: "~/about.md"
+---
+
+<nav class="Breadcrumb" aria-label="Breadcrumb">
+  <a href="/">~</a>
+  <span class="sep">/</span>
+  <span class="here">about</span>
+</nav>
+
+<div class="Prompt">
+  <span class="u">{{ site.profile.handle }}</span><span class="at">@</span><span class="h">{{ site.profile.host }}</span><span class="colon">:</span><span class="p">~</span><span class="dollar"> $ </span><span class="cmd">cat about.md</span>
+</div>
+
+<h1 class="About-Title">
+  # about<span class="Caret" aria-hidden="true"></span>
+</h1>
+<div class="About-Meta">{{ site.profile.role }} · {{ site.profile.location }}</div>
+
+<div class="About-Copy">
+  {% for para in site.profile.aboutCopy %}
+    <p class="About-Para {% if loop.first %}is-primary{% endif %}">{{ para }}</p>
+  {% endfor %}
+</div>
+
+<section class="About-Section">
+  <div class="SectionLabel"><span>$ ls ~/stack/</span></div>
+  <div class="Window About-Block">
+    <div class="SkillGrid">
+      {% for s in site.stack %}
+        <div class="SkillRow">
+          <span class="SkillRow-Name">{{ s.name }}</span>
+          <div class="SkillRow-Bar"><div style="width: {{ s.level }}%"></div></div>
+          <span class="SkillRow-Pct">{{ s.level }}%</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="About-Section">
+  <div class="SectionLabel"><span>$ ls ~/ai/</span></div>
+  <div class="Window About-Block">
+    <div class="SkillGrid">
+      {% for s in site.ai.tools %}
+        <div class="SkillRow">
+          <span class="SkillRow-Name SkillRow-Name--wide">{{ s.name }}</span>
+          <div class="SkillRow-Bar"><div style="width: {{ s.level }}%"></div></div>
+          <span class="SkillRow-Pct">{{ s.level }}%</span>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="SkillNotes">
+      {% for s in site.ai.tools %}
+        <div><span class="t-accent">#</span> <span class="SkillNotes-Name">{{ s.name }}</span> — {{ s.role }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="About-Section">
+  <div class="SectionLabel"><span>$ cat ~/.contact</span></div>
+  <div class="Window ContactList">
+    {% for s in site.socials %}
+      <a class="ContactRow" href="{{ s.url }}" target="_blank" rel="noopener">
+        <span class="ContactRow-Label">--{{ s.label }}</span>
+        <span class="ContactRow-Handle">{{ s.handle }}</span>
+        <span class="ContactRow-Icon">↗</span>
+      </a>
+    {% endfor %}
+  </div>
+</section>

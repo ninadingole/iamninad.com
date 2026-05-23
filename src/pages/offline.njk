@@ -1,14 +1,26 @@
 ---
-title: You are offline
+title: "Offline"
 permalink: offline.html
 layout: layouts/default
+route: error
+statusPath: "~/offline"
 css:
  - error-pages
 ---
 
 <section class="ErrorPage">
-    <img class="ErrorPage-Image" src="/assets/images/offline.png" alt="">
-    <h1>{{ title }}</h1>
-    <p>You are lost in the outer space. May be try to find it from <a class="Link" href="{{ "/" | url }}">home page?</a>
-    </p>
+  <div class="ErrorPage-Prompt">
+    <span class="u">{{ site.profile.handle }}</span><span class="at">@</span><span class="h">{{ site.profile.host }}</span><span class="colon">:</span><span class="p">~</span><span class="dollar"> $ </span><span class="err">ping {{ site.domain }}</span>
+  </div>
+
+  <h1>you are offline</h1>
+  <p>The network is unreachable. Reconnect and try again — your last cached pages should still load.</p>
+
+  <pre class="ErrorPage-Codeblock"><span class="e">ping: cannot resolve {{ site.domain }}: Network is unreachable</span>
+<span class="k">$</span> ifconfig | grep status
+        <span class="e">status: inactive</span></pre>
+
+  <p>
+    <a href="/" class="Btn-Accent">./retry.sh</a>
+  </p>
 </section>

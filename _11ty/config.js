@@ -52,7 +52,7 @@ module.exports = function (eleventyConfig) {
         title: site.title,
         url: site.url,
         author: site.author,
-        twitter: 'iamneenad',
+        twitter: site.seo.twitterHandle,
         options: {
             twitterCardType: "summary_large_image",
         }
@@ -98,7 +98,6 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig
         .addPassthroughCopy({ 'src/_includes/assets': 'assets' })
-        .addPassthroughCopy('src/manifest.json')
         .addPassthroughCopy('src/_redirects')
         .addPassthroughCopy('src/images')
         .addPassthroughCopy('src/.well-known');

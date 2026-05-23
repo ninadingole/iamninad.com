@@ -117,4 +117,79 @@ module.exports = {
         const hostUrl = match[3];
         return hostUrl.replace(/(?:www\.)?/g, '');
     },
+
+    relatedPosts: (collection, current, limit = 3) => {
+        if (!current || !current.data || !Array.isArray(current.data.tags)) return [];
+        const currentTags = new Set(current.data.tags.filter(t => t !== 'posts'));
+        if (currentTags.size === 0) return [];
+        const scored = collection
+            .filter(p => p.url !== current.url)
+            .map(p => {
+                const tags = (p.data && p.data.tags) ? p.data.tags : [];
+                const score = tags.reduce((s, t) => s + (currentTags.has(t) ? 1 : 0), 0);
+                return { p, score };
+            })
+            .filter(x => x.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit)
+            .map(x => x.p);
+        return scored;
+    },
+
+    wordCount: str => {
+        if (!str) return 0;
+        return str.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length;
+    },
+
+    readMinutes: str => {
+        if (!str) return 1;
+        const words = str.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length;
+        return Math.max(1, Math.round(words / 220));
+    },
+
+    iso_date: obj => {
+        const date = parseDate(obj);
+        return DateTime.fromJSDate(date).toFormat('yyyy-LL-dd');
+    },
+
+    short_date: obj => {
+        const date = parseDate(obj);
+        return DateTime.fromJSDate(date).toFormat('yyyy-LL');
+    },
+
+    excludePost: (collection, urlToSkip) => {
+        if (!collection || !urlToSkip) return collection;
+        return collection.filter(p => p.url !== urlToSkip);
+    },
+
+    totalWords: collection => {
+        if (!collection) return 0;
+        return collection.reduce((sum, p) => {
+            const html = (p.templateContent || '') + '';
+            return sum + html.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length;
+        }, 0);
+    },
+
+    totalReadMin: collection => {
+        if (!collection) return 0;
+        return collection.reduce((sum, p) => {
+            const html = (p.templateContent || '') + '';
+            const w = html.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length;
+            return sum + Math.max(1, Math.round(w / 220));
+        }, 0);
+    },
+
+    tagCounts: collection => {
+        const counts = {};
+        collection.forEach(p => {
+            const tags = (p.data && p.data.tags) ? p.data.tags : [];
+            tags.forEach(t => {
+                if (t === 'posts') return;
+                counts[t] = (counts[t] || 0) + 1;
+            });
+        });
+        return Object.entries(counts)
+            .map(([name, count]) => ({ name, count }))
+            .sort((a, b) => b.count - a.count);
+    },
 };

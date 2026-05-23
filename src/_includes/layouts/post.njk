@@ -1,81 +1,125 @@
 ---
- css: 
-    - 'post'
-    - 'prisma'
- js: 
-    - 'post'
- ogtype: article
+css:
+   - 'post'
+   - 'prisma'
+js:
+   - 'post'
+ogtype: article
+route: post
 ---
 {% extends 'layouts/base.njk' %}
 
 {% block content %}
-    <section class="PageHeader MarginTop-xxl">
-        <div class="Text--Secondary MarginY-xxs">
-            <time>{{ date | date_formatted }}</time>
-            <span>
-                {% for tag in tags %}
-                    <a href="/tags/{{tag}}" class="TagLink">#{{ tag }}</a>
-                {% endfor %}
-            </span>
-            <span class="Reading-Time">
-                ({{ content | readingTime }})
-            </span>
-        </div>
+<article class="Post"
+  data-post-id="{{ page.fileSlug }}"
+  data-status-path="~/posts/{{ page.fileSlug }}.md"
+  data-route="post"
+>
+  <nav class="Breadcrumb" aria-label="Breadcrumb">
+    <a href="/">~/posts</a>
+    <span class="sep">/</span>
+    <span class="here">{{ page.fileSlug }}.md</span>
+  </nav>
 
-        <div class="PostSummary">
-            <strong>tl;dr: </strong>{{excerpt}}
-        </div>
+  {% if tags %}
+    <div class="Post-Tags">
+      {% for tag in tags %}{% if tag != 'posts' %}
+        <a href="/tags/{{ tag }}/" class="Tag">{{ tag }}</a>
+      {% endif %}{% endfor %}
+    </div>
+  {% endif %}
+
+  <h1 class="Post-Title">{{ title }}</h1>
+
+  <section class="MetaBlock" aria-label="Post metadata">
+    <div><span class="k">author</span>    : {{ site.profile.name }} &lt;{{ site.profile.twitter }}&gt;</div>
+    <div><span class="k">published</span> : {{ date | iso_date }}</div>
+    <div><span class="k">read</span>      : {{ content | readMinutes }} min · {{ content | wordCount }} words</div>
+    <div><span class="k">tags</span>      : [{% for tag in tags %}{% if tag != 'posts' %}"{{ tag }}"{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}]</div>
+  </section>
+
+  {% if excerpt %}
+    <div class="PostSummary">
+      <strong>tl;dr: </strong>{{ excerpt }}
+    </div>
+  {% endif %}
+
+  {% if postImage %}
+    <figure class="Banner-Image" id="banner">
+      {% resI postImage, title, [750, 900, 1200] %}
+      {% if postImageCredits %}
+        <figcaption class="Credits">
+          photo by
+          {% Link postImageCredits | linkUrl, true, postImageCredits | linkName, "Link", true %}
+          on
+          {% Link postImageSource | linkUrl, true, postImageSource | linkName, "Link", true %}
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+
+  <div class="Article">
+    {{ content | safe }}
+  </div>
+
+  {% set related = collections.posts | relatedPosts(page, 3) %}
+  {% if related.length %}
+    <section class="Related" aria-label="Related posts">
+      <div class="Related-Label">$ grep -l "{{ tags[0] }}" ~/posts/*.md</div>
+      <div class="Related-Grid">
+        {% for r in related %}
+          <a href="{{ r.url }}" class="Related-Card">
+            <div class="meta">{{ r.date | iso_date }} · {{ r.templateContent | readMinutes }}min</div>
+            <div class="title">{{ r.data.title }}</div>
+            <div class="tags">
+              {% for tg in r.data.tags %}{% if tg != 'posts' and loop.index <= 3 %}
+                <span class="TagInline{% if tg in tags %} t-match{% endif %}">#{{ tg }}</span>
+              {% endif %}{% endfor %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
     </section>
+  {% endif %}
 
-    {% if postImage %}
-        <section class="Banner-Image" id="banner">
-            {%  resI postImage, title, [750, 900, 1200]  %}
-            {% if postImageCredits %}
-              <div class="Credits">
-                  {%  Link postImageCredits | linkUrl, true, postImageCredits | linkName, "Link", true  %}
-                  on
-                  {%  Link postImageSource | linkUrl, true, postImageSource | linkName, "Link", true  %}
-              </div>
-            {% endif %}
-        </section>
-    {% endif %}
+  <ul class="post-nav">
+    {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
+    {%- if previousPost %}
+      <li class="previous">
+        <span class="lbl">← previous</span>
+        <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
+      </li>
+    {%- endif %}
+    {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
+    {%- if nextPost %}
+      <li class="next">
+        <span class="lbl">next →</span>
+        <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
+      </li>
+    {%- endif %}
+  </ul>
 
-    <article class="Article">
-        {{ content | safe }}
-    </article>
+  <div class="EOF">
+    <span class="marker">EOF</span>
+    <span class="spacer"></span>
+    <a href="#main-content">↑ scroll to top</a>
+    <span>·</span>
+    <a href="/" class="back">cd ..</a>
+  </div>
 
-    <section class="other-links">
-        <ul class="post-nav">
-            {%- set nextPost = collections.posts | getNextCollectionItem(page) %}
-            {%- if nextPost %}
-                <li class="next">
-                    {% Link nextPost.url | url, false, nextPost.data.title, "Link" %}
-                    <i class="fas fa-chevron-right"></i>
-                </li>
-            {% endif %}
-            {%- set previousPost = collections.posts | getPreviousCollectionItem(page) %}
-            {%- if previousPost %}
-                <li class="previous">
-                    <i class="fas fa-chevron-left"></i>
-                    {% Link previousPost.url | url, false, previousPost.data.title, "Link" %}
-                </li>
-            {% endif %}
-        </ul>
-    </section>
-    <div class="Separator MarginY-xl"></div>
-    <details>
-      <summary>Comments</summary>
-      <div id="disqus_thread"></div>
-    </details>
-    
-    <script async>
-       (function() { // DON'T EDIT BELOW THIS LINE
+  <details class="Comments">
+    <summary>$ comments --load</summary>
+    <div id="disqus_thread"></div>
+  </details>
+
+  <script async>
+    (function() {
       var d = document, s = d.createElement('script');
-      s.src = 'https://iamninad.disqus.com/embed.js';
+      s.src = 'https://{{ site.disqus.shortname }}.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</article>
 {% endblock %}

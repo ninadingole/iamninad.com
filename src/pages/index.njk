@@ -1,52 +1,158 @@
 ---
 title: "Neenad Ingole"
-excerpt: "I am a Full Stack Developer who loves to explore tech and share the expierences and findings with the world"
+excerpt: "Backend engineer · notes on Go, databases, and the small lessons I pick up along the way."
 permalink: /index.html
 ogtype: website
 layout: layouts/default
+route: home
+statusPath: "~/posts"
 eleventyImport:
   collections: ["posts"]
 ---
 
-<section>
-  <ul class="List MarginTop-xxl">
-    {% for post in collections.posts | take(site.maxPostsInHomePage) %}
-      <li class="List-Item">
-        <h2 class="Heading">
-          <a class="List-ItemLink" href="{{ post.url }}">
-            <span class="TitleShadow Link Link--OnHover">{{ post.data.title }}</span>
-            <span aria-hidden="true" class="List-ItemVisitedStatus"></span>
-          </a>
-        </h2>
-        <div class="Text--Secondary MarginY-xxs">
-          <time>{{ post.date | date_formatted }}</time>
-          <span>
-            {% for tag in post.data.tags %}
-              <a href="/tags/{{tag}}" class="TagLink">#{{ tag }}</a>
-            {% endfor %}
-          </span>
-          <span class="Reading-Time">
-            ({{ post | readingTime }})
-          </span>
+{% set featured = collections.posts | first %}
+{% set rest = collections.posts | excludePost(featured.url) | take(site.maxPostsInHomePage) %}
+{% set tags = collections.posts | tagCounts %}
+
+<section class="Hero Window">
+  <div class="Window-Bar">
+    <span class="Window-Dot dot-red"></span>
+    <span class="Window-Dot dot-warn"></span>
+    <span class="Window-Dot dot-accent"></span>
+    <span class="Window-Title">~ — {{ site.profile.handle }} — {{ site.profile.shell }}</span>
+  </div>
+  <div class="Window-Body">
+    <div class="Hero-Grid">
+      <div>
+        <div class="Prompt">
+          <span class="u">{{ site.profile.handle }}</span><span class="at">@</span><span class="h">{{ site.profile.host }}</span><span class="colon">:</span><span class="p">~</span><span class="dollar"> $ </span><span class="cmd">whoami --verbose</span>
         </div>
-        <p class="Margin-1">{{ post.data.excerpt | markdownify_inline | safe }}</p>
+
+        <h1 class="Hero-Title">{{ site.profile.name }}<span class="Caret" aria-hidden="true"></span></h1>
+
+        <div class="Hero-Meta">
+          <span class="k">role:</span> {{ site.profile.role }}
+          <span class="t-dim">·</span>
+          <span class="k">loc:</span> {{ site.profile.location }}
+          <span class="t-dim">·</span>
+          <span class="k">uptime:</span> {{ site.profile.yearsWriting }}y
+        </div>
+
+        <p class="Hero-Bio">{{ site.profile.bio }}</p>
+
+        <div class="Hero-CTA">
+          <a href="/about/" class="Btn-Accent">./about.sh</a>
+          {% for s in site.socials %}{% if loop.index <= 4 %}
+            <a href="{{ s.url }}" class="Btn-Flag" target="_blank" rel="noopener">--{{ s.label }}</a>
+          {% endif %}{% endfor %}
+        </div>
+      </div>
+
+      <aside class="ProfileCard" aria-label="Profile">
+        <div class="head">$ stat ~/profile.json</div>
+        <div class="ProfileCard-Avatar">N</div>
+        <div><span class="k">name</span>  = "{{ site.profile.handle }}"</div>
+        <div><span class="k">posts</span> = {{ collections.posts.length }}</div>
+        <div><span class="k">lang</span>  = [{% for l in site.profile.languages %}"{{ l }}"{% if not loop.last %},{% endif %}{% endfor %}]</div>
+        <div><span class="k">ai</span>    = [{% for l in site.ai.daily %}"{{ l }}"{% if not loop.last %},{% endif %}{% endfor %}]</div>
+        <div><span class="k">os</span>    = "{{ site.profile.os }}"</div>
+        <div><span class="k">shell</span> = "{{ site.profile.shell }}"</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% if featured %}
+<section class="Section">
+  <div class="SectionLabel">
+    <span class="rule"></span>
+    <span>head -n 1 ~/posts/pinned</span>
+  </div>
+
+  <a class="Featured" href="{{ featured.url }}">
+    <div class="Window-Bar">
+      <span class="Window-Dot dot-red"></span>
+      <span class="Window-Dot dot-warn"></span>
+      <span class="Window-Dot dot-accent"></span>
+      <span class="Window-Title">posts/{{ featured.fileSlug }}.md</span>
+      <span class="Window-Pin">[ PINNED ]</span>
+    </div>
+    <div class="Featured-Body">
+      <div class="Featured-Meta">
+        <span class="bracket">┌─</span>
+        <span>{{ featured.date | iso_date }}</span>
+        <span>·</span>
+        <span>{{ featured.templateContent | readMinutes }} min · {{ featured.templateContent | wordCount }} words</span>
+      </div>
+      <h2 class="Featured-Title">{{ featured.data.title }}</h2>
+      {% if featured.data.excerpt %}
+        <p class="Featured-Excerpt">{{ featured.data.excerpt }}</p>
+      {% endif %}
+      <div class="Featured-Tags">
+        {% for tg in featured.data.tags %}{% if tg != 'posts' and loop.index <= 5 %}
+          <span class="Tag">{{ tg }}</span>
+        {% endif %}{% endfor %}
+      </div>
+      <div class="Featured-Open">
+        $ cat {{ featured.fileSlug }}.md <span class="arr">→</span>
+      </div>
+    </div>
+  </a>
+</section>
+{% endif %}
+
+<section class="Section">
+  <div class="ListHeader">
+    <div class="Prompt">
+      <span class="u">{{ site.profile.handle }}</span><span class="at">@</span><span class="h">{{ site.profile.host }}</span><span class="colon">:</span><span class="p">~/posts</span><span class="dollar"> $ </span><span class="cmd">ls -lh</span>
+    </div>
+    <span class="ListHeader-Count">{{ rest.length + 1 }} files</span>
+  </div>
+
+  <div class="PostList">
+    <div class="PostList-Head">
+      <span>date</span>
+      <span class="right">len</span>
+      <span>title / tags</span>
+      <span></span>
+    </div>
+    {% for p in rest %}
+      <a class="PostRow" href="{{ p.url }}">
+        <span class="date">{{ p.date | short_date }}</span>
+        <span class="len">{{ p.templateContent | readMinutes }}min</span>
         <div>
-          <a href="{{ post.url }}" class="Link" >read more ⟶</a>
+          <div class="title">{{ p.data.title }}</div>
+          <div class="tags">
+            {% for tg in p.data.tags %}{% if tg != 'posts' and loop.index <= 4 %}
+              <span class="TagInline">#{{ tg }}</span>
+            {% endif %}{% endfor %}
+          </div>
         </div>
-      </li>
-      {# <hr class="List-Separator"> #}
+        <span class="arrow">→</span>
+      </a>
     {% endfor %}
-  </ul>
+  </div>
 </section>
 
 {% if collections.posts.length > site.maxPostsInHomePage %}
-  <section class="MarginTop-xxxl">
-    For more blog posts, you can visit
-    <a href="/archive" class="Link">
-      the archive</a>.
+  <section class="Section">
+    <div class="SectionLabel">
+      <span class="rule"></span>
+      <span>$ ls ~/posts | wc -l → {{ collections.posts.length }} files</span>
+    </div>
+    <p class="t-soft mono">
+      see the full <a href="/archive/" class="t-accent">--archive</a> for every post in chronological order.
+    </p>
   </section>
 {% endif %}
 
-<section class="HP-Ads">
-  {% include "partials/homepage-ads.njk" %}
+<section class="Section">
+  <div class="SectionLabel">
+    <span>$ tags --sort=count</span>
+  </div>
+  <div class="TagCloud">
+    {% for t in tags %}
+      <a class="Tag" href="/tags/{{ t.name }}/">{{ t.name }}<span class="count">{{ t.count }}</span></a>
+    {% endfor %}
+  </div>
 </section>

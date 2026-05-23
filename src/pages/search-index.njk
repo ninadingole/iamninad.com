@@ -1,0 +1,14 @@
+---
+permalink: /search.json
+eleventyExcludeFromCollections: true
+---
+[{% for p in collections.posts %}{
+"id":"{{ p.fileSlug }}",
+"url":"{{ p.url }}",
+"title":{{ p.data.title | dump | safe }},
+"excerpt":{{ (p.data.excerpt or "") | dump | safe }},
+"date":"{{ p.date | iso_date }}",
+"readMin":{{ p.templateContent | readMinutes }},
+"words":{{ p.templateContent | wordCount }},
+"tags":[{% for tg in p.data.tags %}{% if tg != "posts" %}{{ tg | dump | safe }}{% if not loop.last %},{% endif %}{% endif %}{% endfor %}]
+}{% if not loop.last %},{% endif %}{% endfor %}]

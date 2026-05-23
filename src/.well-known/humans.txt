@@ -16,9 +16,8 @@
 
 Neenad Ingole
 - Site    : iamninad.com
-- Twitter : @iamneenad
 - Github  : @ninadingole
-- Location: India
+- Location: Berlin, DE
 
 /* SITE */
 

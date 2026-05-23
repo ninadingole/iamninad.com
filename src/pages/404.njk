@@ -1,15 +1,28 @@
 ---
-title: Oops! Not Found
+title: "404 — Not Found"
 permalink: 404.html
 layout: layouts/default
+route: error
+statusPath: "~/posts/404.md"
 eleventyExcludeFromCollections: true
-css: 
+css:
   - error-pages
 ---
 
 <section class="ErrorPage">
-    <img class="ErrorPage-Image" src="{{ '/assets/images/404.png' | url }}" alt="">
-    <h1>{{ title }}</h1>
-    <p>You are lost in the outer space. May be try to find it from <a class="Link" href="{{ "/" | url }}">home page?</a>
-    </p>
+  <div class="ErrorPage-Prompt">
+    <span class="u">{{ site.profile.handle }}</span><span class="at">@</span><span class="h">{{ site.profile.host }}</span><span class="colon">:</span><span class="p">~</span><span class="dollar"> $ </span><span class="err">cat {{ "{{ requested }}" }}</span>
+  </div>
+
+  <h1>404 — file not found</h1>
+  <p>The path you're looking for doesn't exist on this host. It may have been moved, renamed, or never existed at all.</p>
+
+  <pre class="ErrorPage-Codeblock"><span class="e">cat: ./404.md: No such file or directory</span>
+<span class="k">$</span> ls ~/
+<span class="k">$</span> cd ~ &amp;&amp; ls -lh</pre>
+
+  <p>
+    <a href="/" class="Btn-Accent">./home.sh</a>
+    <a href="/archive/" class="Btn-Flag" style="margin-left: 8px;">--archive</a>
+  </p>
 </section>

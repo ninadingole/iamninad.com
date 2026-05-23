@@ -1,18 +1,22 @@
-<header class="Header Flex Flex--alignCenter Flex--justifyBetween">
-   <h1 class="Heading">
-      <a href="/">
-         {{ title }}
-      </a>
-   </h1>
-   <div class="Menu Flex Flex--alignCenter">
-      <a href="https://github.com/sponsors/ninadingole" target="_blank" class="Link Header-Link">sponsor</a>
-      <a href="https://medium.com/@iamninad" target="_blank" class="Link Header-Link">medium</a>
-      <a href="/archive" class="Link Header-Link">archive</a>
-      <a href="/feed.xml" target="_blank" class="Link Header-Link">rss</a>
-      {# Icon adapted from Gatsby narrative theme #}
-      <button class="ThemeButton js-theme-btn" aria-label="Activate dark mode" title="Activate dark mode">
-         <div ></div>
-         <div ></div>
-      </button>
-   </div>
+<header class="Header">
+    <div class="Header-Inner">
+        <a class="Header-Brand" href="/" aria-label="{{ site.title }} — home">
+            <span class="prompt">$</span>
+            <span class="name">{{ site.title }}</span>
+            <span class="ver">{{ site.profile.version }}</span>
+        </a>
+        <div class="Header-Spacer"></div>
+        <nav class="Header-Nav" aria-label="Primary">
+            <a href="/" class="Header-Link {% if (route or 'home') == 'home' %}is-active{% endif %}">--writing</a>
+            <a href="/archive/" class="Header-Link {% if route == 'archive' %}is-active{% endif %}">--archive</a>
+            <a href="/about/" class="Header-Link {% if route == 'about' %}is-active{% endif %}">--about</a>
+            <span class="Header-Pipe">|</span>
+            <a href="/feed.xml" class="Header-Link is-extra">--rss</a>
+            <a href="{{ site.social.sponser }}" target="_blank" rel="noopener" class="Header-Link is-extra">--sponsor</a>
+            <button class="ThemeButton js-theme-btn" type="button" aria-label="Toggle theme">
+                <span class="glyph" data-glyph-dark="◐" data-glyph-light="◑">◐</span>
+                <span>--theme=<span class="js-theme-label">dark</span></span>
+            </button>
+        </nav>
+    </div>
 </header>

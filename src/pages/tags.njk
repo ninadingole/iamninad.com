@@ -4,26 +4,53 @@ pagination:
   size: 1
   alias: tag
   addAllPagesToCollections: true
+  filter:
+    - all
+    - nav
+    - post
+    - posts
 layout: layouts/default.njk
 renderData:
-  title: Tagged “{{ tag }}”
+  title: Tagged "{{ tag }}"
 permalink: /tags/{{ tag }}/
+route: tag
+statusPath: "~/posts/by-tag"
 css:
  - post-list
 ---
 
 {% set tagPosts = collections[tag] %}
 
-<h1 class="Heading MarginTop-xxl">
-    <span class="TitleShadow">Posts tagged with “{{ tag }}”</span>
-</h1>
+<div class="ArchiveHead">
+  <span class="u">{{ site.profile.handle }}</span><span class="at">@</span><span class="h">{{ site.profile.host }}</span><span class="colon">:</span><span class="p">~/posts</span><span class="dollar"> $ </span><span class="cmd">grep -l "{{ tag }}" *.md</span>
+</div>
 
-<section class="PostListWrapper" style="--totalPosts: {{ tagPosts.length + 1 }}">
-    <ol class="PostList MarginTop-l">
-        {% for item in tagPosts %}
-            <li>
-                <a class="Link PostList-Link MarginTop-s" href="{{item.url}}">{{ item.data.title }}</a>
-            </li>
-        {% endfor %}
-    </ol>
-</section>
+<h1 class="ArchiveTitle"># tag : {{ tag }}</h1>
+<div class="ArchiveSubtitle">
+  {{ tagPosts.length }} {% if tagPosts.length == 1 %}post{% else %}posts{% endif %} ·
+  <a href="/archive/" class="t-accent">cd ../archive</a>
+</div>
+
+<div class="PostList">
+  <div class="PostList-Head">
+    <span>date</span>
+    <span class="right">len</span>
+    <span>title / tags</span>
+    <span></span>
+  </div>
+  {% for p in tagPosts | reverse %}
+    <a class="PostRow" href="{{ p.url }}">
+      <span class="date">{{ p.date | short_date }}</span>
+      <span class="len">{{ p.templateContent | readMinutes }}min</span>
+      <div>
+        <div class="title">{{ p.data.title }}</div>
+        <div class="tags">
+          {% for tg in p.data.tags %}{% if tg != 'posts' and loop.index <= 4 %}
+            <span class="TagInline{% if tg == tag %} t-match{% endif %}">#{{ tg }}</span>
+          {% endif %}{% endfor %}
+        </div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  {% endfor %}
+</div>

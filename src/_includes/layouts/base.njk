@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.language }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#0055FF"/>
-        <meta name="robots" content="index,follow"/>
+        <meta name="theme-color" content="{{ site.themeColor }}"/>
         <meta name="monetization" content="$ilp.uphold.com/96QFDLnaPa42" />
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com"> 
-        <link rel="preconnect" href="https://cdn.heapanalytics.com"> 
-        <link rel="preconnect" href="https://www.googletagmanager.com"> 
-        <link rel="preconnect" href="https://cdn.jsdelivr.net"> 
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://cdn.heapanalytics.com">
+        <link rel="preconnect" href="https://www.googletagmanager.com">
+        <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
         <link rel="preload"
-              href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fira+Code:wght@400;500;600&display=swap"
               as="style"
-              onload="this.onload=null;this.rel='stylesheet'"     
+              onload="this.onload=null;this.rel='stylesheet'"
         />
         <noscript>
-          <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
         </noscript>
-        <script src="https://kit.fontawesome.com/e1454ae041.js" crossorigin="anonymous" defer></script>
-        <script src="https://unpkg.com/lite-iframe@0.3.0/dist/lite-iframe.esm.js" type="module"></script>
+
         {% include "partials/meta-head.njk" %}
 
         {% set headjs %}
@@ -40,29 +39,68 @@
                 {% include "assets/css/" + file + ".css" %}
             {% endfor %}
         {% endif %}
-
         {% endset %}
         <style>
-            {{css | cssmin | safe}}
+            {{ css | cssmin | safe }}
         </style>
     </head>
-    <body>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHB9929" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
+    <body
+        data-route="{{ route or 'home' }}"
+        data-status-path="{{ statusPath or '~/posts' }}"
+    >
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ site.analytics.gtm }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-        <a href="#main-content" class="SkipContent">
-            Skip to main content
-        </a>
+        <a href="#main-content" class="SkipContent">Skip to main content</a>
+
+        <div class="DotGrid" aria-hidden="true"></div>
+        <div class="ReadingProgress" aria-hidden="true"><span></span></div>
 
         <div class="Container">
             {% include "partials/header.njk" %}
-            <main id="main-content" class="Content" tabindex="-1">
-                {% block header %}{% endblock %}
+            <main id="main-content" class="Content fade-in" tabindex="-1">
                 {% block content %}{% endblock content %}
-
             </main>
             {% include "partials/footer.njk" %}
+        </div>
+
+        {# Command palette modal #}
+        <div class="Palette" id="palette" role="dialog" aria-modal="true" aria-label="Command palette">
+            <div class="Palette-Box">
+                <div class="Palette-InputRow">
+                    <span class="chev">›</span>
+                    <input id="palette-input" class="Palette-Input" type="text" placeholder="Search posts, jump anywhere…" autocomplete="off" />
+                    <span class="Palette-Esc">ESC</span>
+                </div>
+                <div class="Palette-List" id="palette-list" role="listbox"></div>
+                <div class="Palette-Foot">
+                    <span>↑↓ navigate</span>
+                    <span>↵ open</span>
+                    <span>esc close</span>
+                    <span class="spacer"></span>
+                    <span id="palette-count">0 results</span>
+                </div>
+            </div>
+        </div>
+
+        {# Palette hint (auto-fades on first open) #}
+        <div class="PaletteHint" id="palette-hint">
+            <kbd class="kbd">⌘K</kbd>
+            <span>command palette</span>
+        </div>
+
+        {# Vim-style status bar #}
+        <div class="StatusBar" id="status-bar">
+            <span class="StatusBar-Mode">— NORMAL —</span>
+            <span class="StatusBar-Cell path" id="status-path">~/posts</span>
+            <span class="StatusBar-Cell hide-narrow" id="status-count"></span>
+            <span class="StatusBar-Spacer"></span>
+            <span class="StatusBar-Cell StatusBar-Palette" id="status-open-palette" title="Open command palette">
+                <kbd class="kbd">⌘K</kbd>
+                <span class="hide-narrow">palette</span>
+            </span>
+            <span class="StatusBar-Cell hide-narrow">utf-8</span>
+            <span class="StatusBar-Cell" id="status-theme">dark</span>
+            <span class="StatusBar-Cell time" id="status-time">00:00</span>
         </div>
 
         {% set js %}

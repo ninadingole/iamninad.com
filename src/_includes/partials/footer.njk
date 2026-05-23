@@ -1,15 +1,12 @@
-<hr class="Separator MarginTop-xxl">
 <footer class="Footer">
-  <nav>
-    <a href="{{site.url}}" rel="noopener" target="_blank" class="Link Footer-Link">about</a>
-
-    {% for site, link in site.social %}
-      <a href="{{link | mailHref }}" rel="noopener" target="_blank" class="Link Footer-Link">{{ site }}</a>
-    {% endfor %}
-
-    <a href="/feed.xml" target="_blank" class="Link Footer-Link">rss</a>
-  </nav>
+    <div class="Footer-Inner">
+        <span>© {{ site.currentYear }} {{ site.profile.handle }}@{{ site.profile.host }}</span>
+        <span class="dot">·</span>
+        <span>built with 11ty</span>
+        <span class="dot">·</span>
+        <span title="See ~/ai/ on the about page">{{ site.ai.headline }}</span>
+        <span class="dot">·</span>
+        <a href="/feed.xml" class="Header-Link is-extra">--rss</a>
+        <span class="online">● online</span>
+    </div>
 </footer>
-<div class="Copyright Flex">
-  <p class="Flex--alignCenter">Copyright {{site.currentYear}}, made with 11ty</p>
-</div>

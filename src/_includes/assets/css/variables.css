@@ -1,54 +1,60 @@
+/* Terminal — Blog Redesign v2 ----------------------------------------------
+   Dark is the default; light is an explicit opt-in via [data-theme="light"].
+   Accent palette: green (default), emerald, cyan, amber, magenta.
+--------------------------------------------------------------------------- */
+
 :root {
-  --font-mono: 'Roboto Mono', system-ui, Helvetica, Arial, sans-serif;
-  --font-body: system-ui, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --line-height: 1.5;
+  --row-pad: 12px;
+  --max-width: 1100px;
+  --reading-max: 760px;
+  --header-h: 56px;
+  --status-h: 26px;
 
-  /* --bg: #fff9fc; */
-  --text-color: #32325a;
-  --text-secondary-color: #68757b;
+  /* Dark — default */
+  --bg: #0c0d0a;
+  --surface: #111310;
+  --surfaceDeep: #070806;
+  --fg: #dce4d3;
+  --fgSoft: #8a9180;
+  --fgDim: #525847;
+  --rule: #1f221c;
+  --ruleSoft: #15170f;
+  --accent: #7ed79f;
+  --accentSoft: #16261c;
+  --warn: #d9a64e;
+  --red: #e26b5f;
 
-  --dark-bg: #2d2a2a;
-  --dark-text-color: #fff;
-
-  --primary: #6272a4;
-  --primary-shadow: hsla(232, 14%, 31%, 0.12);
-
-  --blockquote-color: #73728c;
-
-  --separator-color: #d0d6d8;
-  --focus-color: #ffa611;
-
-  --standout-bg: #ececf8;
-  --standout-shadow: 0 2px 2px #d7d6ea, 0 0 0 1px #dfdee6;
-
-  --code-bg: #1e1e3f;
-  --inline-code-bg: #ece4e9;
-
-  --visited-link-color: #0c9c38;
-
-  --reading-time-color: #BC0101;
-
-  --banner-image-shadow-color: rgba(0 0 0 / 50%);
+  --focus-color: var(--accent);
+  --selection-bg: rgba(126, 215, 159, 0.32);
 }
 
-:root[data-theme='dark'] {
-  --bg: #282a36;
+:root[data-theme="light"] {
+  --bg: #f5f2ec;
+  --surface: #fbf9f3;
+  --surfaceDeep: #ede8d8;
+  --fg: #13110d;
+  --fgSoft: #5a554c;
+  --fgDim: #8a8478;
+  --rule: #d8d2c4;
+  --ruleSoft: #e5e0d3;
+  --accent: #0d6b3f;
+  --accentSoft: #dfeae0;
+  --warn: #a05a00;
+  --red: #a8332a;
 
-  --text-color: #f8f8f2;
-  --text-secondary-color: #a8bcc5;
-  --blockquote-color: #bababd;
-
-  --primary: #ff5555;
-  --primary-shadow: hsla(0, 100%, 67%, 0.12);
-
-  --separator-color: #545353;
-
-  --standout-bg: #484848;
-  --standout-shadow: 0 2px 2px #292828, 0 0 0 1px #292828;
-
-  --code-bg: #1d1f21;
-  --inline-code-bg: #444444;
-
-  --reading-time-color: #bd93f9;
+  --selection-bg: rgba(13, 107, 63, 0.22);
 }
+
+/* Accent swatches (applied by data-accent) ------------------------------- */
+:root[data-accent="emerald"] { --accent: #3fb88a; --accentSoft: #11261d; }
+:root[data-accent="cyan"]    { --accent: #6fd6e0; --accentSoft: #102529; }
+:root[data-accent="amber"]   { --accent: #e8b766; --accentSoft: #2a1f10; }
+:root[data-accent="magenta"] { --accent: #e891c8; --accentSoft: #2a1424; }
+
+:root[data-theme="light"][data-accent="emerald"] { --accent: #1f8a5b; --accentSoft: #d8eadf; }
+:root[data-theme="light"][data-accent="cyan"]    { --accent: #0a6f7b; --accentSoft: #cfe6e9; }
+:root[data-theme="light"][data-accent="amber"]   { --accent: #a05a00; --accentSoft: #f0e0c4; }
+:root[data-theme="light"][data-accent="magenta"] { --accent: #a13a7d; --accentSoft: #f0d8e7; }
