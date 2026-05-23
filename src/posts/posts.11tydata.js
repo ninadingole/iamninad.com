@@ -56,11 +56,28 @@ function readMinutes(words) {
   return Math.max(1, Math.round(words / 220));
 }
 
+// Posts with `draft: true` in frontmatter:
+//   - In `npm start` / `eleventy --serve|--watch` dev mode → rendered
+//     at /drafts/<slug>/ so you can preview them locally.
+//   - In `npm run build` (prod) → permalink is false, no HTML output,
+//     and they're excluded from every collection (archive, tags, RSS,
+//     search index, OG cards, etc.).
+function isDevMode() {
+  return process.env.ELEVENTY_RUN_MODE === 'serve'
+      || process.env.ELEVENTY_RUN_MODE === 'watch';
+}
+
 module.exports = {
   layout: 'layouts/post',
   eleventyComputed: {
     words: data => bodyWords(data.page && data.page.inputPath),
     readMin: data => readMinutes(bodyWords(data.page && data.page.inputPath)),
     lastModified: data => gitLastModified(data.page && data.page.inputPath),
+    permalink: data => {
+      if (!data.draft) return data.permalink; // default behaviour
+      if (!isDevMode()) return false;          // prod: skip render entirely
+      return `/drafts/${data.page.fileSlug}/index.html`;
+    },
+    eleventyExcludeFromCollections: data => data.draft === true,
   },
 };
