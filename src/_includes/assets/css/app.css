@@ -23,7 +23,10 @@ html { scroll-behavior: smooth; }
 body {
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  /* `clip` instead of `hidden` so descendant elements with
+     position: sticky (TOC, status bar, header) keep working —
+     `overflow: hidden` would establish a scroll container and break sticky. */
+  overflow-x: clip;
   padding-bottom: var(--status-h);
 }
 

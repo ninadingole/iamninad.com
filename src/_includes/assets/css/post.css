@@ -1,40 +1,49 @@
 /* Individual post — terminal reading view */
 
-/* Single-column reading flow — the TOC floats over the viewport as
-   a fixed sidebar on wide screens (see .TOC below) and is hidden
-   below 1200px, so .Post itself stays a simple block. */
+/* Post layout: 2-column grid with the article in column 1 and the
+   TOC <aside> in column 2. The TOC sticks while you scroll. Below
+   1200px the grid collapses to a single column and the TOC hides,
+   so the article reclaims the full reading width on narrow screens. */
 .Post {
-  max-width: var(--reading-max);
+  display: grid;
+  grid-template-columns: minmax(0, var(--reading-max)) 232px;
+  column-gap: 40px;
+  max-width: 1032px; /* 760 + 40 + 232 */
   margin: 0 auto;
   padding-top: 8px;
   padding-bottom: 48px;
 }
+.Post > *  { grid-column: 1; min-width: 0; }
+.Post > .TOC {
+  grid-column: 2;
+  grid-row: 1 / 100;
+}
 
-/* Sticky TOC: a self-contained card pinned to the right side of the
-   viewport. Window-chrome dots + "## contents" label, zero-padded
-   section numbers, active state with accent border + fill, and a
-   section N/M + ↑ top footer. */
+/* TOC: self-contained card with window-chrome dots, ## contents label,
+   numbered sections, active state, and section N/M + ↑ top footer.
+   Sticks at top:96px while scrolling. */
 .TOC {
-  display: none;
-  position: fixed;
-  right: 28px;
-  top: 132px;
-  width: 232px;
-  max-height: calc(100vh - 200px);
+  position: sticky;
+  top: 96px;
+  max-height: calc(100vh - 130px);
   overflow-y: auto;
-  z-index: 4;
   background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 2px;
   padding: 14px 14px 12px;
   font: 500 12px/1.45 var(--font-mono);
   color: var(--fgSoft);
-  animation: termFade .3s ease-out both;
   scrollbar-width: thin;
+  align-self: start;
 }
 .TOC.is-empty { display: none !important; }
-@media (min-width: 1200px) {
-  .TOC { display: block; }
+
+@media (max-width: 1199px) {
+  .Post {
+    display: block;
+    max-width: var(--reading-max);
+  }
+  .TOC { display: none; }
 }
 
 .TOC-Bar {
