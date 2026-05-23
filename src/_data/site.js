@@ -4,6 +4,23 @@ const currentYear = new Date().getFullYear();
 const twitterHandle = "@iamneenad";
 const fullName = "Neenad Ingole";
 
+// Brand version shown next to "$ iamninad" in the header. Live short-sha
+// from git so each push visibly bumps the build identifier. Falls back to
+// a static label if git isn't available (shallow clones, CI without depth).
+const { execSync } = require("child_process");
+function brandVersion() {
+  if (process.env.SITE_VERSION) return process.env.SITE_VERSION;
+  try {
+    const sha = execSync("git rev-parse --short HEAD", {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    return sha ? `v#${sha}` : "v2.6";
+  } catch (e) {
+    return "v2.6";
+  }
+}
+
 module.exports = {
   title: "iamninad",
   description: "Build, break and Improve.",
@@ -65,7 +82,7 @@ module.exports = {
     languages: ["go", "postgres", "docker", "ts"],
     os: "macOS+linux",
     shell: "fish",
-    version: "v2.6.0",
+    version: brandVersion(),
   },
 
   socials: [
