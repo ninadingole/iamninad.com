@@ -7,3 +7,8 @@ www
 .netlify
 
 .idea
+
+# AI tooling artifacts
+.omc/
+ELEPHANT.md
+.lazyimages.json
