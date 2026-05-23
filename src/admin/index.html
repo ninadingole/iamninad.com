@@ -12,9 +12,12 @@
          no-ops when Identity isn't configured on the site.) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <!-- Decap CMS itself — loaded from unpkg for now. If you ever want a
-         pinned version, copy the bundle into /admin/ and self-host. -->
-    <script src="https://unpkg.com/decap-cms@^3.7.4/dist/decap-cms.js"></script>
+    <!-- Decap CMS — self-hosted at /admin/decap-cms.js so the bundle
+         can't drift under us via unpkg and so we control exactly which
+         version runs in the browser. Pinned to 3.12.2.
+         To update: curl -sL https://unpkg.com/decap-cms@<version>/dist/decap-cms.js
+                    -o src/admin/decap-cms.js  (and bump the version comment). -->
+    <script src="/admin/decap-cms.js"></script>
 
     <script>
       // Apply terminal-themed styles to the post preview iframe so the
