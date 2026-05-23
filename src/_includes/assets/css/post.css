@@ -337,27 +337,40 @@ a.header-anchor::before { content: "#"; color: var(--accent); }
   background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 2px;
-  padding: 12px 14px;
-  transition: border-color .15s;
+  transition: border-color .15s, background .15s;
+  /* Make the whole card the click target — the anchor expands to fill it. */
 }
-.post-nav li:hover { border-color: var(--accent); }
-.post-nav li.previous { text-align: left; }
-.post-nav li.next     { text-align: right; }
-.post-nav li .lbl {
+.post-nav li:hover {
+  border-color: var(--accent);
+  background: var(--surfaceDeep);
+}
+.post-nav a {
+  display: block;
+  padding: 12px 14px;
+  color: var(--fg);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  height: 100%;
+}
+.post-nav li.previous a { text-align: left; }
+.post-nav li.next a     { text-align: right; }
+.post-nav .lbl {
   display: block;
   color: var(--fgDim);
-  font-size: 10.5px;
+  font: 500 10.5px/1 var(--font-mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
-.post-nav a {
+.post-nav .title {
+  display: block;
   color: var(--fg);
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 14px;
+  transition: color .15s;
+  text-wrap: balance;
 }
-.post-nav a:hover { color: var(--accent); }
+.post-nav li:hover .title { color: var(--accent); }
 
 /* EOF footer ------------------------------------------------------------ */
 .EOF {
