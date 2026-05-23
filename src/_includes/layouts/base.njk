@@ -29,6 +29,55 @@
         <meta name="twitter:image" content="{{ ogImage }}"/>
         <meta name="twitter:card" content="summary_large_image"/>
 
+        {# Schema.org structured data for richer SERPs.
+           BlogPosting on post pages, WebSite + Person on everything else. #}
+        {% if route == "post" %}
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ site.url }}{{ page.url }}"
+          },
+          "headline": {{ title | dump | safe }},
+          {% if excerpt %}"description": {{ excerpt | dump | safe }},{% endif %}
+          "image": "{{ ogImage }}",
+          "datePublished": "{{ date | iso_date }}",
+          "dateModified": "{{ (lastModified or date) | iso_date }}",
+          "author": {
+            "@type": "Person",
+            "name": {{ site.profile.name | dump | safe }},
+            "url": "{{ site.url }}/about/"
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": {{ site.profile.name | dump | safe }},
+            "url": "{{ site.url }}"
+          },
+          "keywords": [{% for tag in tags %}{% if tag != "posts" %}{{ tag | dump | safe }}{% if not loop.last %},{% endif %}{% endif %}{% endfor %}],
+          "url": "{{ site.url }}{{ page.url }}"
+        }
+        </script>
+        {% else %}
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": "{{ site.url }}",
+          "name": {{ site.title | dump | safe }},
+          "description": {{ site.description | dump | safe }},
+          "author": {
+            "@type": "Person",
+            "name": {{ site.profile.name | dump | safe }},
+            "url": "{{ site.url }}/about/",
+            "jobTitle": {{ site.profile.role | dump | safe }},
+            "sameAs": {{ site.socials | externalUrls | dump | safe }}
+          }
+        }
+        </script>
+        {% endif %}
+
         {% include "partials/meta-head.njk" %}
 
         {% set headjs %}

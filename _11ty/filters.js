@@ -258,6 +258,10 @@ module.exports = {
         return Math.floor(diff / (86400 * 365)) + 'y';
     },
 
+    externalUrls: arr => (arr || [])
+        .filter(s => s && s.url && typeof s.url === 'string' && !s.url.startsWith('/'))
+        .map(s => s.url),
+
     tagCounts: collection => {
         const counts = {};
         collection.forEach(p => {
