@@ -706,6 +706,43 @@ button {
 @keyframes termFade  { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes hintPulse { 0%, 100% { opacity: .85; } 50% { opacity: 1; } }
 
+/* ─── View transitions ────────────────────────────────────────────────── */
+/* Cross-document, native fades for same-origin nav. Browsers that don't
+   support these just see normal page loads — pure progressive enhancement. */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) {
+  animation: 160ms cubic-bezier(.2,.7,.3,1) both pageFadeOut;
+}
+::view-transition-new(root) {
+  animation: 220ms cubic-bezier(.2,.7,.3,1) both pageFadeIn;
+}
+@keyframes pageFadeOut { to { opacity: 0; } }
+@keyframes pageFadeIn  { from { opacity: 0; transform: translateY(4px); } }
+
+/* Name the persistent shell pieces so they pair across navigations and
+   don't get re-animated as part of the page transition. */
+.Header     { view-transition-name: site-header; }
+.StatusBar  { view-transition-name: site-status; }
+.Footer     { view-transition-name: site-footer; }
+.DotGrid    { view-transition-name: site-dotgrid; }
+
+::view-transition-old(site-header),
+::view-transition-new(site-header),
+::view-transition-old(site-status),
+::view-transition-new(site-status),
+::view-transition-old(site-footer),
+::view-transition-new(site-footer),
+::view-transition-old(site-dotgrid),
+::view-transition-new(site-dotgrid) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation-duration: 0.01ms !important; }
+}
+
 .Caret {
   display: inline-block;
   width: 8px;
