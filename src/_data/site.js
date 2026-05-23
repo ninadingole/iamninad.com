@@ -17,7 +17,7 @@ module.exports = {
 
   gaAnalytics: null,
   currentYear,
-  includeServiceWorker: false,
+  includeServiceWorker: true,
 
   // Third-party IDs — referenced by templates and JS via Nunjucks interpolation.
   analytics: {

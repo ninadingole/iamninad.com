@@ -1,0 +1,72 @@
+---
+permalink: /service-worker.js
+eleventyExcludeFromCollections: true
+---
+// iamninad.com — minimal service worker
+// Generated at build time. The cache name is rotated per build so an
+// older cache is dropped automatically on activate.
+
+const VERSION = "{{ build.id }}";
+const CACHE   = "iamninad-" + VERSION;
+const OFFLINE = "/offline.html";
+const PRECACHE = [OFFLINE, "/"];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE)
+      .then((c) => c.addAll(PRECACHE))
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data === "SKIP_WAITING") self.skipWaiting();
+});
+
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+  // Bypass third-party origins entirely (analytics, fonts CDN, GitHub API, etc).
+  if (url.origin !== self.location.origin) return;
+
+  // HTML navigation — network-first, fall back to cache, then offline shell.
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request)
+        .then((res) => {
+          if (res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then((c) => c.put(request, copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(request).then((r) => r || caches.match(OFFLINE)))
+    );
+    return;
+  }
+
+  // Static assets (CSS/JS/img/font/json) — cache-first, then network with a
+  // write-back so the next offline visit has it locally.
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+      return fetch(request).then((res) => {
+        if (res.ok && (res.type === "basic" || res.type === "cors")) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(request, copy));
+        }
+        return res;
+      }).catch(() => cached || Response.error());
+    })
+  );
+});

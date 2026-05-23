@@ -2,6 +2,21 @@
 (function () {
   'use strict';
 
+  /* ---- Service worker registration ------------------------------------ */
+  // Skip via localStorage.skipSW = "1" for local dev debugging.
+  {% if site.includeServiceWorker %}
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    try {
+      var skip = localStorage.getItem('skipSW') === '1';
+      if (!skip) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/service-worker.js').catch(function () {});
+        });
+      }
+    } catch (e) {}
+  }
+  {% endif %}
+
   var html = document.documentElement;
   var body = document.body;
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
