@@ -164,19 +164,12 @@ module.exports = {
 
     totalWords: collection => {
         if (!collection) return 0;
-        return collection.reduce((sum, p) => {
-            const html = (p.templateContent || '') + '';
-            return sum + html.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length;
-        }, 0);
+        return collection.reduce((sum, p) => sum + ((p.data && p.data.words) || 0), 0);
     },
 
     totalReadMin: collection => {
         if (!collection) return 0;
-        return collection.reduce((sum, p) => {
-            const html = (p.templateContent || '') + '';
-            const w = html.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length;
-            return sum + Math.max(1, Math.round(w / 220));
-        }, 0);
+        return collection.reduce((sum, p) => sum + ((p.data && p.data.readMin) || 0), 0);
     },
 
     tagCounts: collection => {

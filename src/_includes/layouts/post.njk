@@ -34,7 +34,7 @@ route: post
   <section class="MetaBlock" aria-label="Post metadata">
     <div><span class="k">author</span>    : {{ site.profile.name }} &lt;{{ site.profile.twitter }}&gt;</div>
     <div><span class="k">published</span> : {{ date | iso_date }}</div>
-    <div><span class="k">read</span>      : {{ content | readMinutes }} min · {{ content | wordCount }} words</div>
+    <div><span class="k">read</span>      : {{ readMin }} min · {{ words }} words</div>
     <div><span class="k">tags</span>      : [{% for tag in tags %}{% if tag != 'posts' %}"{{ tag }}"{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}]</div>
   </section>
 
@@ -69,7 +69,7 @@ route: post
       <div class="Related-Grid">
         {% for r in related %}
           <a href="{{ r.url }}" class="Related-Card">
-            <div class="meta">{{ r.date | iso_date }} · {{ r.templateContent | readMinutes }}min</div>
+            <div class="meta">{{ r.date | iso_date }} · {{ r.data.readMin }}min</div>
             <div class="title">{{ r.data.title }}</div>
             <div class="tags">
               {% for tg in r.data.tags %}{% if tg != 'posts' and loop.index <= 3 %}

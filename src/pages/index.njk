@@ -82,7 +82,7 @@ eleventyImport:
         <span class="bracket">┌─</span>
         <span>{{ featured.date | iso_date }}</span>
         <span>·</span>
-        <span>{{ featured.templateContent | readMinutes }} min · {{ featured.templateContent | wordCount }} words</span>
+        <span>{{ featured.data.readMin }} min · {{ featured.data.words }} words</span>
       </div>
       <h2 class="Featured-Title">{{ featured.data.title }}</h2>
       {% if featured.data.excerpt %}
@@ -119,7 +119,7 @@ eleventyImport:
     {% for p in rest %}
       <a class="PostRow" href="{{ p.url }}">
         <span class="date">{{ p.date | short_date }}</span>
-        <span class="len">{{ p.templateContent | readMinutes }}min</span>
+        <span class="len">{{ p.data.readMin }}min</span>
         <div>
           <div class="title">{{ p.data.title }}</div>
           <div class="tags">
