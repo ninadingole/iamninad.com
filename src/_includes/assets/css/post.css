@@ -326,14 +326,28 @@ a.header-anchor::before { content: "#"; color: var(--accent); }
   border-top: 1px solid var(--ruleSoft);
   padding-top: 24px;
 }
-.Comments summary {
-  font: 500 12px/1 var(--font-mono);
-  color: var(--fgSoft);
-  letter-spacing: 0.08em;
+.Comments-Head {
+  font: 500 11.5px/1 var(--font-mono);
+  color: var(--fgDim);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  cursor: pointer;
-  padding: 6px 0;
+  padding: 0 0 14px;
 }
+.Comments-Body {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 18px;
+}
+.Comments-Placeholder {
+  font: 400 12.5px/1.6 var(--font-mono);
+  color: var(--fgSoft);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.Comments-Placeholder a { color: var(--accent); }
+.Comments-Placeholder a:hover { text-decoration: underline; }
 
 /* GIF / images legacy --------------------------------------------------- */
 .Gif {

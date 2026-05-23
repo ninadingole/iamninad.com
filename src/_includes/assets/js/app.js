@@ -28,6 +28,20 @@
     html.dataset.theme = theme;
     try { localStorage.setItem('currentTheme', theme); } catch (e) {}
     syncThemeUI();
+    syncGiscusTheme();
+  }
+
+  // giscus's iframe accepts postMessage to update its theme on the fly.
+  function syncGiscusTheme() {
+    var frame = document.querySelector('iframe.giscus-frame');
+    if (!frame) return;
+    var giscusTheme = currentTheme() === 'dark' ? 'transparent_dark' : 'light';
+    try {
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: giscusTheme } } },
+        'https://giscus.app'
+      );
+    } catch (e) {}
   }
   function syncThemeUI() {
     var theme = currentTheme();

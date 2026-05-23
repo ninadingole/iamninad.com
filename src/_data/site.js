@@ -47,6 +47,22 @@ module.exports = {
     shortname: "iamninad",
   },
 
+  // giscus comments — replaces Disqus.
+  // Setup: 1) enable Discussions on the github repo, 2) install
+  // https://github.com/apps/giscus on it, 3) visit https://giscus.app
+  // and paste the metadata into the placeholders below.
+  giscus: {
+    enabled: true,
+    repo: "ninadingole/iamninad.com",
+    repoId: "MDEwOlJlcG9zaXRvcnkzNjY2ODI0NjI",      // -> data-repo-id  (from giscus.app)
+    category: "Comments", // discussions category name
+    categoryId: "DIC_kwDOFdshXs4C9rG",  // -> data-category-id (from giscus.app)
+    mapping: "pathname",
+    reactionsEnabled: "1",
+    inputPosition: "top",
+    lang: "en",
+  },
+
   seo: {
     twitterHandle: twitterHandle.replace(/^@/, ""), // SEO plugin wants the handle without @
   },
