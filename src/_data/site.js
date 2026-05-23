@@ -54,9 +54,9 @@ module.exports = {
   giscus: {
     enabled: true,
     repo: "ninadingole/iamninad.com",
-    repoId: "MDEwOlJlcG9zaXRvcnkzNjY2ODI0NjI",      // -> data-repo-id  (from giscus.app)
+    repoId: "MDEwOlJlcG9zaXRvcnkzNjY2ODI0NjI=",      // -> data-repo-id  (from giscus.app)
     category: "Comments", // discussions category name
-    categoryId: "DIC_kwDOFdshXs4C9rG",  // -> data-category-id (from giscus.app)
+    categoryId: "DIC_kwDOFdshXs4C9rG-",  // -> data-category-id (from giscus.app)
     mapping: "pathname",
     reactionsEnabled: "1",
     inputPosition: "top",
