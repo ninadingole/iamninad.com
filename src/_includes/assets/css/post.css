@@ -1,9 +1,64 @@
 /* Individual post — terminal reading view */
 
+/* The Post is itself the grid. All content (breadcrumb, title, meta,
+   article body, related, prev/next, EOF, comments) flows in column 1.
+   The TOC <aside> takes column 2 and sticks while you scroll. */
 .Post {
-  max-width: var(--reading-max);
+  display: grid;
+  grid-template-columns: minmax(0, var(--reading-max)) 220px;
+  column-gap: 48px;
+  max-width: 1028px; /* 760 + 48 + 220 */
   margin: 0 auto;
   padding: 40px 32px 96px;
+}
+.Post > *  { grid-column: 1; min-width: 0; }
+.Post > .TOC {
+  grid-column: 2;
+  grid-row: 1 / 100;
+}
+
+.TOC {
+  position: sticky;
+  top: 88px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  font: 500 12px/1.45 var(--font-mono);
+  color: var(--fgSoft);
+  padding-left: 14px;
+  border-left: 1px solid var(--ruleSoft);
+  scrollbar-width: thin;
+}
+.TOC.is-empty { display: none; }
+.TOC-Head {
+  font: 500 10.5px/1 var(--font-mono);
+  color: var(--fgDim);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.TOC-List {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.TOC-List li {
+  margin-bottom: 6px;
+}
+.TOC-List li[data-level="3"] { padding-left: 14px; font-size: 11.5px; }
+.TOC-List a {
+  display: block;
+  color: var(--fgSoft);
+  text-decoration: none;
+  padding: 2px 0;
+  border-left: 2px solid transparent;
+  margin-left: -16px;
+  padding-left: 14px;
+  transition: color .15s, border-color .15s;
+}
+.TOC-List a:hover { color: var(--fg); }
+.TOC-List a.is-active {
+  color: var(--accent);
+  border-left-color: var(--accent);
 }
 
 .Breadcrumb {
@@ -356,6 +411,16 @@ a.header-anchor::before { content: "#"; color: var(--accent); }
   height: auto;
   width: 100%;
   max-width: 100%;
+}
+
+/* Drop the TOC sidebar before the layout starts feeling cramped. */
+@media (max-width: 960px) {
+  .Post {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+    max-width: var(--reading-max);
+  }
+  .Post > .TOC { display: none; }
 }
 
 @media (max-width: 760px) {

@@ -152,6 +152,13 @@ module.exports = {
         return DateTime.fromJSDate(date).toFormat('yyyy-LL-dd');
     },
 
+    // Full ISO 8601 datetime with timezone — required by Schema.org for
+    // datePublished / dateModified to validate cleanly.
+    iso_datetime: obj => {
+        const date = parseDate(obj);
+        return DateTime.fromJSDate(date).toUTC().toISO({ suppressMilliseconds: true });
+    },
+
     short_date: obj => {
         const date = parseDate(obj);
         return DateTime.fromJSDate(date).toFormat('yyyy-LL');

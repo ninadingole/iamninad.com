@@ -61,6 +61,11 @@ route: post
     </figure>
   {% endif %}
 
+  <aside class="TOC" id="post-toc" aria-label="Table of contents">
+    <div class="TOC-Head">$ grep ^## *.md</div>
+    <ol class="TOC-List" id="post-toc-list"></ol>
+  </aside>
+
   <div class="Article">
     {{ content | safe }}
   </div>

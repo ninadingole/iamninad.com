@@ -403,6 +403,67 @@
     return 4;
   }
 
+  /* ---- TOC sidebar (post pages) -------------------------------------- */
+  var tocEl = $('#post-toc');
+  var tocList = $('#post-toc-list');
+  if (tocEl && tocList) {
+    var article = $('.Article');
+    var headings = article ? $$('h2[id], h3[id]', article) : [];
+    if (!headings.length) {
+      tocEl.classList.add('is-empty');
+    } else {
+      var html = headings.map(function (h) {
+        var lvl = h.tagName === 'H2' ? 2 : 3;
+        // Strip header-anchor permalinks ("#") from the visible text.
+        var clone = h.cloneNode(true);
+        var anchors = clone.querySelectorAll('a.header-anchor');
+        anchors.forEach(function (a) { a.remove(); });
+        var label = (clone.textContent || '').trim();
+        return '<li data-level="' + lvl + '"><a href="#' + h.id + '" data-toc-id="' + h.id + '">' + escapeHtml(label) + '</a></li>';
+      }).join('');
+      tocList.innerHTML = html;
+
+      // Smooth scroll
+      tocList.addEventListener('click', function (e) {
+        var a = e.target.closest('a[data-toc-id]');
+        if (!a) return;
+        e.preventDefault();
+        var id = a.getAttribute('data-toc-id');
+        var target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', '#' + id);
+        }
+      });
+
+      // Highlight the section closest to the top of the viewport.
+      if ('IntersectionObserver' in window) {
+        var byId = {};
+        $$('a[data-toc-id]', tocList).forEach(function (a) { byId[a.dataset.tocId] = a; });
+        var visible = new Set();
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            var id = entry.target.id;
+            if (entry.isIntersecting) visible.add(id); else visible.delete(id);
+          });
+          $$('a[data-toc-id]', tocList).forEach(function (a) { a.classList.remove('is-active'); });
+          // Pick the topmost heading currently in view (or the last one above the viewport).
+          var pick = null;
+          for (var i = 0; i < headings.length; i++) {
+            if (visible.has(headings[i].id)) { pick = headings[i].id; break; }
+          }
+          if (!pick) {
+            // Closest above
+            var aboveCandidates = headings.filter(function (h) { return h.getBoundingClientRect().top < 80; });
+            if (aboveCandidates.length) pick = aboveCandidates[aboveCandidates.length - 1].id;
+          }
+          if (pick && byId[pick]) byId[pick].classList.add('is-active');
+        }, { rootMargin: '-80px 0px -55% 0px', threshold: 0 });
+        headings.forEach(function (h) { obs.observe(h); });
+      }
+    }
+  }
+
   /* ---- Copy-code buttons --------------------------------------------- */
   $$('pre[class*="language-"], pre > code').forEach(function (node) {
     var pre = node.tagName === 'PRE' ? node : node.parentElement;

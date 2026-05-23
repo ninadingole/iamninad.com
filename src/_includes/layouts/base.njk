@@ -43,8 +43,8 @@
           "headline": {{ title | dump | safe }},
           {% if excerpt %}"description": {{ excerpt | dump | safe }},{% endif %}
           "image": "{{ ogImage }}",
-          "datePublished": "{{ date | iso_date }}",
-          "dateModified": "{{ (lastModified or date) | iso_date }}",
+          "datePublished": "{{ date | iso_datetime }}",
+          "dateModified": "{{ (lastModified or date) | iso_datetime }}",
           "author": {
             "@type": "Person",
             "name": {{ site.profile.name | dump | safe }},
