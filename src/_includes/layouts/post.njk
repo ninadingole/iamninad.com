@@ -62,8 +62,17 @@ route: post
   {% endif %}
 
   <aside class="TOC" id="post-toc" aria-label="Table of contents">
-    <div class="TOC-Head">$ grep ^## *.md</div>
+    <div class="TOC-Bar">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-warn"></span>
+      <span class="dot dot-accent"></span>
+      <span class="TOC-Label">## contents</span>
+    </div>
     <ol class="TOC-List" id="post-toc-list"></ol>
+    <div class="TOC-Foot">
+      <span id="post-toc-counter">section 0/0</span>
+      <a class="TOC-Top" href="#main-content">↑ top</a>
+    </div>
   </aside>
 
   <div class="Article">

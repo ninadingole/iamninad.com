@@ -1,66 +1,120 @@
 /* Individual post — terminal reading view */
 
-/* The Post is itself the grid. All content (breadcrumb, title, meta,
-   article body, related, prev/next, EOF, comments) flows in column 1.
-   The TOC <aside> takes column 2 and sticks while you scroll.
-   Horizontal alignment is owned by the outer <main class="Content">,
-   so Post adds vertical padding only. */
+/* Single-column reading flow — the TOC floats over the viewport as
+   a fixed sidebar on wide screens (see .TOC below) and is hidden
+   below 1200px, so .Post itself stays a simple block. */
 .Post {
-  display: grid;
-  grid-template-columns: minmax(0, var(--reading-max)) 220px;
-  column-gap: 48px;
+  max-width: var(--reading-max);
+  margin: 0 auto;
   padding-top: 8px;
   padding-bottom: 48px;
 }
-.Post > *  { grid-column: 1; min-width: 0; }
-.Post > .TOC {
-  grid-column: 2;
-  grid-row: 1 / 100;
-}
 
+/* Sticky TOC: a self-contained card pinned to the right side of the
+   viewport. Window-chrome dots + "## contents" label, zero-padded
+   section numbers, active state with accent border + fill, and a
+   section N/M + ↑ top footer. */
 .TOC {
-  position: sticky;
-  top: 88px;
-  max-height: calc(100vh - 120px);
+  display: none;
+  position: fixed;
+  right: 28px;
+  top: 132px;
+  width: 232px;
+  max-height: calc(100vh - 200px);
   overflow-y: auto;
+  z-index: 4;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 14px 14px 12px;
   font: 500 12px/1.45 var(--font-mono);
   color: var(--fgSoft);
-  padding-left: 14px;
-  border-left: 1px solid var(--ruleSoft);
+  animation: termFade .3s ease-out both;
   scrollbar-width: thin;
 }
-.TOC.is-empty { display: none; }
-.TOC-Head {
+.TOC.is-empty { display: none !important; }
+@media (min-width: 1200px) {
+  .TOC { display: block; }
+}
+
+.TOC-Bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ruleSoft);
+}
+.TOC-Bar .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  display: inline-block;
+}
+.TOC-Bar .dot.dot-red    { background: var(--red); }
+.TOC-Bar .dot.dot-warn   { background: var(--warn); }
+.TOC-Bar .dot.dot-accent { background: var(--accent); }
+.TOC-Label {
+  margin-left: 6px;
   font: 500 10.5px/1 var(--font-mono);
   color: var(--fgDim);
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 12px;
 }
+
 .TOC-List {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 .TOC-List li {
-  margin-bottom: 6px;
-}
-.TOC-List li[data-level="3"] { padding-left: 14px; font-size: 11.5px; }
-.TOC-List a {
-  display: block;
-  color: var(--fgSoft);
-  text-decoration: none;
-  padding: 2px 0;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 6px;
+  align-items: baseline;
+  padding: 5px 6px;
+  border-radius: 2px;
   border-left: 2px solid transparent;
-  margin-left: -16px;
-  padding-left: 14px;
-  transition: color .15s, border-color .15s;
+  background: transparent;
+  transition: background .12s, border-color .12s;
 }
-.TOC-List a:hover { color: var(--fg); }
-.TOC-List a.is-active {
-  color: var(--accent);
+.TOC-List li:hover { background: var(--surfaceDeep); }
+.TOC-List li.is-active {
+  background: var(--surfaceDeep);
   border-left-color: var(--accent);
 }
+.TOC-List .num {
+  font: 500 10.5px/1.5 var(--font-mono);
+  color: var(--fgDim);
+  text-align: right;
+}
+.TOC-List .title {
+  font: 500 12px/1.45 var(--font-mono);
+  color: var(--fgSoft);
+  text-wrap: balance;
+  transition: color .12s;
+}
+.TOC-List li.is-active .num,
+.TOC-List li.is-active .title { color: var(--accent); }
+
+.TOC-Foot {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ruleSoft);
+  font: 400 10px/1.4 var(--font-mono);
+  color: var(--fgDim);
+  display: flex;
+  justify-content: space-between;
+}
+.TOC-Foot a, .TOC-Top {
+  color: var(--fgSoft);
+  cursor: pointer;
+}
+.TOC-Foot a:hover { color: var(--accent); }
 
 .Breadcrumb {
   margin-bottom: 28px;
@@ -425,16 +479,6 @@ a.header-anchor::before { content: "#"; color: var(--accent); }
   height: auto;
   width: 100%;
   max-width: 100%;
-}
-
-/* Drop the TOC sidebar before the layout starts feeling cramped. */
-@media (max-width: 960px) {
-  .Post {
-    grid-template-columns: minmax(0, 1fr);
-    column-gap: 0;
-    max-width: var(--reading-max);
-  }
-  .Post > .TOC { display: none; }
 }
 
 @media (max-width: 760px) {

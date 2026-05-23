@@ -406,61 +406,68 @@
   /* ---- TOC sidebar (post pages) -------------------------------------- */
   var tocEl = $('#post-toc');
   var tocList = $('#post-toc-list');
+  var tocCounter = $('#post-toc-counter');
   if (tocEl && tocList) {
-    var article = $('.Article');
-    var headings = article ? $$('h2[id], h3[id]', article) : [];
+    var articleEl = $('.Article');
+    // Only top-level (h2) sections feed the TOC — keeps the panel scannable
+    // and matches the source design.
+    var headings = articleEl ? $$('h2[id]', articleEl) : [];
     if (!headings.length) {
       tocEl.classList.add('is-empty');
     } else {
-      var html = headings.map(function (h) {
-        var lvl = h.tagName === 'H2' ? 2 : 3;
-        // Strip header-anchor permalinks ("#") from the visible text.
+      var html = headings.map(function (h, i) {
         var clone = h.cloneNode(true);
-        var anchors = clone.querySelectorAll('a.header-anchor');
-        anchors.forEach(function (a) { a.remove(); });
-        var label = (clone.textContent || '').trim();
-        return '<li data-level="' + lvl + '"><a href="#' + h.id + '" data-toc-id="' + h.id + '">' + escapeHtml(label) + '</a></li>';
+        clone.querySelectorAll('a.header-anchor').forEach(function (a) { a.remove(); });
+        var label = (clone.textContent || '').replace(/^\d+\.\s+/, '').trim();
+        var num = String(i + 1).padStart(2, '0');
+        return '<li data-toc-id="' + h.id + '" data-idx="' + i + '">' +
+                 '<span class="num">' + num + '</span>' +
+                 '<span class="title">' + escapeHtml(label) + '</span>' +
+               '</li>';
       }).join('');
       tocList.innerHTML = html;
+      if (tocCounter) tocCounter.textContent = 'section 1/' + headings.length;
 
-      // Smooth scroll
+      // Click an entire row to jump (anywhere — number or title).
       tocList.addEventListener('click', function (e) {
-        var a = e.target.closest('a[data-toc-id]');
-        if (!a) return;
-        e.preventDefault();
-        var id = a.getAttribute('data-toc-id');
+        var li = e.target.closest('li[data-toc-id]');
+        if (!li) return;
+        var id = li.getAttribute('data-toc-id');
         var target = document.getElementById(id);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          history.replaceState(null, '', '#' + id);
-        }
+        if (!target) return;
+        var top = target.getBoundingClientRect().top + window.scrollY - 96;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        history.replaceState(null, '', '#' + id);
       });
 
-      // Highlight the section closest to the top of the viewport.
-      if ('IntersectionObserver' in window) {
-        var byId = {};
-        $$('a[data-toc-id]', tocList).forEach(function (a) { byId[a.dataset.tocId] = a; });
-        var visible = new Set();
-        var obs = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            var id = entry.target.id;
-            if (entry.isIntersecting) visible.add(id); else visible.delete(id);
-          });
-          $$('a[data-toc-id]', tocList).forEach(function (a) { a.classList.remove('is-active'); });
-          // Pick the topmost heading currently in view (or the last one above the viewport).
-          var pick = null;
-          for (var i = 0; i < headings.length; i++) {
-            if (visible.has(headings[i].id)) { pick = headings[i].id; break; }
-          }
-          if (!pick) {
-            // Closest above
-            var aboveCandidates = headings.filter(function (h) { return h.getBoundingClientRect().top < 80; });
-            if (aboveCandidates.length) pick = aboveCandidates[aboveCandidates.length - 1].id;
-          }
-          if (pick && byId[pick]) byId[pick].classList.add('is-active');
-        }, { rootMargin: '-80px 0px -55% 0px', threshold: 0 });
-        headings.forEach(function (h) { obs.observe(h); });
+      // "↑ top" link
+      var tocTop = $('.TOC-Top');
+      if (tocTop) {
+        tocTop.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
       }
+
+      // Active section: walk headings on scroll and pick the last one above
+      // the 120px probe line. Matches the source design's algorithm.
+      var allItems = $$('li[data-toc-id]', tocList);
+      function setActive(idx) {
+        allItems.forEach(function (li, i) {
+          li.classList.toggle('is-active', i === idx);
+        });
+        if (tocCounter) tocCounter.textContent = 'section ' + (idx + 1) + '/' + headings.length;
+      }
+      function onScroll() {
+        var probeY = 120;
+        var best = 0;
+        for (var i = 0; i < headings.length; i++) {
+          if (headings[i].getBoundingClientRect().top <= probeY) best = i;
+        }
+        setActive(best);
+      }
+      onScroll();
+      document.addEventListener('scroll', onScroll, { passive: true });
     }
   }
 
