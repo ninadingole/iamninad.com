@@ -17,6 +17,12 @@
     <script src="https://unpkg.com/decap-cms@^3.7.4/dist/decap-cms.js"></script>
 
     <script>
+      // Apply terminal-themed styles to the post preview iframe so the
+      // editor pane doesn't render in browser-default Times serif.
+      if (window.CMS && CMS.registerPreviewStyle) {
+        CMS.registerPreviewStyle("/admin/preview.css");
+      }
+
       // After a fresh Netlify Identity signup, bounce the user back into
       // the CMS dashboard instead of leaving them on a blank page.
       if (window.netlifyIdentity) {
