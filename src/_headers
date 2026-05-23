@@ -1,0 +1,16 @@
+# Netlify _headers — applied on top of the default response headers.
+# Docs: https://docs.netlify.com/routing/headers/
+
+/admin/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Referrer-Policy: same-origin
+  X-Frame-Options: DENY
+
+/drafts/*
+  X-Robots-Tag: noindex, nofollow
+
+/service-worker.js
+  Cache-Control: no-cache
+
+/manifest.json
+  Cache-Control: public, max-age=3600
