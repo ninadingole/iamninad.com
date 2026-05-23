@@ -20,7 +20,6 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.1",
     "clean-css": "^5.3.3",
     "dayjs": "^1.11.13",
-    "eleventy-plugin-lazyimages": "2.1.2",
     "generate-template-files": "^3.2.1",
     "html-minifier": "^4.0.0",
     "markdown-it": "^14.1.0",

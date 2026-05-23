@@ -2,11 +2,10 @@ const fs = require("fs");
 
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
-const lazyImagesPlugin = require('eleventy-plugin-lazyimages');
+const { eleventyImageTransformPlugin } = require('@11ty/eleventy-img');
 const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const markdownItEmoji = require('markdown-it-emoji');
-const path = require('path');
 const readingTime = require('eleventy-plugin-reading-time');
 const pluginSEO = require("eleventy-plugin-seo");
 const markdownItContainer = require('markdown-it-container')
@@ -57,10 +56,24 @@ module.exports = function (eleventyConfig) {
     // Plugins
     eleventyConfig.addPlugin(pluginRss);
     eleventyConfig.addPlugin(syntaxHighlight);
-    eleventyConfig.addPlugin(lazyImagesPlugin, {
-        transformImgPath: src => isAbsolutePath(src) ? src : path.join(__dirname, '../www', src)
+
+    // Auto-optimise every <img> in rendered HTML: AVIF + WebP + original
+    // fallback, responsive srcset, lazy + async by default. Replaces the
+    // older regex-based lazyimages plugin and the manual {% resI %} flow.
+    eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+        extensions: 'html',
+        formats: ['avif', 'webp', 'auto'],
+        widths: [400, 800, 1200, 'auto'],
+        urlPath: '/images/optimized/',
+        outputDir: './www/images/optimized/',
+        defaultAttributes: {
+            loading: 'lazy',
+            decoding: 'async',
+            sizes: '(max-width: 760px) 92vw, 760px',
+        },
+        failOnError: false,
     });
-    
+
 
     eleventyConfig.addPlugin(readingTime);
     eleventyConfig.addPlugin(pluginSEO, {
@@ -149,18 +162,4 @@ module.exports = function (eleventyConfig) {
         dataTemplateEngine: 'njk',
         passthroughFileCopy: true,
     };
-};
-
-
-
-function isAbsolutePath(src) {
-    if (typeof src !== 'string') {
-        throw new TypeError(`Expected a \`string\`, got \`${typeof src}\``);
-    }
-
-    if (/^[a-zA-Z]:\\/.test(src)) {
-        return false;
-    }
-
-    return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(src);
 };
