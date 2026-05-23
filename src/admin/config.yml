@@ -1,0 +1,79 @@
+# Decap CMS configuration.
+# Docs: https://decapcms.org/docs/configuration-options/
+
+backend:
+  name: git-gateway          # Auth via Netlify Identity → Git Gateway
+  branch: main
+  commit_messages:
+    create: 'feat(content): create "{{slug}}"'
+    update: 'feat(content): update "{{slug}}"'
+    delete: 'chore(content): delete "{{slug}}"'
+    uploadMedia: 'feat(media): upload "{{path}}"'
+    deleteMedia: 'chore(media): delete "{{path}}"'
+
+# Enable a local proxy so you can test without committing to git.
+# Run `npx decap-server` in a second terminal, then visit /admin/ in dev.
+local_backend: true
+
+# Default location for any media not pinned to a specific collection.
+media_folder: 'src/images'
+public_folder: '/images'
+
+# Show the site URL in the CMS preview link.
+site_url: https://iamninad.com
+display_url: https://iamninad.com
+logo_url: https://iamninad.com/og/default.png
+
+collections:
+  # ── Posts ─────────────────────────────────────────────────────────────
+  - name: posts
+    label: 'Posts'
+    label_singular: 'Post'
+    folder: 'src/posts'
+    create: true
+    slug: '{{slug}}'
+    extension: md
+    format: yaml-frontmatter
+    media_folder: '/src/images/{{slug}}'
+    public_folder: '/images/{{slug}}'
+    summary: '{{title}} — {{date | date("YYYY-MM-DD")}}{{#if draft}} · draft{{/if}}'
+    sortable_fields: ['date', 'title']
+    view_filters:
+      - label: 'Drafts'
+        field: draft
+        pattern: true
+      - label: 'Published'
+        field: draft
+        pattern: false
+    fields:
+      - { name: title,       label: 'Title',        widget: string }
+      - { name: excerpt,     label: 'Excerpt (tl;dr)', widget: text, required: false, hint: 'One-line summary shown on home, RSS, and as the post tl;dr block.' }
+      - { name: date,        label: 'Date',         widget: datetime, format: 'YYYY-MM-DD', date_format: 'YYYY-MM-DD', time_format: false, default: '' }
+      - { name: draft,       label: 'Draft',        widget: boolean, default: true, required: false, hint: 'Drafts render at /drafts/<slug>/ in dev, never on the live site.' }
+      - name: tags
+        label: 'Tags'
+        widget: list
+        default: []
+        required: false
+        hint: 'Lowercase, hyphenated. Becomes the inline #tag chips on posts.'
+      - { name: postImage,   label: 'Banner image (optional)', widget: image, required: false, hint: 'External URL is also accepted.' }
+      - { name: postImageCredits, label: 'Banner credits (optional)', widget: string, required: false, hint: 'Format: "Photographer Name | https://link"' }
+      - { name: postImageSource,  label: 'Banner source (optional)',  widget: string, required: false, hint: 'Format: "Unsplash | https://unsplash.com"' }
+      - { name: body,        label: 'Body (markdown)', widget: markdown }
+
+  # ── /now page ─────────────────────────────────────────────────────────
+  - name: now
+    label: 'Now page'
+    files:
+      - name: now
+        label: '/now'
+        file: 'src/pages/now.md'
+        fields:
+          - { name: title,        label: 'Title',          widget: hidden, default: 'Now' }
+          - { name: excerpt,      label: 'Excerpt',        widget: hidden, default: "What I'm focused on right now." }
+          - { name: permalink,    label: 'Permalink',      widget: hidden, default: '/now/' }
+          - { name: layout,       label: 'Layout',         widget: hidden, default: 'layouts/default' }
+          - { name: route,        label: 'Route',          widget: hidden, default: 'now' }
+          - { name: statusPath,   label: 'Status path',    widget: hidden, default: '~/.now' }
+          - { name: lastUpdated,  label: 'Last updated',   widget: datetime, format: 'YYYY-MM-DD', date_format: 'YYYY-MM-DD', time_format: false, hint: 'Bump this every time you edit the page.' }
+          - { name: body,         label: 'Body (markdown)', widget: markdown }

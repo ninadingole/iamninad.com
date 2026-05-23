@@ -180,7 +180,8 @@ module.exports = function (eleventyConfig) {
         .addPassthroughCopy({ 'src/_includes/assets': 'assets' })
         .addPassthroughCopy('src/_redirects')
         .addPassthroughCopy('src/images')
-        .addPassthroughCopy('src/.well-known');
+        .addPassthroughCopy('src/.well-known')
+        .addPassthroughCopy({ 'src/admin': 'admin' });
 
     
     // Override Browsersync defaults (used only with --serve)

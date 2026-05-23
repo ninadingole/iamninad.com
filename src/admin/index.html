@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Content Manager · iamninad</title>
+  </head>
+  <body>
+    <!-- Netlify Identity widget: handles auth for the git-gateway backend.
+         (If you later switch to GitHub OAuth, this script can stay — it
+         no-ops when Identity isn't configured on the site.) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Decap CMS itself — loaded from unpkg for now. If you ever want a
+         pinned version, copy the bundle into /admin/ and self-host. -->
+    <script src="https://unpkg.com/decap-cms@^3.7.4/dist/decap-cms.js"></script>
+
+    <script>
+      // After a fresh Netlify Identity signup, bounce the user back into
+      // the CMS dashboard instead of leaving them on a blank page.
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function () {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
