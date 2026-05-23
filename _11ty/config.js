@@ -27,6 +27,21 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig.setDataDeepMerge(true);
 
+    // After every Eleventy build, rebuild the Pagefind index so the ⌘K
+    // palette can do full-content search. Skipped if PAGEFIND_DISABLE=1.
+    eleventyConfig.on("eleventy.after", async () => {
+        if (process.env.PAGEFIND_DISABLE === "1") return;
+        try {
+            const { execFile } = require("child_process");
+            const { promisify } = require("util");
+            const exec = promisify(execFile);
+            const { stderr } = await exec("npx", ["pagefind", "--site", "www", "--quiet"]);
+            if (stderr) process.stderr.write(stderr);
+        } catch (err) {
+            console.warn("[pagefind] indexing skipped:", err.message);
+        }
+    });
+
     // Filters
     Object.keys(globalFilters).forEach(filterName => {
         eleventyConfig.addFilter(filterName, globalFilters[filterName]);

@@ -642,9 +642,20 @@ button {
 }
 .Palette-Item.is-active .Palette-Item-Label { color: var(--accent); }
 .Palette-Item-Hint {
-  font: 400 11px/1 var(--font-mono);
+  font: 400 11px/1.4 var(--font-mono);
   color: var(--fgDim);
   margin-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.Palette-Item-Hint mark {
+  background: var(--accentSoft);
+  color: var(--accent);
+  padding: 0 2px;
+  border-radius: 1px;
 }
 .Palette-Item-Enter {
   font: 400 11px/1 var(--font-mono);

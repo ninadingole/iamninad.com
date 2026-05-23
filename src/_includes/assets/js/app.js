@@ -81,6 +81,23 @@
   var sel = 0;
   var filtered = [];
 
+  // Search backends ---------------------------------------------------
+  //   primary: pagefind  (full-content + ranked, requires post-build index)
+  //   fallback: /search.json  (titles + tags only, always available)
+  var pagefindPromise = null;
+  function getPagefind() {
+    if (pagefindPromise) return pagefindPromise;
+    pagefindPromise = import('/pagefind/pagefind.js')
+      .then(function (m) {
+        if (m.init) { try { m.init(); } catch (e) {} }
+        return m;
+      })
+      .catch(function () { return null; });
+    return pagefindPromise;
+  }
+
+  var requestSeq = 0; // ignore stale async results when typing fast
+
   function openPalette() {
     if (!palette) return;
     palette.classList.add('is-open');
@@ -91,7 +108,7 @@
     }
     if (paletteHint) paletteHint.classList.add('is-hidden');
     try { localStorage.setItem('paletteSeen', '1'); } catch (e) {}
-    ensureIndex().then(function () { render(''); });
+    render('');
   }
   function closePalette() {
     if (!palette) return;
@@ -105,35 +122,85 @@
       .catch(function () { index = []; return index; });
   }
 
-  function buildCommands(q) {
-    var nav = [
+  function navCommands() {
+    return [
       { kind: 'nav',  label: 'Go to home',    hint: 'writing',  href: '/' },
       { kind: 'nav',  label: 'Go to archive', hint: 'all posts', href: '/archive/' },
       { kind: 'nav',  label: 'Go to about',   hint: 'about',    href: '/about/' },
       { kind: 'cmd',  label: 'Switch theme → ' + (currentTheme() === 'dark' ? 'light' : 'dark'), hint: 'theme', run: function () { setTheme(currentTheme() === 'dark' ? 'light' : 'dark'); } },
       { kind: 'cmd',  label: 'View RSS feed', hint: 'rss',      href: '/feed.xml' },
     ];
-    var posts = (index || []).map(function (p) {
-      return {
-        kind: 'post',
-        label: p.title,
-        hint: p.date + ' · ' + p.readMin + 'min',
-        meta: (p.tags || []).slice(0, 3),
-        href: p.url,
-      };
+  }
+
+  function shortExcerpt(html) {
+    if (!html) return '';
+    return html.replace(/\s+/g, ' ').trim();
+  }
+
+  function searchPosts(q) {
+    var ql = q.toLowerCase().trim();
+    if (!ql) return Promise.resolve([]);
+    return getPagefind().then(function (pf) {
+      if (pf) {
+        return pf.search(q).then(function (s) {
+          var top = s.results.slice(0, 8);
+          return Promise.all(top.map(function (r) { return r.data(); }))
+            .then(function (rows) {
+              return rows.map(function (d) {
+                return {
+                  kind: 'post',
+                  label: (d.meta && d.meta.title) || d.url,
+                  hint: shortExcerpt(d.excerpt),
+                  hintHTML: true,
+                  href: d.url,
+                };
+              });
+            });
+        }).catch(function () { return jsonFallback(ql); });
+      }
+      return jsonFallback(ql);
     });
-    var all = nav.concat(posts);
-    if (!q) return all.slice(0, 8);
-    var ql = q.toLowerCase();
-    return all.filter(function (c) {
-      return c.label.toLowerCase().indexOf(ql) !== -1
-        || (c.hint || '').toLowerCase().indexOf(ql) !== -1
-        || ((c.meta || []).join(' ')).toLowerCase().indexOf(ql) !== -1;
+  }
+
+  function jsonFallback(ql) {
+    return ensureIndex().then(function (idx) {
+      return (idx || []).filter(function (p) {
+        return p.title.toLowerCase().indexOf(ql) !== -1
+          || (p.excerpt || '').toLowerCase().indexOf(ql) !== -1
+          || (p.tags || []).join(' ').toLowerCase().indexOf(ql) !== -1;
+      }).slice(0, 8).map(function (p) {
+        return {
+          kind: 'post',
+          label: p.title,
+          hint: p.date + ' · ' + p.readMin + 'min',
+          meta: (p.tags || []).slice(0, 3),
+          href: p.url,
+        };
+      });
     });
   }
 
   function render(q) {
-    filtered = buildCommands(q);
+    var nav = navCommands();
+    var ql = q.toLowerCase().trim();
+    var navMatches = ql
+      ? nav.filter(function (c) { return c.label.toLowerCase().indexOf(ql) !== -1 || (c.hint || '').toLowerCase().indexOf(ql) !== -1; })
+      : nav.slice(0, 8);
+
+    var rid = ++requestSeq;
+    searchPosts(q).then(function (posts) {
+      if (rid !== requestSeq) return; // stale
+      filtered = ql ? navMatches.concat(posts) : nav.slice(0, 8);
+      paintList(q);
+    });
+
+    if (!ql) {
+      filtered = nav.slice(0, 8);
+      paintList(q);
+    }
+  }
+
+  function paintList(q) {
     if (paletteCount) paletteCount.textContent = filtered.length + ' results';
     if (!paletteList) return;
     if (!filtered.length) {
@@ -142,11 +209,12 @@
     }
     var html = filtered.map(function (c, i) {
       var metaStr = c.meta && c.meta.length ? '  ·  ' + c.meta.map(function (t) { return '#' + t; }).join(' ') : '';
+      var hint = c.hintHTML ? (c.hint || '') + escapeHtml(metaStr) : escapeHtml((c.hint || '') + metaStr);
       return (
         '<div class="Palette-Item' + (i === sel ? ' is-active' : '') + '" data-i="' + i + '" role="option">' +
           '<div>' +
             '<div class="Palette-Item-Label">' + escapeHtml(c.label) + '</div>' +
-            '<div class="Palette-Item-Hint">' + escapeHtml(c.hint || '') + escapeHtml(metaStr) + '</div>' +
+            '<div class="Palette-Item-Hint">' + hint + '</div>' +
           '</div>' +
           (i === sel ? '<span class="Palette-Item-Enter">↵</span>' : '<span></span>') +
         '</div>'
@@ -249,7 +317,9 @@
   } else {
     var sc = $('#status-count');
     if (sc) {
-      ensureIndex().then(function (idx) { sc.textContent = idx.length + ' posts'; });
+      var n = body.dataset.postCount;
+      if (n) sc.textContent = n + ' posts';
+      else ensureIndex().then(function (idx) { sc.textContent = idx.length + ' posts'; });
     }
   }
 

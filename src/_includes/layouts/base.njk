@@ -47,6 +47,7 @@
     <body
         data-route="{{ route or 'home' }}"
         data-status-path="{{ statusPath or '~/posts' }}"
+        data-post-count="{{ collections.posts.length }}"
     >
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ site.analytics.gtm }}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
@@ -57,7 +58,7 @@
 
         <div class="Container">
             {% include "partials/header.njk" %}
-            <main id="main-content" class="Content fade-in" tabindex="-1">
+            <main id="main-content" class="Content fade-in" tabindex="-1" data-pagefind-body>
                 {% block content %}{% endblock content %}
             </main>
             {% include "partials/footer.njk" %}
