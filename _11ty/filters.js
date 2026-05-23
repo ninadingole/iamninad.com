@@ -172,6 +172,92 @@ module.exports = {
         return collection.reduce((sum, p) => sum + ((p.data && p.data.readMin) || 0), 0);
     },
 
+    // Human-readable label for a GitHub events-API entry.
+    githubEventLabel: ev => {
+        if (!ev || !ev.type) return '';
+        const repo = (ev.repo && ev.repo.name) || '';
+        const action = (ev.payload && ev.payload.action) || '';
+        switch (ev.type) {
+            case 'PushEvent': {
+                // Unauth /events/public strips commit details, so the data file
+                // hydrates a single-line head commit message in _headMessage.
+                const head = (ev.payload && ev.payload.head) || '';
+                const short = head ? head.slice(0, 7) : '';
+                const msg = ev.payload && ev.payload._headMessage;
+                if (msg) return `${short} ${repo} — "${msg}"`;
+                const ref = (ev.payload && ev.payload.ref) || '';
+                const branch = ref.replace(/^refs\/heads\//, '').replace(/^refs\/tags\//, '');
+                return `${short ? short + ' ' : ''}pushed${branch ? ' to ' + branch : ''} in ${repo}`;
+            }
+            case 'PullRequestEvent': {
+                const pr = ev.payload && ev.payload.pull_request;
+                const num = ev.payload && ev.payload.number;
+                const title = (pr && pr.title) || '';
+                return `${action} PR #${num} in ${repo}${title ? ` — "${title}"` : ''}`;
+            }
+            case 'CreateEvent': {
+                const refType = (ev.payload && ev.payload.ref_type) || 'ref';
+                const ref = (ev.payload && ev.payload.ref) || '';
+                return `created ${refType}${ref ? ` ${ref}` : ''} in ${repo}`;
+            }
+            case 'ReleaseEvent': {
+                const rel = ev.payload && ev.payload.release;
+                const tag = (rel && rel.tag_name) || '';
+                return `released ${tag} of ${repo}`;
+            }
+            case 'IssuesEvent': {
+                const issue = ev.payload && ev.payload.issue;
+                const num = issue && issue.number;
+                const title = (issue && issue.title) || '';
+                return `${action} issue #${num} in ${repo}${title ? ` — "${title}"` : ''}`;
+            }
+            case 'ForkEvent':
+                return `forked ${repo}`;
+            case 'WatchEvent':
+                return `starred ${repo}`;
+            default:
+                return `${ev.type} on ${repo}`;
+        }
+    },
+
+    githubEventUrl: ev => {
+        if (!ev) return '#';
+        const repo = ev.repo && ev.repo.name;
+        const base = repo ? `https://github.com/${repo}` : '';
+        if (!base) return '#';
+        if (ev.type === 'PushEvent') {
+            const head = ev.payload && ev.payload.head;
+            return head ? `${base}/commit/${head}` : base;
+        }
+        if (ev.type === 'PullRequestEvent') {
+            const pr = ev.payload && ev.payload.pull_request;
+            return (pr && pr.html_url) || `${base}/pulls`;
+        }
+        if (ev.type === 'ReleaseEvent') {
+            const rel = ev.payload && ev.payload.release;
+            return (rel && rel.html_url) || `${base}/releases`;
+        }
+        if (ev.type === 'IssuesEvent') {
+            const issue = ev.payload && ev.payload.issue;
+            return (issue && issue.html_url) || `${base}/issues`;
+        }
+        return base;
+    },
+
+    // "2d", "3h", "12m", "just now"
+    relativeTime: iso => {
+        if (!iso) return '';
+        const then = new Date(iso).getTime();
+        if (Number.isNaN(then)) return '';
+        const diff = Math.max(0, Date.now() - then) / 1000;
+        if (diff < 60) return 'just now';
+        if (diff < 3600) return Math.floor(diff / 60) + 'm';
+        if (diff < 86400) return Math.floor(diff / 3600) + 'h';
+        if (diff < 86400 * 30) return Math.floor(diff / 86400) + 'd';
+        if (diff < 86400 * 365) return Math.floor(diff / (86400 * 30)) + 'mo';
+        return Math.floor(diff / (86400 * 365)) + 'y';
+    },
+
     tagCounts: collection => {
         const counts = {};
         collection.forEach(p => {

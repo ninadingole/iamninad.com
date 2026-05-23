@@ -63,6 +63,27 @@ statusPath: "~/about.md"
   </div>
 </section>
 
+{% if github.stars.length %}
+<section class="About-Section">
+  <div class="SectionLabel"><span>$ ls ~/.stars/</span></div>
+  <div class="Window GhActivity">
+    {% for s in github.stars %}{% if loop.index <= 8 %}
+      <a class="GhRow GhStar" href="{{ s.url }}" target="_blank" rel="noopener">
+        <span class="GhRow-Time">{{ s.starredAt | relativeTime }}</span>
+        <span class="GhStar-Body">
+          <span class="GhStar-Name">{{ s.name }}</span>
+          {% if s.description %}<span class="GhStar-Desc">{{ s.description }}</span>{% endif %}
+        </span>
+        <span class="GhStar-Lang">{% if s.language %}{{ s.language }}{% endif %}</span>
+      </a>
+    {% endif %}{% endfor %}
+    <div class="GhActivity-Foot">
+      $ cat updated_{{ github.fetchedAt | relativeTime }}_ago · all <a href="https://github.com/{{ github.username }}?tab=stars" class="t-accent" target="_blank" rel="noopener">~/.stars</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <section class="About-Section">
   <div class="SectionLabel"><span>$ cat ~/.contact</span></div>
   <div class="Window ContactList">
