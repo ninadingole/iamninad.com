@@ -26,18 +26,32 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig.setDataDeepMerge(true);
 
-    // After every Eleventy build, rebuild the Pagefind index so the ⌘K
-    // palette can do full-content search. Skipped if PAGEFIND_DISABLE=1.
+    // After every Eleventy build:
+    //   1. Generate per-post Open Graph card images (1200x630 PNGs).
+    //   2. Rebuild the Pagefind index so the ⌘K palette can do
+    //      full-content search.
+    // Either step can be skipped with OG_CARDS_DISABLE=1 / PAGEFIND_DISABLE=1.
     eleventyConfig.on("eleventy.after", async () => {
-        if (process.env.PAGEFIND_DISABLE === "1") return;
-        try {
-            const { execFile } = require("child_process");
-            const { promisify } = require("util");
-            const exec = promisify(execFile);
-            const { stderr } = await exec("npx", ["pagefind", "--site", "www", "--quiet"]);
-            if (stderr) process.stderr.write(stderr);
-        } catch (err) {
-            console.warn("[pagefind] indexing skipped:", err.message);
+        if (process.env.OG_CARDS_DISABLE !== "1") {
+            try {
+                const { generateForPosts } = require("./og-cards");
+                const t0 = Date.now();
+                await generateForPosts("./www/og", site);
+                console.log(`[og] cards generated in ${Date.now() - t0}ms`);
+            } catch (err) {
+                console.warn("[og] generation skipped:", err.message);
+            }
+        }
+        if (process.env.PAGEFIND_DISABLE !== "1") {
+            try {
+                const { execFile } = require("child_process");
+                const { promisify } = require("util");
+                const exec = promisify(execFile);
+                const { stderr } = await exec("npx", ["pagefind", "--site", "www", "--quiet"]);
+                if (stderr) process.stderr.write(stderr);
+            } catch (err) {
+                console.warn("[pagefind] indexing skipped:", err.message);
+            }
         }
     });
 
