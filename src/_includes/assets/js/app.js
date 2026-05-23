@@ -312,8 +312,10 @@
         e.preventDefault();
         openPalette();
       }
-    } else if (e.key === 'Escape' && open) {
-      closePalette();
+    } else if (e.key === 'Escape') {
+      if (open) closePalette();
+      var sheet = document.getElementById('vim-cheatsheet');
+      if (sheet) sheet.remove();
     }
   });
 
@@ -386,4 +388,142 @@
     if (ratio < 0.95) return 3;
     return 4;
   }
+
+  /* ---- Copy-code buttons --------------------------------------------- */
+  $$('pre[class*="language-"], pre > code').forEach(function (node) {
+    var pre = node.tagName === 'PRE' ? node : node.parentElement;
+    if (!pre || pre.dataset.copyWired) return;
+    pre.dataset.copyWired = '1';
+    pre.style.position = pre.style.position || 'relative';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'CodeCopy';
+    btn.setAttribute('aria-label', 'Copy code to clipboard');
+    btn.textContent = '$ copy';
+    btn.addEventListener('click', function () {
+      var code = pre.querySelector('code') || pre;
+      var text = code.innerText || code.textContent || '';
+      var done = function () {
+        btn.textContent = '$ copied';
+        btn.classList.add('is-ok');
+        setTimeout(function () {
+          btn.textContent = '$ copy';
+          btn.classList.remove('is-ok');
+        }, 1100);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () {});
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+    pre.appendChild(btn);
+  });
+
+  /* ---- Vim-ish keybindings ------------------------------------------- */
+  // j/k scroll, gg top, G bottom, n/p next/prev post, ? cheatsheet.
+  // Ignored when typing in an input or when the palette is open.
+  var lastG = 0;
+  function inEditable() {
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+    var ae = document.activeElement;
+    return !!(ae && ae.isContentEditable);
+  }
+  function paletteOpen() { return palette && palette.classList.contains('is-open'); }
+
+  document.addEventListener('keydown', function (e) {
+    if (paletteOpen() || inEditable() || e.metaKey || e.ctrlKey || e.altKey) return;
+    switch (e.key) {
+      case 'j':
+        e.preventDefault();
+        window.scrollBy({ top: window.innerHeight * 0.12, behavior: 'smooth' });
+        break;
+      case 'k':
+        e.preventDefault();
+        window.scrollBy({ top: -window.innerHeight * 0.12, behavior: 'smooth' });
+        break;
+      case 'g': {
+        var now = Date.now();
+        if (now - lastG < 420) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          lastG = 0;
+        } else {
+          lastG = now;
+        }
+        break;
+      }
+      case 'G':
+        e.preventDefault();
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+        break;
+      case 'n':
+        navByRel('next');
+        break;
+      case 'p':
+        navByRel('prev');
+        break;
+      case '?':
+        e.preventDefault();
+        toggleCheatsheet();
+        break;
+      default:
+    }
+  });
+
+  function navByRel(rel) {
+    var sel = 'a[data-nav="' + rel + '"], .post-nav .' + (rel === 'next' ? 'next' : 'previous') + ' a';
+    var a = document.querySelector(sel);
+    if (a && a.href) window.location.href = a.href;
+  }
+
+  /* ---- Vim cheatsheet popover ---------------------------------------- */
+  function toggleCheatsheet() {
+    var existing = document.getElementById('vim-cheatsheet');
+    if (existing) {
+      existing.remove();
+      return;
+    }
+    var el = document.createElement('div');
+    el.id = 'vim-cheatsheet';
+    el.className = 'VimCheatsheet';
+    el.innerHTML =
+      '<div class="VimCheatsheet-Panel">' +
+        '<div class="VimCheatsheet-Head">$ cat ~/.bindings</div>' +
+        '<ul>' +
+          '<li><kbd>j</kbd> / <kbd>k</kbd><span>scroll down / up</span></li>' +
+          '<li><kbd>g</kbd><kbd>g</kbd> / <kbd>G</kbd><span>top / bottom</span></li>' +
+          '<li><kbd>n</kbd> / <kbd>p</kbd><span>next / previous post</span></li>' +
+          '<li><kbd>⌘K</kbd> / <kbd>/</kbd><span>open palette</span></li>' +
+          '<li><kbd>?</kbd><span>toggle this panel</span></li>' +
+          '<li><kbd>esc</kbd><span>close anything open</span></li>' +
+        '</ul>' +
+      '</div>';
+    el.addEventListener('click', function (e) {
+      if (e.target === el) el.remove();
+    });
+    document.body.appendChild(el);
+    setTimeout(function () { el.classList.add('is-open'); }, 10);
+  }
+
+  /* ---- Console easter egg -------------------------------------------- */
+  try {
+    var styleAccent = 'color:#7ed79f;font:500 13px/1.4 JetBrains Mono,monospace';
+    var styleDim = 'color:#525847;font:400 12px/1.4 JetBrains Mono,monospace';
+    console.log(
+      '%c$ whoami --verbose\n' +
+      '%cneenad ingole · founding engineer · berlin\n' +
+      '%cyou opened devtools — good. peek around, then say hi.\n' +
+      '%c--mail = ninad.ingole [at] gmail\n' +
+      '%c--git  = github.com/ninadingole\n' +
+      '%c\n$ press ? on any page for the keyboard cheatsheet',
+      styleAccent, 'color:#dce4d3', styleDim, styleAccent, styleAccent, styleAccent
+    );
+  } catch (e) {}
 })();

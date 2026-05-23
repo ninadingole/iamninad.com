@@ -70,6 +70,7 @@ module.exports = {
 
   socials: [
     { label: "github",    handle: "@ninadingole", url: "https://github.com/ninadingole" },
+    { label: "linkedin",  handle: "ninadingole",  url: "https://www.linkedin.com/in/ninadingole/" },
     { label: "twitter",   handle: "@iamneenad",   url: "https://twitter.com/iamneenad" },
     { label: "medium",    handle: "@iamninad",    url: "https://medium.com/@iamninad" },
     { label: "sponsor",   handle: "github/sponsors", url: "https://github.com/sponsors/ninadingole" },

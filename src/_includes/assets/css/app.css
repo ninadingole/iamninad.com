@@ -1078,5 +1078,90 @@ button {
   .StatusBar-Cell.path { max-width: 50vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 
+/* Copy-code button (lives inside <pre>) ------------------------------- */
+.CodeCopy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--fgDim);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 5px 9px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .12s, color .12s, border-color .12s, background .12s;
+}
+pre[class*="language-"]:hover .CodeCopy,
+.CodeCopy:focus { opacity: 1; }
+.CodeCopy:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.CodeCopy.is-ok {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+  opacity: 1;
+}
+
+/* Vim cheatsheet popover --------------------------------------------- */
+.VimCheatsheet {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.5);
+  z-index: 60;
+  opacity: 0;
+  transition: opacity .15s;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.VimCheatsheet.is-open { opacity: 1; }
+.VimCheatsheet-Panel {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  width: min(380px, 92%);
+  overflow: hidden;
+  box-shadow: 0 24px 80px -20px rgba(0,0,0,.6);
+}
+.VimCheatsheet-Head {
+  font: 500 11px/1 var(--font-mono);
+  color: var(--fgDim);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--surfaceDeep);
+}
+.VimCheatsheet ul {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+}
+.VimCheatsheet li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 18px;
+  font: 400 12.5px/1.4 var(--font-mono);
+  color: var(--fgSoft);
+}
+.VimCheatsheet li span { color: var(--fgDim); margin-left: auto; }
+.VimCheatsheet kbd {
+  background: var(--surfaceDeep);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 3px 6px;
+  font: 500 11px/1 var(--font-mono);
+  color: var(--accent);
+  margin-right: 4px;
+}
+
 /* Service-class: hide an element entirely */
 .is-hidden { display: none !important; }
