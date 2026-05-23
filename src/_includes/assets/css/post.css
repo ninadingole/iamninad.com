@@ -2,14 +2,15 @@
 
 /* The Post is itself the grid. All content (breadcrumb, title, meta,
    article body, related, prev/next, EOF, comments) flows in column 1.
-   The TOC <aside> takes column 2 and sticks while you scroll. */
+   The TOC <aside> takes column 2 and sticks while you scroll.
+   Horizontal alignment is owned by the outer <main class="Content">,
+   so Post adds vertical padding only. */
 .Post {
   display: grid;
   grid-template-columns: minmax(0, var(--reading-max)) 220px;
   column-gap: 48px;
-  max-width: 1028px; /* 760 + 48 + 220 */
-  margin: 0 auto;
-  padding: 40px 32px 96px;
+  padding-top: 8px;
+  padding-bottom: 48px;
 }
 .Post > *  { grid-column: 1; min-width: 0; }
 .Post > .TOC {
@@ -437,7 +438,7 @@ a.header-anchor::before { content: "#"; color: var(--accent); }
 }
 
 @media (max-width: 760px) {
-  .Post { padding: 24px 16px 72px; }
+  .Post { padding-top: 4px; padding-bottom: 24px; }
   .Post-Title { font-size: 26px; line-height: 1.22; }
   .Article { font-size: 15.5px; line-height: 1.7; }
   .Article h2 { font-size: 20px; }
@@ -456,7 +457,7 @@ a.header-anchor::before { content: "#"; color: var(--accent); }
 }
 
 @media (max-width: 480px) {
-  .Post { padding: 20px 12px 64px; }
+  .Post { padding-top: 2px; padding-bottom: 20px; }
   .Post-Title { font-size: 22px; }
   .Article { font-size: 15px; }
   .Article h2 { font-size: 18px; gap: 6px; }

@@ -942,11 +942,13 @@ button {
 
   body { padding-bottom: var(--status-h); }
 
-  /* Stack brand above nav so neither one has to truncate or wrap mid-word. */
+  /* Stack brand above nav so neither one has to truncate or wrap mid-word.
+     Horizontal padding matches .Content's mobile padding so the brand
+     "$" and the post breadcrumb line up on the same vertical column. */
   .Header-Inner {
     flex-direction: column;
     align-items: stretch;
-    padding: 10px 14px 8px;
+    padding: 10px 16px 8px;
     gap: 6px;
     overflow: visible;
   }
