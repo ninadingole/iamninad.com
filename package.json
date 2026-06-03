@@ -37,7 +37,7 @@
     "eleventy-plugin-reading-time": "^0.0.1",
     "eleventy-plugin-seo": "^0.5.2",
     "markdown-it-abbr": "^2.0.0",
-    "markdown-it-attrs": "^4.3.1",
+    "markdown-it-attrs": "^5.0.0",
     "markdown-it-container": "^4.0.0",
     "markdown-it-emoji": "^3.0.0",
     "markdown-it-footnote": "^4.0.0",
